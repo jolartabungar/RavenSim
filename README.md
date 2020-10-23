@@ -50,5 +50,5 @@ Run the following commands and confirm their versions:
 3. After the dependencies have finished installing, run: `yarn start`
 4. The client UI should open a new tab in your browser.
 
-You should see something like this ![](images\example_setup.PNG)
+You should see something like this ![](https://github.com/jolartabungar/RavenSim/blob/master/images/example_setup.PNG)
 
