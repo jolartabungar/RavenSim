@@ -5,6 +5,9 @@ import {
   COMMAND,
   TOGGLE_POKE,
   BUTTON_PRESS,
+  SAVE,
+  SAVEAS,
+  RESTORE,
 } from './types';
 
 export const startSimulation = () => ({
@@ -30,4 +33,19 @@ export const buttonPress = () => ({
 export const tick = () => ({
   type: COMMAND,
   message: TICK,
+});
+
+export const tick = () => ({
+  type: COMMAND,
+  message: SAVE,
+});
+
+export const tick = () => ({
+  type: COMMAND,
+  message: SAVEAS,
+});
+
+export const tick = () => ({
+  type: COMMAND,
+  message: RESTORE,
 });
