@@ -52,3 +52,23 @@ Run the following commands and confirm their versions:
 
 You should see something like this ![](https://github.com/jolartabungar/RavenSim/blob/master/images/example_setup.PNG)
 
+## Project Milestones
+|               MileStone              |                                                      Description                                                     | Tentative Completion Date | Member Roles |
+|:------------------------------------:|:--------------------------------------------------------------------------------------------------------------------:|:-------------------------:|:------------:|
+|          Save A file locally         |                             Save the state of the circuit to a file stored on the server                             |        November 27        |              |
+|          Load a file locally         |                                                Load circuit from file                                                |      Dec 11 - Dec 30 (Will be based on exam schedule)     |              |
+|        GUI for saving/loading        |                                           Create the GUI for saving/loading                                          |       Same as above, this will be sometime during or after the reading week after exams                    |              |
+| Google Drive integration exploration |                           Determine how to integrate file loading/saving with Google Drive                           |           Jan 8           |              |
+|          User Collaboration          |                                Allow multiple users to modify a circuit synchornously                                |           Feb 12          |              |
+|             Deploy Server            | All previous milestones run the server locally on a user machine; now server should be hosted using AWS, or Carleton |          March 12         |              |
+
+## Useful Links!
+Visualization of Operational Transformation that will possibly be used for synchronous collaboration.
+https://operational-transformation.github.io/
+
+The following are documents about Operational Transformation we can use when writing a report. I have not read through them yet. 
+You will need to use your Carleton Credentials to see these.
+https://ieeexplore-ieee-org.proxy.library.carleton.ca/document/4668339
+https://dl-acm-org.proxy.library.carleton.ca/doi/pdf/10.1145/587078.587088
+https://search-proquest-com.proxy.library.carleton.ca/docview/2258140325?accountid=9894&rfr_id=info%3Axri%2Fsid%3Aprimo
+
