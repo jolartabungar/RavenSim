@@ -68,7 +68,7 @@ https://operational-transformation.github.io/
 
 The following are documents about Operational Transformation we can use when writing a report. I have not read through them yet. 
 You will need to use your Carleton Credentials to see these.
-https://ieeexplore-ieee-org.proxy.library.carleton.ca/document/4668339
-https://dl-acm-org.proxy.library.carleton.ca/doi/pdf/10.1145/587078.587088
-https://search-proquest-com.proxy.library.carleton.ca/docview/2258140325?accountid=9894&rfr_id=info%3Axri%2Fsid%3Aprimo
+- https://ieeexplore-ieee-org.proxy.library.carleton.ca/document/4668339
+- https://dl-acm-org.proxy.library.carleton.ca/doi/pdf/10.1145/587078.587088
+- https://search-proquest-com.proxy.library.carleton.ca/docview/2258140325?accountid=9894&rfr_id=info%3Axri%2Fsid%3Aprimo
 
