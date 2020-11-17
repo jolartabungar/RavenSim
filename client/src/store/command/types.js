@@ -9,7 +9,7 @@ export const STOP_SIMTULATION = 'StopSimulation';
 export const PULSE = 'Pulse';
 export const TOGGLE_POKE = 'TogglePoke';
 export const BUTTON_PRESS = 'ButtonPress';
-export const SAVE = 'savefile';
+export const SAVE = 'savefile'; //new
 export const SAVEAS = 'saveAs';
 export const RESTORE = 'restore';
 

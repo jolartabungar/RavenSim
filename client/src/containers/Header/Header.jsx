@@ -30,7 +30,6 @@ const Header = (props) => (
 const mapDispatchToProps = {
   startSimulation,
   togglePoke,
-  stopSimulation,
   savefile,
   saveAs,
   restore,

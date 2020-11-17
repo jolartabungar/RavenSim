@@ -35,17 +35,17 @@ export const tick = () => ({
   message: TICK,
 });
 
-export const tick = () => ({
+export const savefile = () => ({
   type: COMMAND,
   message: SAVE,
 });
 
-export const tick = () => ({
+export const saveAs = () => ({
   type: COMMAND,
   message: SAVEAS,
 });
 
-export const tick = () => ({
+export const restore = () => ({
   type: COMMAND,
   message: RESTORE,
 });
