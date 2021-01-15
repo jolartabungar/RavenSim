@@ -5,13 +5,14 @@ import com.ravensim.simulator.simulation.SimulationEngine;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.*;
 
-public class EventRegistry {
+public class EventRegistry implements Serializable {
   private static final Logger LOGGER = LogManager.getLogger(EventRegistry.class.getSimpleName());
   // The initial capacity the event queue.
   private static final int INITIAL_CAPACITY = 1 << 6;

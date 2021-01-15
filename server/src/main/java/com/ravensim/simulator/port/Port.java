@@ -8,10 +8,11 @@ import com.ravensim.simulator.simulation.SimulationEngine;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Port extends BitSetAdapter implements Observable<PortObserver> {
+public class Port extends BitSetAdapter implements Observable<PortObserver>, Serializable {
   public static final int DEFAULT_BIT_WIDTH = 1;
   private static final Logger LOGGER = LogManager.getLogger(Port.class.getSimpleName());
   private final List<PortObserver> observers;

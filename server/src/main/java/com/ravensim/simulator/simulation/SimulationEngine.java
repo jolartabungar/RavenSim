@@ -17,7 +17,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-public class SimulationEngine implements Runnable, Shutdownable {
+public class SimulationEngine implements Runnable, Shutdownable, Serializable {
   // The polling timeout is the amount of time before awaiting the next simulated event to occur.
   // The simulation will shutdown upon timing out.
   public static final int POLLING_TIMEOUT = 5000;
@@ -33,12 +33,14 @@ public class SimulationEngine implements Runnable, Shutdownable {
   private final MessageBroker messageBroker;
   private int time;
   private boolean isRunning, hasStarted;
+  private final SimulationModelBuilder modelRef;
 
-  public SimulationEngine() {
-    this(null);
+  public SimulationEngine(SimulationModelBuilder modelRef) {
+    this(null, modelRef);
   }
 
-  public SimulationEngine(WebSocketSession session) {
+  public SimulationEngine(WebSocketSession session, SimulationModelBuilder modelRef) {
+    this.modelRef = modelRef;
     time = INITIAL_SIMULATION_TIME;
     threadPool = Executors.newWorkStealingPool();
     isRunning = false;
@@ -109,6 +111,19 @@ public class SimulationEngine implements Runnable, Shutdownable {
             threadPool.shutdownNow();
           }
         });
+    // Save sequence goes here
+    System.out.println(modelRef.getLocationOfButton());
+    System.out.println(modelRef.getLocationOfPort());
+
+    try {
+      FileOutputStream fos = new FileOutputStream(".//test.ser");
+      ObjectOutputStream oos = new ObjectOutputStream(fos);
+      oos.writeObject(modelRef.getLocationOfButton());
+      oos.writeObject(modelRef.getLocationOfPort());
+    } catch (IOException ioe){
+      ioe.printStackTrace();
+    }
+
     // Shutdown the ticker and message broker.
     tickerGenerator.shutdownNow();
     messageBroker.shutdownNow();

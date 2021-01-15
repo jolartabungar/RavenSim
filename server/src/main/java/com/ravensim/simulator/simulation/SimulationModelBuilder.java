@@ -43,12 +43,18 @@ public class SimulationModelBuilder {
   // todo Maybe create a separate port mediator class?
   private final Map<Point, Port> locationOfPort;
   private final Map<Integer, Button> locationOfButton;
+  private Thread engineThread;
 
   public SimulationModelBuilder(WebSocketSession session) {
     locationOfPort = new ConcurrentHashMap<>();
     locationOfButton = new ConcurrentHashMap<>();
-    simulationEngine = new SimulationEngine(session);
-    new Thread(simulationEngine).start();
+    initializeSimulationEngine(session);
+  }
+
+  public SimulationModelBuilder(WebSocketSession session, Map<Point, Port> portMap, Map<Integer, Button> buttonMap) {
+    locationOfPort = portMap;
+    locationOfButton = buttonMap;
+    initializeSimulationEngine(session);
   }
 
   public void messageReducer(TextMessage message) {
@@ -59,8 +65,14 @@ public class SimulationModelBuilder {
       commandReducer((Command) message);
     } else {
       throw new UnsupportedOperationException(
-          String.format("%s is neither an event or command", message));
+              String.format("%s is neither an event or command", message));
     }
+  }
+
+  private void initializeSimulationEngine(WebSocketSession session) {
+    simulationEngine = new SimulationEngine(session, this);
+    engineThread = new Thread(simulationEngine);
+    engineThread.start();
   }
 
   private void eventReducer(Event event) {
