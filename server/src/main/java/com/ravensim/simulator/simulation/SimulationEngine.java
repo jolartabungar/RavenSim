@@ -4,12 +4,15 @@ import com.ravensim.simulator.broker.MessageBroker;
 import com.ravensim.simulator.event.EventRegistry;
 import com.ravensim.simulator.event.ShutdownEvent;
 import com.ravensim.simulator.event.Shutdownable;
+import com.ravensim.simulator.handler.SessionMap;
 import com.ravensim.simulator.signal.TickerGenerator;
 import com.ravensim.simulator.wire.VirtualWireMediator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.web.socket.WebSocketSession;
 
+import javax.websocket.Session;
+import java.io.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -89,6 +92,7 @@ public class SimulationEngine implements Runnable, Shutdownable {
   }
 
   public void shutdown() {
+
     // First modify the shutdown field as we want all other threads executing services provided by
     // this class to halt.
     isRunning = false;

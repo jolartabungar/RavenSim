@@ -37,7 +37,7 @@ public class SimulationModelBuilder {
   private static final String D_FLIP_FLOP = "DFlipFlop";
   private static final String BUTTON = "InputButton";
   private static final String BUTTON_PRESS = "ButtonPress";
-  private final SimulationEngine simulationEngine;
+  private SimulationEngine simulationEngine;
   // The mapping of all ports on the grid space. It assumes the location of the ports must be
   // unique.
   // todo Maybe create a separate port mediator class?
@@ -193,5 +193,13 @@ public class SimulationModelBuilder {
             .map(this::portCreationHandler)
             .collect(Collectors.toList()));
     return ports;
+  }
+
+  public Map<Point, Port> getLocationOfPort(){
+    return locationOfPort;
+  }
+
+  public Map<Integer, Button> getLocationOfButton(){
+    return locationOfButton;
   }
 }
