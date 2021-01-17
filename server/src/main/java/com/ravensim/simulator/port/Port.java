@@ -16,7 +16,7 @@ public class Port extends BitSetAdapter implements Observable<PortObserver>, Ser
   public static final int DEFAULT_BIT_WIDTH = 1;
   private static final Logger LOGGER = LogManager.getLogger(Port.class.getSimpleName());
   private final List<PortObserver> observers;
-  private final SimulationEngine context;
+  private final transient SimulationEngine context;
 
   public Port(SimulationEngine context) throws InvalidBitWidthException {
     this(context, DEFAULT_BIT_WIDTH);

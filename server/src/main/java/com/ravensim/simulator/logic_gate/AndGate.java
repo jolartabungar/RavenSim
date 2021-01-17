@@ -7,9 +7,10 @@ import com.ravensim.simulator.io.InvalidNumberOfPortsException;
 import com.ravensim.simulator.port.Port;
 import com.ravensim.simulator.simulation.SimulationEngine;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class AndGate extends VariableInput {
+public class AndGate extends VariableInput implements Serializable {
   public AndGate(SimulationEngine simulationEngine, List<Port> inputs, Port output)
       throws IncompatibleBitWidthsException, InvalidNumberOfPortsException {
     super(simulationEngine, inputs, output);
