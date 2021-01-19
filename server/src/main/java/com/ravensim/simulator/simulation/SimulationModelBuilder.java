@@ -44,7 +44,9 @@ public class SimulationModelBuilder {
   // todo Maybe create a separate port mediator class?
   private final Map<Point, Port> locationOfPort;
   private final Map<Integer, Button> locationOfButton;
-  private Thread engineThread;
+
+  private CircuitModel model;
+  private FileManager fileManager;
 
   public SimulationModelBuilder(WebSocketSession session) {
     locationOfPort = new ConcurrentHashMap<>();
@@ -187,6 +189,8 @@ public class SimulationModelBuilder {
         throw new UnsupportedOperationException(
                 String.format("%s is an unimplemented component type", type));
     }
+
+    model.update(change);
   }
 
   public void connect(Integer id, Point from, Point to) {
@@ -238,7 +242,18 @@ public class SimulationModelBuilder {
             .map(this::portCreationHandler).collect(Collectors.toList());
   }
 
-  public Map<Integer, Button> getLocationOfButton(){
-    return locationOfButton;
+  private void rebuildModel(CircuitModel loadedModel) {
+    for (CircuitChange change: loadedModel.getChanges()) {
+      this.actionReducer(change);
+    }
+  }
+
+  // Temporary save and load calls
+  public void initiateSave() {
+    fileManager.saveToFile(model);
+  }
+
+  public void loadSave() {
+    rebuildModel(fileManager.loadFromFile());
   }
 }
