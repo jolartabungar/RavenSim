@@ -9,6 +9,8 @@ export const STOP_SIMTULATION = 'StopSimulation';
 export const PULSE = 'Pulse';
 export const TOGGLE_POKE = 'TogglePoke';
 export const BUTTON_PRESS = 'ButtonPress';
+export const LOAD_CIRCUIT = 'LoadCircuit';
+export const SAVE_CIRCUIT = 'SaveCircuit';
 
 // Action
 export const SET_SIGNAL = 'SetSignal';

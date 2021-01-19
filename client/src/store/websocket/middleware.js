@@ -10,6 +10,8 @@ import {
   SET_SIGNAL,
   TOGGLE_POKE,
   BUTTON_PRESS,
+  LOAD_CIRCUIT,
+  SAVE_CIRCUIT
 } from '../command/types';
 import { tick } from '../command/actions';
 import { CREATE_WIRE } from '../wire/types';
@@ -261,6 +263,18 @@ class ButtonPressEvent extends MessageFactory {
   }
 }
 
+class LoadEvent extends MessageFactory {
+  buildMessage() {
+    return { type: COMMAND, message: LOAD_CIRCUIT };
+  }
+}
+
+class SaveEvent extends MessageFactory {
+  buildMessage() {
+    return { type: COMMAND, message: SAVE_CIRCUIT };
+  }
+}
+
 let id = 0;
 const wsMiddleware = () => {
   let socket = null;
@@ -357,6 +371,12 @@ const wsMiddleware = () => {
             break;
           case BUTTON_PRESS:
             new ButtonPressEvent(socket).send();
+            break;
+          case SAVE_CIRCUIT:
+            new SaveEvent(socket).send();
+            break;
+          case LOAD_CIRCUIT:
+            new LoadEvent(socket).send();
             break;
           default:
             throw new Error(`${message}: is an invalid command message`);
