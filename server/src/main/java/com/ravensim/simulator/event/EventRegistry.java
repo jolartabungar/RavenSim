@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.*;
 
-public class EventRegistry implements Serializable {
+public class EventRegistry {
   private static final Logger LOGGER = LogManager.getLogger(EventRegistry.class.getSimpleName());
   // The initial capacity the event queue.
   private static final int INITIAL_CAPACITY = 1 << 6;
