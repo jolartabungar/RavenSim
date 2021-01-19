@@ -3,12 +3,11 @@ package com.ravensim.simulator.simulation;
 import com.ravensim.simulator.io.IncompatibleBitWidthsException;
 import com.ravensim.simulator.io.InvalidNumberOfPortsException;
 import com.ravensim.simulator.logic_gate.*;
-import com.ravensim.simulator.model.CircuitChange;
-import com.ravensim.simulator.model.Command;
+import com.ravensim.simulator.model.*;
 import com.ravensim.simulator.model.Event;
-import com.ravensim.simulator.model.TextMessage;
 import com.ravensim.simulator.port.InvalidBitWidthException;
 import com.ravensim.simulator.port.Port;
+import com.ravensim.simulator.save_load.FileManager;
 import com.ravensim.simulator.signal.Button;
 import com.ravensim.simulator.signal.Clock;
 import com.ravensim.simulator.subcircuit.DFlipFlop;
@@ -24,6 +23,8 @@ import java.util.stream.Collectors;
 public class SimulationModelBuilder {
   private static final String START_SIMULATION = "StartSimulation";
   private static final String STOP_SIMULATION = "StopSimulation";
+  private static final String LOAD_CIRCUIT = "LoadCircuit";
+  private static final String SAVE_CIRCUIT = "SaveCircuit";
   private static final String CREATE_COMPONENT = "CreateComponent";
   private static final String WIRE = "Wire";
   private static final String AND_GATE = "AndGate";
@@ -48,13 +49,10 @@ public class SimulationModelBuilder {
   public SimulationModelBuilder(WebSocketSession session) {
     locationOfPort = new ConcurrentHashMap<>();
     locationOfButton = new ConcurrentHashMap<>();
-    initializeSimulationEngine(session);
-  }
-
-  public SimulationModelBuilder(WebSocketSession session, Map<Point, Port> portMap, Map<Integer, Button> buttonMap) {
-    locationOfPort = portMap;
-    locationOfButton = buttonMap;
-    initializeSimulationEngine(session);
+    model = new CircuitModel();
+    fileManager = new FileManager();
+    simulationEngine = new SimulationEngine(session, this);
+    new Thread(simulationEngine).start();
   }
 
   public void messageReducer(TextMessage message) {
@@ -69,12 +67,6 @@ public class SimulationModelBuilder {
     }
   }
 
-  private void initializeSimulationEngine(WebSocketSession session) {
-    simulationEngine = new SimulationEngine(session, this);
-    engineThread = new Thread(simulationEngine);
-    engineThread.start();
-  }
-
   private void eventReducer(Event event) {
     // Remodel the simulation based off all changes in the circuit.
     event.getMessage().getCircuitChanges().forEach(this::actionReducer);
@@ -82,16 +74,28 @@ public class SimulationModelBuilder {
 
   private void commandReducer(Command command) {
     var message = command.getMessage();
-    if (message.equals(START_SIMULATION)) {
-      // Only start the simulation if it is not already running as the client may invoke start
-      // multiple times.
-      simulationEngine.startSimulation();
-    } else if (message.equals(STOP_SIMULATION)) {
-      simulationEngine.shutdown();
-    } else if (message.equals(BUTTON_PRESS)) {
-      new Thread(locationOfButton.get(69)).start();
-    } else {
-      throw new UnsupportedOperationException(String.format("%s is an invalid command", message));
+    switch (message) {
+      case START_SIMULATION:
+        // Only start the simulation if it is not already running as the client may invoke start
+        // multiple times.
+        simulationEngine.startSimulation();
+        break;
+      case STOP_SIMULATION:
+        simulationEngine.shutdown();
+        break;
+      case BUTTON_PRESS:
+        new Thread(locationOfButton.get(69)).start();
+        break;
+      case LOAD_CIRCUIT:
+        System.out.println("Load circuit sequence initiated.");
+        loadSave();
+        break;
+      case SAVE_CIRCUIT:
+        System.out.println("Save circuit sequence initiated.");
+        initiateSave();
+        break;
+      default:
+        throw new UnsupportedOperationException(String.format("%s is an invalid command", message));
     }
   }
 
@@ -107,20 +111,25 @@ public class SimulationModelBuilder {
   private void createComponentReducer(CircuitChange change) {
     // Switch based on the type of component to create.3
     var type = change.getType();
-    if (type.equals(WIRE)) {
-      createWire(change);
-    } else if (type.equals(CLOCK)) {
-      createClock(change);
-    } else if (type.equals(BUTTON)) {
-      createButton(change);
-    } else {
-      try {
-        createLogicGate(change);
-      } catch (IncompatibleBitWidthsException
-          | InvalidNumberOfPortsException
-          | InvalidBitWidthException e) {
-        // todo
-      }
+    switch (type) {
+      case WIRE:
+        createWire(change);
+        break;
+      case CLOCK:
+        createClock(change);
+        break;
+      case BUTTON:
+        createButton(change);
+        break;
+      default:
+        try {
+          createLogicGate(change);
+        } catch (IncompatibleBitWidthsException
+                | InvalidNumberOfPortsException
+                | InvalidBitWidthException e) {
+          // todo
+        }
+        break;
     }
   }
 
@@ -145,28 +154,38 @@ public class SimulationModelBuilder {
   private void createLogicGate(CircuitChange change)
       throws IncompatibleBitWidthsException, InvalidNumberOfPortsException,
           InvalidBitWidthException {
-    var ports = instantiatePorts(change);
-    var size = ports.size();
+    var inputPorts = instantiateInputPorts(change);
+    var outputPorts = instantiateOutputPorts(change);
     var type = change.getType();
-    if (type.equals(AND_GATE)) {
-      new AndGate(simulationEngine, ports.subList(0, size - 1), ports.get(size - 1));
-    } else if (type.equals(NAND_GATE)) {
-      new NandGate(simulationEngine, ports.subList(0, size - 1), ports.get(size - 1));
-    } else if (type.equals(NOR_GATE)) {
-      new NorGate(simulationEngine, ports.subList(0, size - 1), ports.get(size - 1));
-    } else if (type.equals(NOT_GATE)) {
-      new NotGate(simulationEngine, ports.get(0), ports.get(1));
-    } else if (type.equals(OR_GATE)) {
-      new OrGate(simulationEngine, ports.subList(0, size - 1), ports.get(size - 1));
-    } else if (type.equals(XNOR_GATE)) {
-      new XnorGate(simulationEngine, ports.subList(0, size - 1), ports.get(size - 1));
-    } else if (type.equals(XOR_GATE)) {
-      new XorGate(simulationEngine, ports.subList(0, size - 1), ports.get(size - 1));
-    } else if (type.equals(D_FLIP_FLOP)) {
-      new DFlipFlop(simulationEngine, ports.subList(0, 2), ports.subList(2, size));
-    } else {
-      throw new UnsupportedOperationException(
-          String.format("%s is an unimplemented component type", type));
+
+    switch (type) {
+      case AND_GATE:
+        new AndGate(simulationEngine, inputPorts, outputPorts.get(0));
+        break;
+      case NAND_GATE:
+        new NandGate(simulationEngine, inputPorts, outputPorts.get(0));
+        break;
+      case NOR_GATE:
+        new NorGate(simulationEngine, inputPorts, outputPorts.get(0));
+        break;
+      case NOT_GATE:
+        new NotGate(simulationEngine, inputPorts.get(0), outputPorts.get(0));
+        break;
+      case OR_GATE:
+        new OrGate(simulationEngine, inputPorts, outputPorts.get(0));
+        break;
+      case XNOR_GATE:
+        new XnorGate(simulationEngine, inputPorts, outputPorts.get(0));
+        break;
+      case XOR_GATE:
+        new XorGate(simulationEngine, inputPorts, outputPorts.get(0));
+        break;
+      case D_FLIP_FLOP:
+        new DFlipFlop(simulationEngine, inputPorts, outputPorts);
+        break;
+      default:
+        throw new UnsupportedOperationException(
+                String.format("%s is an unimplemented component type", type));
     }
   }
 
@@ -207,8 +226,16 @@ public class SimulationModelBuilder {
     return ports;
   }
 
-  public Map<Point, Port> getLocationOfPort(){
-    return locationOfPort;
+  private List<Port> instantiateInputPorts(CircuitChange change) {
+    // Create a port for every input
+    return change.getProperties().getInputs().stream()
+            .map(this::portCreationHandler).collect(Collectors.toList());
+  }
+
+  private List<Port> instantiateOutputPorts(CircuitChange change) {
+    // Create a port for every input
+    return change.getProperties().getOutputs().stream()
+            .map(this::portCreationHandler).collect(Collectors.toList());
   }
 
   public Map<Integer, Button> getLocationOfButton(){
