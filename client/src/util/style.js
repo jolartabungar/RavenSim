@@ -83,6 +83,10 @@ export const largeXnorGateHeight = cellSize * 4;
 export const smallXnorGateWidth = stageSize - smallNegateRadius * 2;
 export const smallXnorGateHeight = stageSize;
 
+// Multiplexers and Arithmetics
+export const muxSize = cellSize * 6;
+export const smallMuxSize = stageSize;
+
 // Flip-Flops
 export const flipFlopSize = cellSize * 4;
 export const smallFlipFlopSize = stageSize;

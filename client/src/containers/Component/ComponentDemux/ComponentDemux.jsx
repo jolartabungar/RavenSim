@@ -13,6 +13,10 @@ import {
   RS_FLIP_FLOP,
   SOURCE,
   INPUT_BUTTON,
+  HALF_ADDER,
+  FULL_ADDER,
+  HALF_SUBTRACTOR,
+  FULL_SUBTRACTOR,
 } from '../../../store/component/types';
 /**
  * Takes the component type of a component being placed onto the grid.
@@ -34,6 +38,10 @@ const ComponentDemux = ({
   tFlipFlop,
   jkFlipFlop,
   rsFlipFlop,
+  halfAdder,
+  fullAdder,
+  halfSubtractor,
+  fullSubtractor,
   source,
   inputButton,
 }) => {
@@ -62,6 +70,14 @@ const ComponentDemux = ({
       return jkFlipFlop;
     case RS_FLIP_FLOP:
       return rsFlipFlop;
+    case HALF_ADDER:
+      return halfAdder;
+    case FULL_ADDER:
+      return fullAdder;
+    case HALF_SUBTRACTOR:
+      return halfSubtractor;
+    case FULL_SUBTRACTOR:
+      return fullSubtractor;
     case SOURCE:
       return source;
     case INPUT_BUTTON:

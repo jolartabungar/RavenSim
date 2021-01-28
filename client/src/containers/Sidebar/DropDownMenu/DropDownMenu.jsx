@@ -19,6 +19,10 @@ import {
   RS_FLIP_FLOP,
   SOURCE,
   INPUT_BUTTON,
+  HALF_ADDER,
+  FULL_ADDER,
+  HALF_SUBTRACTOR,
+  FULL_SUBTRACTOR,
 } from '../../../store/component/types';
 import AndGateShape from '../../Component/ComponentShape/LogicGate/AndGateShape';
 import ClockShape from '../../Component/ComponentShape/Signal/ClockShape';
@@ -32,6 +36,10 @@ import DFlipFlopShape from '../../Component/ComponentShape/Memory/DFlipFlopShape
 import TFlipFlopShape from '../../Component/ComponentShape/Memory/TFlipFlopShape';
 import JKFlipFlopShape from '../../Component/ComponentShape/Memory/JKFlipFlopShape';
 import RSFlipFlopShape from '../../Component/ComponentShape/Memory/RSFlipFlopShape';
+import HalfAdderShape from '../../Component/ComponentShape/Arithmetic/HalfAdderShape';
+import FullAdderShape from '../../Component/ComponentShape/Arithmetic/FullAdderShape';
+import HalfSubtractorShape from '../../Component/ComponentShape/Arithmetic/HalfSubtractorShape';
+import FullSubtractorShape from '../../Component/ComponentShape/Arithmetic/FullSubtractorShape';
 import SourceShape from '../../Component/ComponentShape/Wiring/SourceShape';
 import InputButtonShape from '../../Component/ComponentShape/Signal/InputButtonShape';
 
@@ -87,6 +95,18 @@ const DropDownMenu = (props) => {
         break;
       case InputButtonShape:
         type = INPUT_BUTTON;
+        break;
+      case HalfAdderShape:
+        type = HALF_ADDER;
+        break;
+      case FullAdderShape:
+        type = FULL_ADDER;
+        break;
+      case HalfSubtractorShape:
+        type = HALF_SUBTRACTOR;
+        break;
+      case FullSubtractorShape:
+        type = FULL_SUBTRACTOR;
         break;
       default:
         throw new Error(`${type}: is an unimplemented type in the DropDownMenu`);

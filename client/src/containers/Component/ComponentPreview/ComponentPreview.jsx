@@ -14,6 +14,10 @@ import DFlipFlopShape from '../ComponentShape/Memory/DFlipFlopShape';
 import TFlipFlopShape from '../ComponentShape/Memory/TFlipFlopShape';
 import JKFlipFlopShape from '../ComponentShape/Memory/JKFlipFlopShape';
 import RSFlipFlopShape from '../ComponentShape/Memory/RSFlipFlopShape';
+import HalfAdderShape from '../ComponentShape/Arithmetic/HalfAdderShape';
+import FullAdderShape from '../ComponentShape/Arithmetic/FullAdderShape';
+import HalfSubtractorShape from '../ComponentShape/Arithmetic/HalfSubtractorShape';
+import FullSubtractorShape from '../ComponentShape/Arithmetic/FullSubtractorShape';
 import SourceShape from '../ComponentShape/Wiring/SourceShape';
 import InputButtonShape from '../ComponentShape/Signal/InputButtonShape';
 
@@ -37,6 +41,10 @@ const ComponentPreview = ({ componentReducer }) => {
         tFlipFlop={<TFlipFlopShape x={x} y={y} />}
         jkFlipFlop={<JKFlipFlopShape x={x} y={y} />}
         rsFlipFlop={<RSFlipFlopShape x={x} y={y} />}
+        halfAdder = {<HalfAdderShape x={x} y={y} />}
+        fullAdder = {<FullAdderShape x={x} y={y} />}
+        halfSubtractor = {<HalfSubtractorShape x={x} y={y} />}
+        fullSubtractor = {<FullSubtractorShape x={x} y={y} />}
         source={<SourceShape x={x} y={y} />}
         inputButton={<InputButtonShape x={x} y={y} />}
       />

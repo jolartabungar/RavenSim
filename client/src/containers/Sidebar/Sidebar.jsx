@@ -22,6 +22,10 @@ import TFlipFlopShape from '../Component/ComponentShape/Memory/TFlipFlopShape';
 import JKFlipFlopShape from '../Component/ComponentShape/Memory/JKFlipFlopShape';
 import RSFlipFlopShape from '../Component/ComponentShape/Memory/RSFlipFlopShape';
 import SourceShape from '../Component/ComponentShape/Wiring/SourceShape';
+import HalfAdderShape from '../Component/ComponentShape/Arithmetic/HalfAdderShape';
+import FullAdderShape from '../Component/ComponentShape/Arithmetic/FullAdderShape';
+import HalfSubtractorShape from '../Component/ComponentShape/Arithmetic/HalfSubtractorShape';
+import FullSubtractorShape from '../Component/ComponentShape/Arithmetic/FullSubtractorShape';
 import InputButtonShape from '../Component/ComponentShape/Signal/InputButtonShape';
 
 const sidebarStyle = {
@@ -61,7 +65,14 @@ const menuItems = [
     ],
   },
   { name: 'PLEXERS', children: [] },
-  { name: 'ARITHMETIC', children: [] },
+  { name: 'ARITHMETIC', 
+    children: [
+      <HalfAdderShape isSmall />,
+      <FullAdderShape isSmall />,
+      <HalfSubtractorShape isSmall />,
+      <FullSubtractorShape isSmall />,
+    ],
+  },
   {
     name: 'MEMORY',
     children: [<DFlipFlopShape isSmall />],
