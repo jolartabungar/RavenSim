@@ -16,6 +16,7 @@ import com.ravensim.simulator.subcircuit.HalfAdder;
 import com.ravensim.simulator.subcircuit.FullAdder;
 import com.ravensim.simulator.subcircuit.HalfSubtractor;
 import com.ravensim.simulator.subcircuit.FullSubtractor;
+import com.ravensim.simulator.subcircuit.EighttoThreeEncoder;
 import org.springframework.web.socket.WebSocketSession;
 
 import java.awt.*;
@@ -43,6 +44,7 @@ public class SimulationModelBuilder {
   private static final String Full_Adder = "FullAdder";
   private static final String Half_Subtractor = "HalfSubtractor";
   private static final String Full_Subtractor = "FullSubtractor";
+  private static final String Eight_to_Three_Encoder = "EighttoThreeEncoder";
   private static final String BUTTON = "InputButton";
   private static final String BUTTON_PRESS = "ButtonPress";
   private final SimulationEngine simulationEngine;
@@ -168,6 +170,8 @@ public class SimulationModelBuilder {
       new HalfSubtractor(simulationEngine, ports.subList(0,2), ports.subList(2,size));
     } else if (type.equals(Full_Subtractor)){
       new FullSubtractor(simulationEngine, ports.subList(0,3), ports.subList(3,size));
+    } else if (type.equals(Eight_to_Three_Encoder)){
+      new EighttoThreeEncoder(simulationEngine, ports.subList(0,8), ports.subList(8,size));
     }else {
       throw new UnsupportedOperationException(
           String.format("%s is an unimplemented component type", type));

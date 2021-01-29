@@ -39,3 +39,6 @@ export const HALF_ADDER = 'HalfAdder';
 export const FULL_ADDER = 'FullAdder';
 export const HALF_SUBTRACTOR = 'HalfSubtractor';
 export const FULL_SUBTRACTOR = 'FullSubtractor';
+
+// Plexers
+export const EIGHT_TO_THREE_ENCODER = 'EighttoThreeEncoder';

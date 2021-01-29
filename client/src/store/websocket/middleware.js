@@ -32,6 +32,7 @@ import {
   FULL_ADDER,
   HALF_SUBTRACTOR,
   FULL_SUBTRACTOR,
+  EIGHT_TO_THREE_ENCODER,
   SOURCE,
   INPUT_BUTTON,
 } from '../component/types';
@@ -196,6 +197,19 @@ class CreateComponentMessage extends MessageFactory {
         ports.push({ x: x1 + muxSize, y: y1 + cellSize });
         ports.push({ x: x1 + muxSize, y: y1 + 3 * cellSize });
         break;
+      case EIGHT_TO_THREE_ENCODER:
+        ports.push({ x: x1, y: y1 + 2 * cellSize });
+        ports.push({ x: x1, y: y1 + 4 * cellSize });
+        ports.push({ x: x1, y: y1 + 6 * cellSize });
+        ports.push({ x: x1, y: y1 + 7 * cellSize });
+        ports.push({ x: x1, y: y1 + 9 * cellSize });
+        ports.push({ x: x1, y: y1 + 11 * cellSize });
+        ports.push({ x: x1, y: y1 + 13 * cellSize });
+        ports.push({ x: x1, y: y1 + 15 * cellSize });
+        ports.push({ x: x1 + muxSize, y: y1 + 4 * cellSize });
+        ports.push({ x: x1 + muxSize, y: y1 + 9 * cellSize });
+        ports.push({ x: x1 + muxSize, y: y1 + 15 * cellSize });
+        break;
       default:
         throw new Error(`${this.type}: is an unimplemented type in the CreateComponentMessage`);
     }
@@ -257,6 +271,12 @@ class CreateComponentMessage extends MessageFactory {
         properties = {
           inputs: [ports[0], ports[1], ports[2]],
           outputs: [ports[3], ports[4]],
+        };
+        break;
+      case EIGHT_TO_THREE_ENCODER:
+        properties = {
+          inputs: [ports[0], ports[1], ports[2], ports[3], ports[4], ports[5], ports[6], ports[7]],
+          outputs: [ports[8], ports[9], ports[10]],
         };
         break;
       default:

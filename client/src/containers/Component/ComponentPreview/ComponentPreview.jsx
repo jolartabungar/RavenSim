@@ -18,6 +18,7 @@ import HalfAdderShape from '../ComponentShape/Arithmetic/HalfAdderShape';
 import FullAdderShape from '../ComponentShape/Arithmetic/FullAdderShape';
 import HalfSubtractorShape from '../ComponentShape/Arithmetic/HalfSubtractorShape';
 import FullSubtractorShape from '../ComponentShape/Arithmetic/FullSubtractorShape';
+import EighttoThreeEncoderShape from '../ComponentShape/Plexers/EighttoThreeEncoderShape';
 import SourceShape from '../ComponentShape/Wiring/SourceShape';
 import InputButtonShape from '../ComponentShape/Signal/InputButtonShape';
 
@@ -45,6 +46,7 @@ const ComponentPreview = ({ componentReducer }) => {
         fullAdder = {<FullAdderShape x={x} y={y} />}
         halfSubtractor = {<HalfSubtractorShape x={x} y={y} />}
         fullSubtractor = {<FullSubtractorShape x={x} y={y} />}
+        eighttoThreeEncoder = {<EighttoThreeEncoderShape x={x} y={y} />}
         source={<SourceShape x={x} y={y} />}
         inputButton={<InputButtonShape x={x} y={y} />}
       />
