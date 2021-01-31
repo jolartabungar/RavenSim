@@ -42,3 +42,4 @@ export const FULL_SUBTRACTOR = 'FullSubtractor';
 
 // Plexers
 export const EIGHT_TO_THREE_ENCODER = 'EighttoThreeEncoder';
+export const THREE_TO_EIGHT_DECODER = 'ThreetoEightDecoder';

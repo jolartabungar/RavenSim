@@ -18,6 +18,7 @@ import {
   HALF_SUBTRACTOR,
   FULL_SUBTRACTOR,
   EIGHT_TO_THREE_ENCODER,
+  THREE_TO_EIGHT_DECODER,
 } from '../../../store/component/types';
 /**
  * Takes the component type of a component being placed onto the grid.
@@ -44,6 +45,7 @@ const ComponentDemux = ({
   halfSubtractor,
   fullSubtractor,
   eighttoThreeEncoder,
+  threetoEightDecoder,
   source,
   inputButton,
 }) => {
@@ -82,6 +84,8 @@ const ComponentDemux = ({
       return fullSubtractor;
     case EIGHT_TO_THREE_ENCODER:
       return eighttoThreeEncoder;
+    case THREE_TO_EIGHT_DECODER:
+      return threetoEightDecoder;
     case SOURCE:
       return source;
     case INPUT_BUTTON:

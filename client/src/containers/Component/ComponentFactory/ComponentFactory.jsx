@@ -18,6 +18,7 @@ import FullAdderShape from '../ComponentShape/Arithmetic/FullAdderShape';
 import HalfSubtractorShape from '../ComponentShape/Arithmetic/HalfSubtractorShape';
 import FullSubtractorShape from '../ComponentShape/Arithmetic/FullSubtractorShape';
 import EighttoThreeEncoderShape from '../ComponentShape/Plexers/EighttoThreeEncoderShape';
+import ThreetoEightDecoderShape from '../ComponentShape/Plexers/ThreetoEightDecoderShape';
 import Source from '../../../components/SmartComponent/Wiring/Source';
 import InputButton from '../../../components/SmartComponent/Signal/InputButton';
 
@@ -48,6 +49,7 @@ const ComponentFactory = ({ componentReducer }) => componentReducer.grid.map((co
       halfSubtractor = {<HalfSubtractorShape x={x} y={y} />}
       fullSubtractor = {<FullSubtractorShape x={x} y={y} />}
       eighttoThreeEncoder = {<EighttoThreeEncoderShape x={x} y={y} />}
+      threetoEightDecoder = {<ThreetoEightDecoderShape x={x} y={y} />}
       source={<Source x={x} y={y} />}
       inputButton={<InputButton x={x} y={y} />}
     />

@@ -19,6 +19,7 @@ import FullAdderShape from '../ComponentShape/Arithmetic/FullAdderShape';
 import HalfSubtractorShape from '../ComponentShape/Arithmetic/HalfSubtractorShape';
 import FullSubtractorShape from '../ComponentShape/Arithmetic/FullSubtractorShape';
 import EighttoThreeEncoderShape from '../ComponentShape/Plexers/EighttoThreeEncoderShape';
+import ThreetoEightDecoderShape from '../ComponentShape/Plexers/ThreetoEightDecoderShape';
 import SourceShape from '../ComponentShape/Wiring/SourceShape';
 import InputButtonShape from '../ComponentShape/Signal/InputButtonShape';
 
@@ -52,6 +53,7 @@ const ComponentShadowFactory = ({ componentReducer }) => {
         halfSubtractor = {<HalfSubtractorShape x={x} y={y} isShadow />}
         fullSubtractor = {<FullSubtractorShape x={x} y={y} isShadow />}
         eighttoThreeEncoder = {<EighttoThreeEncoderShape x={x} y={y} isShadow />}
+        threetoEightDecoder = {<ThreetoEightDecoderShape x={x} y={y} isShadow />}
         source={<SourceShape x={x} y={y} isShadow />}
         inputButton={<InputButtonShape x={x} y={y} isShadow />}
       />
