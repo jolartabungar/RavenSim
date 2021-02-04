@@ -177,9 +177,6 @@ class CreateComponentMessage extends MessageFactory {
         for (let i = 1; i <= 3; i++) {
           ports.push({ x: x1, y: y1 + i * cellSize });
         }
-        for (let i = 1; i <= 3; i++) {
-          ports.push({ x: x1 + cellSize * i, y: y1 + flipFlopSize });
-        }
         ports.push({ x: x1 + flipFlopSize, y: y1 + cellSize });
         ports.push({ x: x1 + flipFlopSize, y: y1 + 3 * cellSize });
         break;
@@ -276,8 +273,8 @@ class CreateComponentMessage extends MessageFactory {
       case JK_FLIP_FLOP:
       case RS_FLIP_FLOP:
         properties = {
-          inputs: [ports[0], ports[1], ports[2], ports[3], ports[4], ports[5]],
-          outputs: [ports[6], ports[7]],
+          inputs: [ports[0], ports[1], ports[2]],
+          outputs: [ports[3], ports[4]],
         };
         break;
       case FULL_ADDER:

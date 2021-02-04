@@ -12,6 +12,7 @@ import com.ravensim.simulator.port.Port;
 import com.ravensim.simulator.signal.Button;
 import com.ravensim.simulator.signal.Clock;
 import com.ravensim.simulator.subcircuit.DFlipFlop;
+import com.ravensim.simulator.subcircuit.RSFlipFlop;
 import com.ravensim.simulator.subcircuit.HalfAdder;
 import com.ravensim.simulator.subcircuit.FullAdder;
 import com.ravensim.simulator.subcircuit.HalfSubtractor;
@@ -41,6 +42,7 @@ public class SimulationModelBuilder {
   private static final String XOR_GATE = "XorGate";
   private static final String CLOCK = "Clock";
   private static final String D_FLIP_FLOP = "DFlipFlop";
+  private static final String RS_FLIP_FLOP = "RSFlipFlop";
   private static final String Half_Adder = "HalfAdder";
   private static final String Full_Adder = "FullAdder";
   private static final String Half_Subtractor = "HalfSubtractor";
@@ -164,6 +166,8 @@ public class SimulationModelBuilder {
       new XorGate(simulationEngine, ports.subList(0, size - 1), ports.get(size - 1));
     } else if (type.equals(D_FLIP_FLOP)) {
       new DFlipFlop(simulationEngine, ports.subList(0, 2), ports.subList(2, size));
+    } else if (type.equals(RS_FLIP_FLOP)) {
+      new RSFlipFlop(simulationEngine, ports.subList(0, 3), ports.subList(3, size));
     } else if (type.equals(Half_Adder)){
       new HalfAdder(simulationEngine, ports.subList(0,2), ports.subList(2,size));
     } else if (type.equals(Full_Adder)){

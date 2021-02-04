@@ -82,7 +82,10 @@ const menuItems = [
   },
   {
     name: 'MEMORY',
-    children: [<DFlipFlopShape isSmall />],
+    children: [
+      <DFlipFlopShape isSmall />, 
+      <RSFlipFlopShape isSmall />,
+    ],
   },
   {
     name: 'INPUT/OUTPUT',
