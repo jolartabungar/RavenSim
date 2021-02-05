@@ -164,15 +164,6 @@ class CreateComponentMessage extends MessageFactory {
         ports.push({ x: x1 + flipFlopSize, y: y1 + 3 * cellSize });
         break;
       case JK_FLIP_FLOP:
-        for (let i = 1; i <= 3; i++) {
-          ports.push({ x: x1, y: y1 + i * cellSize });
-        }
-        for (let i = 1; i <= 3; i++) {
-          ports.push({ x: x1 + cellSize * i, y: y1 + flipFlopSize });
-        }
-        ports.push({ x: x1 + flipFlopSize, y: y1 + cellSize });
-        ports.push({ x: x1 + flipFlopSize, y: y1 + 3 * cellSize });
-        break;
       case RS_FLIP_FLOP:
         for (let i = 1; i <= 3; i++) {
           ports.push({ x: x1, y: y1 + i * cellSize });

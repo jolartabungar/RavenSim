@@ -85,6 +85,7 @@ const menuItems = [
     children: [
       <DFlipFlopShape isSmall />, 
       <RSFlipFlopShape isSmall />,
+      <JKFlipFlopShape isSmall />,
     ],
   },
   {
