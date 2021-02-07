@@ -10,6 +10,7 @@ import {
 const InputButtonShape = ({
   x,
   y,
+  isOn,
   onMouseDown,
   onDragEnd,
   onDragMove,
@@ -34,6 +35,15 @@ const InputButtonShape = ({
     >
       <Rect height={size} width={size} {...commonShadowProps(isShadow, isSmall)} />
       <Rect height={0.9 * size} width={0.9 * size} {...commonShadowProps(isShadow, isSmall)} />
+      <Rect 
+        height={0.9 * size} 
+        width={0.9 * size}
+        fillRadialGradientStartPoint={{x: (0.9 * size) / 2, y: (0.9 * size) / 2}}
+        fillRadialGradientEndPoint={{x: 0.9 * size / 2, y: 0.9 * size / 2}}
+        fillRadialGradientStartRadius={0}
+        fillRadialGradientEndRadius={0.4 * size}
+        fillRadialGradientColorStops={[0, 'rgba(255,255,255,0.5)', 1, 'rgba(0,0,0,0)']}
+      />
     </Group>
   );
 };

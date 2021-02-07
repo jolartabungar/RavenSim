@@ -357,6 +357,7 @@ const wsMiddleware = () => {
             break;
           case BUTTON_PRESS:
             new ButtonPressEvent(socket).send();
+            console.log('at button press event');
             break;
           default:
             throw new Error(`${message}: is an invalid command message`);
