@@ -44,14 +44,20 @@ class DraggableComponent extends React.Component {
                 Math.round(attrs.y / cellSize) * cellSize,
               );
             },
+
             onMouseDown: () => {
+              // debugger;
               console.log(this.props.commandReducer.isPoke);
               if (this.props.commandReducer.isPoke) {
+                console.log(this.props)
                 props.buttonPress();
               } else {
                 props.setComponentShadowType(props.type);
               }
             },
+            onMouseOver: () => {
+              console.log("mouse over");
+            }
           }),
         )}
       </Group>
