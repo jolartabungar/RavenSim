@@ -34,6 +34,7 @@ import {
   FULL_SUBTRACTOR,
   EIGHT_TO_THREE_ENCODER,
   THREE_TO_EIGHT_DECODER,
+  TWO_TO_ONE_MUX,
   SOURCE,
   INPUT_BUTTON,
 } from '../component/types';
@@ -212,6 +213,12 @@ class CreateComponentMessage extends MessageFactory {
         ports.push({ x: x1 + muxSize, y: y1 + 14 * cellSize });
         ports.push({ x: x1 + muxSize, y: y1 + 16 * cellSize });
         break;
+      case TWO_TO_ONE_MUX:
+        ports.push({ x: x1, y: y1 + cellSize });
+        ports.push({ x: x1, y: y1 + 3 * cellSize });
+        ports.push({ x: x1 + 0.5 * muxSize, y: y1 + 4 * cellSize });
+        ports.push({ x: x1 + muxSize, y: y1 + 2 * cellSize });
+        break;
       default:
         throw new Error(`${this.type}: is an unimplemented type in the CreateComponentMessage`);
     }
@@ -286,6 +293,12 @@ class CreateComponentMessage extends MessageFactory {
           inputs: [ports[0], ports[1], ports[2]],
           outputs: [ports[3], ports[4], ports[5], ports[6], ports[7], ports[8], ports[9], ports[10]],
         };
+        break;
+      case TWO_TO_ONE_MUX:
+        properties = {
+          inputs: [ports[0], ports[1], ports[2]],
+          outputs: [ports[3]],
+        }
         break;
       default:
         throw new Error(`${this.type}: is an unimplemented type in the CreateComponentMessage`);

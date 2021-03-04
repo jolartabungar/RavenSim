@@ -28,6 +28,7 @@ import HalfSubtractorShape from '../Component/ComponentShape/Arithmetic/HalfSubt
 import FullSubtractorShape from '../Component/ComponentShape/Arithmetic/FullSubtractorShape';
 import EighttoThreeEncoderShape from '../Component/ComponentShape/Plexers/EighttoThreeEncoderShape';
 import ThreetoEightDecoderShape from '../Component/ComponentShape/Plexers/ThreetoEightDecoderShape';
+import TwoToOneMuxShape from '../Component/ComponentShape/Plexers/TwoToOneMuxShape';
 import InputButtonShape from '../Component/ComponentShape/Signal/InputButtonShape';
 
 const sidebarStyle = {
@@ -70,6 +71,7 @@ const menuItems = [
     children: [
       <EighttoThreeEncoderShape isSmall />,
       <ThreetoEightDecoderShape isSmall />,
+      <TwoToOneMuxShape isSmall />,
     ],
   },
   { name: 'ARITHMETIC', 

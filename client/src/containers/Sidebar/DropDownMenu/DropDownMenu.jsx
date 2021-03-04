@@ -25,6 +25,7 @@ import {
   FULL_SUBTRACTOR,
   EIGHT_TO_THREE_ENCODER,
   THREE_TO_EIGHT_DECODER,
+  TWO_TO_ONE_MUX
 } from '../../../store/component/types';
 import AndGateShape from '../../Component/ComponentShape/LogicGate/AndGateShape';
 import ClockShape from '../../Component/ComponentShape/Signal/ClockShape';
@@ -44,6 +45,7 @@ import HalfSubtractorShape from '../../Component/ComponentShape/Arithmetic/HalfS
 import FullSubtractorShape from '../../Component/ComponentShape/Arithmetic/FullSubtractorShape';
 import EighttoThreeEncoderShape from '../../Component/ComponentShape/Plexers/EighttoThreeEncoderShape';
 import ThreetoEightDecoderShape from '../../Component/ComponentShape/Plexers/ThreetoEightDecoderShape';
+import TwoToOneMuxShape from '../../Component/ComponentShape/Plexers/TwoToOneMuxShape';
 import SourceShape from '../../Component/ComponentShape/Wiring/SourceShape';
 import InputButtonShape from '../../Component/ComponentShape/Signal/InputButtonShape';
 
@@ -117,6 +119,9 @@ const DropDownMenu = (props) => {
         break;
       case ThreetoEightDecoderShape:
         type = THREE_TO_EIGHT_DECODER;
+        break;
+      case TwoToOneMuxShape:
+        type = TWO_TO_ONE_MUX;
         break;
       default:
         throw new Error(`${type}: is an unimplemented type in the DropDownMenu`);
