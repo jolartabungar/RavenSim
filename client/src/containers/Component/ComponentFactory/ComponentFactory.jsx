@@ -21,6 +21,7 @@ import EighttoThreeEncoderShape from '../ComponentShape/Plexers/EighttoThreeEnco
 import ThreetoEightDecoderShape from '../ComponentShape/Plexers/ThreetoEightDecoderShape';
 import TwoToOneMuxShape from '../ComponentShape/Plexers/TwoToOneMuxShape';
 import FourToOneMuxShape from '../ComponentShape/Plexers/FourToOneMuxShape';
+import OneToTwoDemuxShape from '../ComponentShape/Plexers/OneToTwoDemuxShape';
 import Source from '../../../components/SmartComponent/Wiring/Source';
 import InputButton from '../../../components/SmartComponent/Signal/InputButton';
 
@@ -54,6 +55,7 @@ const ComponentFactory = ({ componentReducer }) => componentReducer.grid.map((co
       threetoEightDecoder = {<ThreetoEightDecoderShape x={x} y={y} />}
       twotoOneMux = {<TwoToOneMuxShape x={x} y={y} />}
       fourtoOneMux = {<FourToOneMuxShape x={x} y={y} />}
+      onetoTwoDemux = {<OneToTwoDemuxShape x={x} y={y} />}
       source={<Source x={x} y={y} />}
       inputButton={<InputButton x={x} y={y} />}
     />

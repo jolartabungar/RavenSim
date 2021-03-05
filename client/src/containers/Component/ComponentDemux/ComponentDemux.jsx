@@ -21,6 +21,7 @@ import {
   THREE_TO_EIGHT_DECODER,
   TWO_TO_ONE_MUX,
   FOUR_TO_ONE_MUX,
+  ONE_TO_TWO_DEMUX,
 } from '../../../store/component/types';
 /**
  * Takes the component type of a component being placed onto the grid.
@@ -50,6 +51,7 @@ const ComponentDemux = ({
   threetoEightDecoder,
   twotoOneMux,
   fourtoOneMux,
+  onetoTwoDemux,
   source,
   inputButton,
 }) => {
@@ -94,6 +96,8 @@ const ComponentDemux = ({
       return twotoOneMux;
     case FOUR_TO_ONE_MUX:
       return fourtoOneMux;
+    case ONE_TO_TWO_DEMUX:
+      return onetoTwoDemux;
     case SOURCE:
       return source;
     case INPUT_BUTTON:

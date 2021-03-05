@@ -22,6 +22,7 @@ import EighttoThreeEncoderShape from '../ComponentShape/Plexers/EighttoThreeEnco
 import ThreetoEightDecoderShape from '../ComponentShape/Plexers/ThreetoEightDecoderShape';
 import TwoToOneMuxShape from '../ComponentShape/Plexers/TwoToOneMuxShape';
 import FourToOneMuxShape from '../ComponentShape/Plexers/FourToOneMuxShape';
+import OneToTwoDemuxShape from '../ComponentShape/Plexers/OneToTwoDemuxShape';
 import SourceShape from '../ComponentShape/Wiring/SourceShape';
 import InputButtonShape from '../ComponentShape/Signal/InputButtonShape';
 
@@ -53,6 +54,7 @@ const ComponentPreview = ({ componentReducer }) => {
         threetoEightDecoder = {<ThreetoEightDecoderShape x={x} y={y} />}
         twotoOneMux = {<TwoToOneMuxShape x={x} y={y} />}
         fourtoOneMux = {<FourToOneMuxShape x={x} y={y} />}
+        onetoTwoDemux = {<OneToTwoDemuxShape x={x} y={y} />}
         source={<SourceShape x={x} y={y} />}
         inputButton={<InputButtonShape x={x} y={y} />}
       />

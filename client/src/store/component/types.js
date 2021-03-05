@@ -45,3 +45,4 @@ export const EIGHT_TO_THREE_ENCODER = 'EighttoThreeEncoder';
 export const THREE_TO_EIGHT_DECODER = 'ThreetoEightDecoder';
 export const TWO_TO_ONE_MUX         = 'TwoToOneMux';
 export const FOUR_TO_ONE_MUX        = 'FourToOneMux';
+export const ONE_TO_TWO_DEMUX       = 'OneToTwoDemux';

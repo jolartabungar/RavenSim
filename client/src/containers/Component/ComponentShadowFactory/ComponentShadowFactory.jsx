@@ -22,6 +22,7 @@ import EighttoThreeEncoderShape from '../ComponentShape/Plexers/EighttoThreeEnco
 import ThreetoEightDecoderShape from '../ComponentShape/Plexers/ThreetoEightDecoderShape';
 import TwoToOneMuxShape from '../../Component/ComponentShape/Plexers/TwoToOneMuxShape';
 import FourToOneMuxShape from '../../Component/ComponentShape/Plexers/FourToOneMuxShape';
+import OneToTwoDemuxShape from '../ComponentShape/Plexers/OneToTwoDemuxShape';
 import SourceShape from '../ComponentShape/Wiring/SourceShape';
 import InputButtonShape from '../ComponentShape/Signal/InputButtonShape';
 
@@ -58,6 +59,7 @@ const ComponentShadowFactory = ({ componentReducer }) => {
         threetoEightDecoder = {<ThreetoEightDecoderShape x={x} y={y} isShadow />}
         twotoOneMux = {<TwoToOneMuxShape x={x} y={y} isShadow />}
         fourtoOneMux = {<FourToOneMuxShape x={x} y={y} isShadow />}
+        onetoTwoDemux = {<OneToTwoDemuxShape x={x} y={y} isShadow />}
         source={<SourceShape x={x} y={y} isShadow />}
         inputButton={<InputButtonShape x={x} y={y} isShadow />}
       />
