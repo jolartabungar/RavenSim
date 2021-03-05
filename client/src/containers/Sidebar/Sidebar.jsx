@@ -31,6 +31,7 @@ import ThreetoEightDecoderShape from '../Component/ComponentShape/Plexers/Threet
 import TwoToOneMuxShape from '../Component/ComponentShape/Plexers/TwoToOneMuxShape';
 import FourToOneMuxShape from '../Component/ComponentShape/Plexers/FourToOneMuxShape';
 import OneToTwoDemuxShape from '../Component/ComponentShape/Plexers/OneToTwoDemuxShape';
+import OneToFourDemuxShape from '../Component/ComponentShape/Plexers/OneToFourDemuxShape';
 import InputButtonShape from '../Component/ComponentShape/Signal/InputButtonShape';
 
 const sidebarStyle = {
@@ -76,6 +77,7 @@ const menuItems = [
       <TwoToOneMuxShape isSmall />,
       <FourToOneMuxShape isSmall />,
       <OneToTwoDemuxShape isSmall />,
+      <OneToFourDemuxShape isSmall />,
     ],
   },
   { name: 'ARITHMETIC', 

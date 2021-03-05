@@ -28,6 +28,7 @@ import {
   TWO_TO_ONE_MUX,
   FOUR_TO_ONE_MUX,
   ONE_TO_TWO_DEMUX,
+  ONE_TO_FOUR_DEMUX,
 } from '../../../store/component/types';
 import AndGateShape from '../../Component/ComponentShape/LogicGate/AndGateShape';
 import ClockShape from '../../Component/ComponentShape/Signal/ClockShape';
@@ -50,6 +51,7 @@ import ThreetoEightDecoderShape from '../../Component/ComponentShape/Plexers/Thr
 import TwoToOneMuxShape from '../../Component/ComponentShape/Plexers/TwoToOneMuxShape';
 import FourToOneMuxShape from '../../Component/ComponentShape/Plexers/FourToOneMuxShape';
 import OneToTwoDemuxShape from '../../Component/ComponentShape/Plexers/OneToTwoDemuxShape';
+import OneToFourDemuxShape from '../../Component/ComponentShape/Plexers/OneToFourDemuxShape';
 import SourceShape from '../../Component/ComponentShape/Wiring/SourceShape';
 import InputButtonShape from '../../Component/ComponentShape/Signal/InputButtonShape';
 
@@ -132,6 +134,9 @@ const DropDownMenu = (props) => {
         break;
       case OneToTwoDemuxShape:
         type = ONE_TO_TWO_DEMUX;
+        break;
+      case OneToFourDemuxShape:
+        type = ONE_TO_FOUR_DEMUX;
         break;
       default:
         throw new Error(`${type}: is an unimplemented type in the DropDownMenu`);

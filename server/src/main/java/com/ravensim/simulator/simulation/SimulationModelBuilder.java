@@ -23,6 +23,7 @@ import com.ravensim.simulator.subcircuit.ThreetoEightDecoder;
 import com.ravensim.simulator.subcircuit.TwoToOneMux;
 import com.ravensim.simulator.subcircuit.FourToOneMux;
 import com.ravensim.simulator.subcircuit.OneToTwoDemux;
+import com.ravensim.simulator.subcircuit.OneToFourDemux;
 import org.springframework.web.socket.WebSocketSession;
 
 import java.awt.*;
@@ -56,7 +57,8 @@ public class SimulationModelBuilder {
   private static final String Three_to_Eight_Decoder = "ThreetoEightDecoder";
   private static final String Two_to_One_Mux         = "TwoToOneMux";
   private static final String Four_to_One_Mux        = "FourToOneMux";
-  private static final String One_to_Two_DeMux         = "OneToTwoDemux";
+  private static final String One_to_Two_Demux       = "OneToTwoDemux";
+  private static final String One_to_Four_Demux      = "OneToFourDemux"; 
   private static final String BUTTON                 = "InputButton";
   private static final String BUTTON_PRESS           = "ButtonPress";
   private final SimulationEngine simulationEngine;
@@ -194,8 +196,10 @@ public class SimulationModelBuilder {
     	new TwoToOneMux(simulationEngine, ports.subList(0,3), ports.subList(3,size));
     } else if (type.equals(Four_to_One_Mux)) {
     	new FourToOneMux(simulationEngine, ports.subList(0,6), ports.subList(6,size));
-    } else if (type.equals(One_to_Two_DeMux)) {
-    	new OneToTwoDemux(simulationEngine, ports.subList(0, 2), ports.subList(2,size));
+    } else if (type.equals(One_to_Two_Demux)) {
+      new OneToTwoDemux(simulationEngine, ports.subList(0, 2), ports.subList(2,size));
+    } else if (type.equals(One_to_Four_Demux)) {
+      new OneToFourDemux(simulationEngine, ports.subList(0,3), ports.subList(3,size));
     }else {
       throw new UnsupportedOperationException(
           String.format("%s is an unimplemented component type", type));

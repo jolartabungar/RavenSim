@@ -37,6 +37,7 @@ import {
   TWO_TO_ONE_MUX,
   FOUR_TO_ONE_MUX,
   ONE_TO_TWO_DEMUX,
+  ONE_TO_FOUR_DEMUX,
   SOURCE,
   INPUT_BUTTON,
 } from '../component/types';
@@ -236,6 +237,15 @@ class CreateComponentMessage extends MessageFactory {
         ports.push({ x: x1 + muxSize, y: y1 + cellSize });
         ports.push({ x: x1 + muxSize, y: y1 + 3 * cellSize });
         break;
+      case ONE_TO_FOUR_DEMUX:
+        ports.push({ x: x1, y: y1 + 3 * cellSize });
+        ports.push({ x: x1 + 0.3 * muxSize, y: y1 + 5 * cellSize });
+        ports.push({ x: x1 + 0.7 * muxSize, y: y1 + 5 * cellSize });
+        ports.push({ x: x1 + muxSize, y: y1 + cellSize });
+        ports.push({ x: x1 + muxSize, y: y1 + 2 * cellSize });
+        ports.push({ x: x1 + muxSize, y: y1 + 3 * cellSize });
+        ports.push({ x: x1 + muxSize, y: y1 + 4 * cellSize });
+        break;
       default:
         throw new Error(`${this.type}: is an unimplemented type in the CreateComponentMessage`);
     }
@@ -327,6 +337,12 @@ class CreateComponentMessage extends MessageFactory {
         properties = {
           inputs: [ports[0], ports[1]],
           outputs: [ports[2],ports[3]],
+        }
+        break;
+      case ONE_TO_FOUR_DEMUX:
+        properties = {
+          inputs: [ports[0], ports[1], ports[2]],
+          outputs: [ports[3], ports[4], ports[5], ports[6]],
         }
         break;
       default:
