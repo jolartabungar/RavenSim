@@ -21,6 +21,7 @@ import com.ravensim.simulator.subcircuit.FullSubtractor;
 import com.ravensim.simulator.subcircuit.EighttoThreeEncoder;
 import com.ravensim.simulator.subcircuit.ThreetoEightDecoder;
 import com.ravensim.simulator.subcircuit.TwoToOneMux;
+import com.ravensim.simulator.subcircuit.FourToOneMux;
 import org.springframework.web.socket.WebSocketSession;
 
 import java.awt.*;
@@ -53,6 +54,7 @@ public class SimulationModelBuilder {
   private static final String Eight_to_Three_Encoder = "EighttoThreeEncoder";
   private static final String Three_to_Eight_Decoder = "ThreetoEightDecoder";
   private static final String Two_to_One_Mux         = "TwoToOneMux";
+  private static final String Four_to_One_Mux        = "FourToOneMux";
   private static final String BUTTON                 = "InputButton";
   private static final String BUTTON_PRESS           = "ButtonPress";
   private final SimulationEngine simulationEngine;
@@ -188,6 +190,8 @@ public class SimulationModelBuilder {
       new ThreetoEightDecoder(simulationEngine, ports.subList(0,3), ports.subList(3,size));
     } else if (type.equals(Two_to_One_Mux)) {
     	new TwoToOneMux(simulationEngine, ports.subList(0,3), ports.subList(3,size));
+    } else if (type.equals(Four_to_One_Mux)) {
+    	new FourToOneMux(simulationEngine, ports.subList(0,6), ports.subList(6,size));
     }else {
       throw new UnsupportedOperationException(
           String.format("%s is an unimplemented component type", type));
