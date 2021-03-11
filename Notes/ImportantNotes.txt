@@ -1,0 +1,36 @@
+In the current code inherited, there is a problem with the GUI.
+
+I am currently having issues, when you place a device into the environment,
+if you try and change the location by dragging it, the ports for the device
+does not move with the device.
+
+To get around it, I made a temporary fix, making sure the new devices created
+cannot be moved. 
+
+In the future, these devices need to be updated and this bug needs fixing.
+
+Below are the devices which were added and cannot be moved once placed
+Note: These devices will be updated for every device created in the repo
+
+HalfAdder
+FullAdder
+HalfSubtractor
+FullSUbtractor
+Eight to three encoder
+Three to Eight decoder
+Two to One mux
+Four to One mux
+One to Two demux
+One to Four demux
+
+
+Important Note:
+The logic for the RS flip flop and JK flip flop were already created in the
+client.
+Logic was added in the server only to create the circuits needed for the Flip Flops
+
+
+
+When Bug is fixed,
+Go to ComponentFactory.jsx to make the changes, 
+after this, the devices should be able to move.
