@@ -34,6 +34,7 @@ import JKFlipFlopShape from '../../Component/ComponentShape/Memory/JKFlipFlopSha
 import RSFlipFlopShape from '../../Component/ComponentShape/Memory/RSFlipFlopShape';
 import SourceShape from '../../Component/ComponentShape/Wiring/SourceShape';
 import InputButtonShape from '../../Component/ComponentShape/Signal/InputButtonShape';
+import AttributeTable from '../../Component/ComponentShape/AttributeTable';
 
 /**
  * Given a sidebar item, creats a new Component when a user begins clicking on an element.
@@ -88,6 +89,11 @@ const DropDownMenu = (props) => {
       case InputButtonShape:
         type = INPUT_BUTTON;
         break;
+      // AttributeTable should NOT create new component but we also need to handle it
+      // just a case that simply returns. 
+      // TODO: Ask Fejiro if this is the best thing.
+      case AttributeTable:
+        return;
       default:
         throw new Error(`${type}: is an unimplemented type in the DropDownMenu`);
     }
@@ -106,8 +112,14 @@ const DropDownMenu = (props) => {
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
           {React.Children.map(children, (child) => (
             // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+            // set width to 50% for AttributeTable, then set width to componentWidth for every other component
             <div
-              style={{ marginBottom: '20px', width: `${componentWidth}%` }}
+              style={
+                { 
+                  marginBottom: '20px',
+                  width: `${child.props.type !== AttributeTable ? componentWidth : 50}%` 
+                }
+              }
               onMouseDown={() => onMouseDown(child.props.type)}
               onTouchStart={() => onMouseDown(child.props.type)}
             >

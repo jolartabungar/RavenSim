@@ -51,12 +51,12 @@ const menuItems = [
   {
     name: 'GATES',
     children: [
-      <AndGateShape isSmall />,
+      <AndGateShape isSmall isMain />,
       <NandGateShape isSmall />,
-      <NotGateShape isSmall />,
-      <OrGateShape isSmall />,
+      <NotGateShape isSmall isMain/>,
+      <OrGateShape isSmall isMain />,
       <NorGateShape isSmall />,
-      <XorGateShape isSmall />,
+      <XorGateShape isSmall isMain/>,
       <XnorGateShape isSmall />,
     ],
   },
@@ -64,7 +64,7 @@ const menuItems = [
   { name: 'ARITHMETIC', children: [] },
   {
     name: 'MEMORY',
-    children: [<DFlipFlopShape isSmall />],
+    children: [<DFlipFlopShape isSmall isMain/>],
   },
   {
     name: 'INPUT/OUTPUT',
@@ -78,21 +78,26 @@ const menuItems = [
  * be hidden, or dragged onto the adjacent grid.
  * @author: kyhorne
  */
-const Sidebar = () => (
-  <div style={{ ...sidebarStyle }}>
+
+const Sidebar = () => {
+  return (
+    <div style={{ ...sidebarStyle }}>
     {menuItems.map((item) => (
       <div>
         <DropDownMenu title={item.name} types={item.types}>
-          {React.Children.map(item.children, (child) => (
-            <StageWrapper type={child.type} style={{ ...stageStyle }}>
-              <Layer>{child}</Layer>
-            </StageWrapper>
-          ))}
+          {
+            React.Children.map(item.children, (child) => (
+              <StageWrapper type={child.type} style={{ ...stageStyle }}>
+                <Layer>{child}</Layer>
+              </StageWrapper>
+            ))
+          }
         </DropDownMenu>
         <hr style={{ ...lineBreakStyle }} />
       </div>
     ))}
   </div>
-);
+  );
+};
 
 export default Sidebar;
