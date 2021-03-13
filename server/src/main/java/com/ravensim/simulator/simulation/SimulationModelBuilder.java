@@ -244,6 +244,9 @@ public class SimulationModelBuilder {
   }
 
   public void loadSave() {
+    // Remove everything in the current change list since we are loading a new save
+    this.model.clearChanges();
+
     rebuildModel(fileManager.loadFromFile());
     simulationEngine.loadCircuit(new CircuitModel(model));
   }
