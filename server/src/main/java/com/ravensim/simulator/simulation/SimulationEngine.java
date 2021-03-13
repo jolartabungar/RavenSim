@@ -5,6 +5,7 @@ import com.ravensim.simulator.event.EventRegistry;
 import com.ravensim.simulator.event.ShutdownEvent;
 import com.ravensim.simulator.event.Shutdownable;
 import com.ravensim.simulator.handler.SessionMap;
+import com.ravensim.simulator.model.CircuitModel;
 import com.ravensim.simulator.signal.TickerGenerator;
 import com.ravensim.simulator.wire.VirtualWireMediator;
 import org.apache.logging.log4j.LogManager;
@@ -124,6 +125,11 @@ public class SimulationEngine implements Runnable, Shutdownable {
       hasStarted = true;
       threadPool.submit(tickerGenerator);
     }
+  }
+
+  public void loadCircuit(CircuitModel model) {
+    // Send loaded circuit model to client
+    messageBroker.loadCircuit(model);
   }
 
   public boolean hasStarted() {

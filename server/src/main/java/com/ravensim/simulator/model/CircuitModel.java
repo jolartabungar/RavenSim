@@ -6,47 +6,21 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class CircuitModel implements Serializable {
-    private Map<Point, String> inputPortMap;
-    private Map<Point, String> outputPortMap;
+public class CircuitModel extends TextMessage implements Serializable {
+    private static final String TYPE = "CircuitModel";
     private ArrayList<CircuitChange> changeList;
 
     public CircuitModel() {
-        this.inputPortMap = new ConcurrentHashMap<>();
-        this.outputPortMap = new ConcurrentHashMap<>();
+        super(TYPE, null);
         this.changeList = new ArrayList<>();
+    }
+
+    public CircuitModel(CircuitModel model) {
+        super(TYPE, model.getJsonInfo());
     }
 
     public void update(CircuitChange change) {
         this.changeList.add(change);
-        var type = change.getType();
-        for (Point point: change.getProperties().getInputs()) {
-            this.addInputPort(type, point);
-        }
-        for (Point point: change.getProperties().getOutputs()) {
-            this.addOutputPort(type, point);
-        }
-    }
-
-    public void addInputPort(String gateType, Point portPoint) {
-        this.inputPortMap.put(portPoint, gateType);
-    }
-
-    public void addOutputPort(String gateType, Point portPoint) {
-        this.outputPortMap.put(portPoint, gateType);
-    }
-
-    public void printModel() {
-        System.out.println(inputPortMap.toString());
-        System.out.println(outputPortMap.toString());
-    }
-
-    public Map<Point, String> getInputs() {
-        return this.inputPortMap;
-    }
-
-    public Map<Point, String> getOutputs() {
-        return this.outputPortMap;
     }
 
     public ArrayList<CircuitChange> getChanges() {
