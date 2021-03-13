@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import AndGateShape from '../ComponentShape/LogicGate/AndGateShape';
+import ThreeInputAndGateShape from '../ComponentShape/LogicGate/ThreeInputAndGateShape';
 import ClockShape from '../ComponentShape/Signal/ClockShape';
 import Hideable from '../../Hideable';
 import ComponentDemux from '../ComponentDemux';
@@ -31,6 +32,7 @@ const ComponentShadowFactory = ({ componentReducer }) => {
       <ComponentDemux
         type={type}
         andGate={<AndGateShape x={x} y={y} isShadow />}
+        threeInputAndGate={<ThreeInputAndGateShape x={x} y={y} isShadow />}
         clock={<ClockShape x={x} y={y} isShadow />}
         notGate={<NotGateShape x={x} y={y} isShadow />}
         xorGate={<XorGateShape x={x} y={y} isShadow />}

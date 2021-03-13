@@ -11,6 +11,7 @@ import com.ravensim.simulator.port.InvalidBitWidthException;
 import com.ravensim.simulator.port.Port;
 import com.ravensim.simulator.signal.Button;
 import com.ravensim.simulator.signal.Clock;
+import com.ravensim.simulator.subcircuit.ThreeInputAndGate;
 import com.ravensim.simulator.subcircuit.DFlipFlop;
 import org.springframework.web.socket.WebSocketSession;
 
@@ -27,6 +28,7 @@ public class SimulationModelBuilder {
   private static final String CREATE_COMPONENT = "CreateComponent";
   private static final String WIRE = "Wire";
   private static final String AND_GATE = "AndGate";
+  private static final String THREE_INPUT_AND_GATE = "ThreeInputAndGate";
   private static final String NAND_GATE = "NandGate";
   private static final String NOR_GATE = "NorGate";
   private static final String NOT_GATE = "NotGate";
@@ -138,6 +140,8 @@ public class SimulationModelBuilder {
     var type = change.getType();
     if (type.equals(AND_GATE)) {
       new AndGate(simulationEngine, ports.subList(0, size - 1), ports.get(size - 1));
+    } else if (type.equals(THREE_INPUT_AND_GATE)) {
+    	new ThreeInputAndGate(simulationEngine, ports.subList(0, 3), ports.subList(3,size));
     } else if (type.equals(NAND_GATE)) {
       new NandGate(simulationEngine, ports.subList(0, size - 1), ports.get(size - 1));
     } else if (type.equals(NOR_GATE)) {

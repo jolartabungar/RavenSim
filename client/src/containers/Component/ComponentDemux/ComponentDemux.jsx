@@ -1,5 +1,6 @@
 import {
   AND_GATE,
+  THREE_INPUT_AND_GATE,
   CLOCK,
   NOT_GATE,
   XOR_GATE,
@@ -23,6 +24,7 @@ import {
 const ComponentDemux = ({
   type,
   andGate,
+  threeInputAndGate,
   clock,
   notGate,
   xorGate,
@@ -40,6 +42,8 @@ const ComponentDemux = ({
   switch (type) {
     case AND_GATE:
       return andGate;
+    case THREE_INPUT_AND_GATE:
+      return threeInputAndGate;
     case CLOCK:
       return clock;
     case NOT_GATE:

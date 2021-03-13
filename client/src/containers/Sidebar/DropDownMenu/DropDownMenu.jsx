@@ -6,6 +6,7 @@ import { setComponentPreviewType, setComponentShadowType } from '../../../store/
 import { componentWidth } from '../../../util/style';
 import {
   AND_GATE,
+  THREE_INPUT_AND_GATE,
   CLOCK,
   NOT_GATE,
   XOR_GATE,
@@ -21,6 +22,7 @@ import {
   INPUT_BUTTON,
 } from '../../../store/component/types';
 import AndGateShape from '../../Component/ComponentShape/LogicGate/AndGateShape';
+import ThreeInputAndGateShape from '../../Component/ComponentShape/LogicGate/ThreeInputAndGateShape';
 import ClockShape from '../../Component/ComponentShape/Signal/ClockShape';
 import NotGateShape from '../../Component/ComponentShape/LogicGate/NotGateShape';
 import XorGateShape from '../../Component/ComponentShape/LogicGate/XorGateShape';
@@ -49,6 +51,9 @@ const DropDownMenu = (props) => {
     switch (instanceOf) {
       case AndGateShape:
         type = AND_GATE;
+        break;
+      case ThreeInputAndGateShape:
+        type = THREE_INPUT_AND_GATE;
         break;
       case ClockShape:
         type = CLOCK;

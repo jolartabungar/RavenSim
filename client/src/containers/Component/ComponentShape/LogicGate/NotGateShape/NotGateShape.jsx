@@ -36,7 +36,7 @@ const NotGateShape = ({
   const [open, setOpen] = useState(false);
 
   function onClick(event) {
-    if (event.evt.detail == 2) {
+    if (event.evt.detail === 2) {
       setOpen(true);
     }
   }

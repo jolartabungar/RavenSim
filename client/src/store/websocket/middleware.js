@@ -16,6 +16,7 @@ import { CREATE_WIRE } from '../wire/types';
 import {
   CREATE_COMPONENT,
   AND_GATE,
+  THREE_INPUT_AND_GATE,
   CLOCK,
   WIRE,
   NOT_GATE,
@@ -121,6 +122,12 @@ class CreateComponentMessage extends MessageFactory {
           ports.push({ x: i === 2 ? x1 + largeAndGateWidth : x1, y: y1 + cellSize * i });
         }
         break;
+      case THREE_INPUT_AND_GATE:
+        ports.push({ x: x1, y: y1 + cellSize });
+        ports.push({ x: x1, y: y1 + 2 * cellSize });
+        ports.push({ x: x1, y: y1 + 3 * cellSize });
+        ports.push({ x: x1 + largeAndGateWidth, y: y1 + 2 * cellSize });
+        break;
       case CLOCK:
         ports.push({ x: x1 + clockSize, y: y1 + clockSize / 2 });
         break;
@@ -195,6 +202,12 @@ class CreateComponentMessage extends MessageFactory {
         properties = {
           inputs: [ports[0], ports[2]],
           outputs: [ports[1]],
+        };
+        break;
+      case THREE_INPUT_AND_GATE:
+        properties = {
+          inputs: [ports[0], ports[1], ports[2]],
+          outputs: [ports[3]]
         };
         break;
       case SOURCE:

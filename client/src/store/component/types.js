@@ -18,6 +18,7 @@ export const OR_GATE = 'OrGate';
 export const NAND_GATE = 'NandGate';
 export const NOR_GATE = 'NorGate';
 export const XNOR_GATE = 'XnorGate';
+export const THREE_INPUT_AND_GATE = 'ThreeInputAndGate';
 
 // Wiring
 export const WIRE = 'Wire';
