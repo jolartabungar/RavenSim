@@ -26,7 +26,6 @@ public class FileManager {
             ObjectInputStream ois = new ObjectInputStream(fis);
             CircuitModel model = (CircuitModel) ois.readObject();
             System.out.println("Reading Circuit File: ");
-            model.printModel();
             return model;
         } catch (IOException | ClassNotFoundException e) {
             // TODO Auto-generated catch block
