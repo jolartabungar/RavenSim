@@ -1,5 +1,6 @@
 export const CREATE_COMPONENT = 'CreateComponent';
 export const SHOW_COMPONENT_PREVIEW = 'SHOW_COMPONENT_PREVIEW';
+export const CLEAR_GRID = 'ClearGrid';
 /**
  * The full list of available components that can be placed
  * Add any new ones below

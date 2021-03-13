@@ -1,5 +1,6 @@
 import {
   CREATE_COMPONENT,
+  CLEAR_GRID,
   SHOW_COMPONENT_PREVIEW,
   SET_COMPONENT_PREVIEW_TYPE,
   SHOW_COMPONENT_SHADOW,
@@ -44,6 +45,12 @@ const componentReducer = (state = { ...initialState }, action) => {
           x: undefined,
           y: undefined,
         },
+      };
+    }
+    case CLEAR_GRID: {
+      return {
+        ...state,
+        grid: [],
       };
     }
     case SHOW_COMPONENT_PREVIEW:

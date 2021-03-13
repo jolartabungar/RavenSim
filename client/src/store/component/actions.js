@@ -5,7 +5,7 @@ import {
   SHOW_COMPONENT_SHADOW,
   HIDE_COMPONENT_SHADOW,
   SET_COMPONENT_SHADOW_TYPE,
-  TOGGLE_DRAG,
+  TOGGLE_DRAG, CLEAR_GRID,
 } from './types';
 
 export const setComponentPreviewType = (componentType) => ({
@@ -39,6 +39,10 @@ export const createComponent = (componentType, x, y) => ({
   componentType,
   x,
   y,
+});
+
+export const clearGrid = () => ({
+  type: CLEAR_GRID,
 });
 
 export const toggleDrag = () => ({

@@ -29,7 +29,7 @@ const wireReducer = (state = { ...initialState }, action) => {
     case SHOW_WIRE_PREVIEW:
       return { ...state, isTheWirePreviewHidden: false, points: action.points };
     case CREATE_WIRE:
-      state.wires.set(action.id, { points: state.points, signal: LOW_SIGNAL });
+      state.wires.set(action.id, { points: action.points, signal: LOW_SIGNAL });
       return { ...state, isTheWirePreviewHidden: true };
     case SET_WIRE_SIGNAL: {
       if (state.wires.has(action.id)) {
