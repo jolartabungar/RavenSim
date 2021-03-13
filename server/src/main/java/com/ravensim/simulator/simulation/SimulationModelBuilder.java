@@ -21,23 +21,14 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 public class SimulationModelBuilder {
+  // Event Names
   private static final String START_SIMULATION = "StartSimulation";
   private static final String STOP_SIMULATION = "StopSimulation";
   private static final String LOAD_CIRCUIT = "LoadCircuit";
   private static final String SAVE_CIRCUIT = "SaveCircuit";
   private static final String CREATE_COMPONENT = "CreateComponent";
-  private static final String WIRE = "Wire";
-  private static final String AND_GATE = "AndGate";
-  private static final String NAND_GATE = "NandGate";
-  private static final String NOR_GATE = "NorGate";
-  private static final String NOT_GATE = "NotGate";
-  private static final String OR_GATE = "OrGate";
-  private static final String XNOR_GATE = "XnorGate";
-  private static final String XOR_GATE = "XorGate";
-  private static final String CLOCK = "Clock";
-  private static final String D_FLIP_FLOP = "DFlipFlop";
-  private static final String BUTTON = "InputButton";
   private static final String BUTTON_PRESS = "ButtonPress";
+
   private SimulationEngine simulationEngine;
   // The mapping of all ports on the grid space. It assumes the location of the ports must be
   // unique.
@@ -89,11 +80,9 @@ public class SimulationModelBuilder {
         new Thread(locationOfButton.get(69)).start();
         break;
       case LOAD_CIRCUIT:
-        System.out.println("Load circuit sequence initiated.");
         loadSave();
         break;
       case SAVE_CIRCUIT:
-        System.out.println("Save circuit sequence initiated.");
         initiateSave();
         break;
       default:
@@ -114,13 +103,13 @@ public class SimulationModelBuilder {
     // Switch based on the type of component to create.3
     var type = change.getType();
     switch (type) {
-      case WIRE:
+      case ComponentType.WIRE:
         createWire(change);
         break;
-      case CLOCK:
+      case ComponentType.CLOCK:
         createClock(change);
         break;
-      case BUTTON:
+      case ComponentType.BUTTON:
         createButton(change);
         break;
       default:
@@ -133,6 +122,8 @@ public class SimulationModelBuilder {
         }
         break;
     }
+
+    model.update(change);
   }
 
   private void createWire(CircuitChange change) {
@@ -161,36 +152,34 @@ public class SimulationModelBuilder {
     var type = change.getType();
 
     switch (type) {
-      case AND_GATE:
+      case ComponentType.AND_GATE:
         new AndGate(simulationEngine, inputPorts, outputPorts.get(0));
         break;
-      case NAND_GATE:
+      case ComponentType.NAND_GATE:
         new NandGate(simulationEngine, inputPorts, outputPorts.get(0));
         break;
-      case NOR_GATE:
+      case ComponentType.NOR_GATE:
         new NorGate(simulationEngine, inputPorts, outputPorts.get(0));
         break;
-      case NOT_GATE:
+      case ComponentType.NOT_GATE:
         new NotGate(simulationEngine, inputPorts.get(0), outputPorts.get(0));
         break;
-      case OR_GATE:
+      case ComponentType.OR_GATE:
         new OrGate(simulationEngine, inputPorts, outputPorts.get(0));
         break;
-      case XNOR_GATE:
+      case ComponentType.XNOR_GATE:
         new XnorGate(simulationEngine, inputPorts, outputPorts.get(0));
         break;
-      case XOR_GATE:
+      case ComponentType.XOR_GATE:
         new XorGate(simulationEngine, inputPorts, outputPorts.get(0));
         break;
-      case D_FLIP_FLOP:
+      case ComponentType.D_FLIP_FLOP:
         new DFlipFlop(simulationEngine, inputPorts, outputPorts);
         break;
       default:
         throw new UnsupportedOperationException(
                 String.format("%s is an unimplemented component type", type));
     }
-
-    model.update(change);
   }
 
   public void connect(Integer id, Point from, Point to) {
@@ -249,11 +238,13 @@ public class SimulationModelBuilder {
   }
 
   // Temporary save and load calls
+  // To Do: Allow option for filename input
   public void initiateSave() {
     fileManager.saveToFile(model);
   }
 
   public void loadSave() {
     rebuildModel(fileManager.loadFromFile());
+    simulationEngine.loadCircuit(new CircuitModel(model));
   }
 }
