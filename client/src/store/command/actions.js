@@ -34,12 +34,14 @@ export const tick = () => ({
   message: TICK,
 });
 
-export const loadCircuit = () => ({
+export const loadCircuit = (name) => ({
   type: COMMAND,
-  message: LOAD_CIRCUIT
+  message: LOAD_CIRCUIT,
+  fileName: name,
 });
 
-export const saveCircuit = () => ({
+export const saveCircuit = (name) => ({
   type: COMMAND,
-  message: SAVE_CIRCUIT
+  message: SAVE_CIRCUIT,
+  fileName: name,
 });
