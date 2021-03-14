@@ -12,6 +12,9 @@ import com.ravensim.simulator.port.Port;
 import com.ravensim.simulator.signal.Button;
 import com.ravensim.simulator.signal.Clock;
 import com.ravensim.simulator.subcircuit.ThreeInputAndGate;
+import com.ravensim.simulator.subcircuit.ThreeInputNandGate;
+import com.ravensim.simulator.subcircuit.ThreeInputOrGate;
+import com.ravensim.simulator.subcircuit.ThreeInputNorGate;
 import com.ravensim.simulator.subcircuit.DFlipFlop;
 import org.springframework.web.socket.WebSocketSession;
 
@@ -30,9 +33,12 @@ public class SimulationModelBuilder {
   private static final String AND_GATE = "AndGate";
   private static final String THREE_INPUT_AND_GATE = "ThreeInputAndGate";
   private static final String NAND_GATE = "NandGate";
+  private static final String THREE_INPUT_NAND_GATE = "ThreeInputNandGate";
   private static final String NOR_GATE = "NorGate";
+  private static final String THREE_INPUT_NOR_GATE = "ThreeInputNorGate";
   private static final String NOT_GATE = "NotGate";
   private static final String OR_GATE = "OrGate";
+  private static final String THREE_INPUT_OR_GATE = "ThreeInputOrGate";
   private static final String XNOR_GATE = "XnorGate";
   private static final String XOR_GATE = "XorGate";
   private static final String CLOCK = "Clock";
@@ -144,12 +150,18 @@ public class SimulationModelBuilder {
     	new ThreeInputAndGate(simulationEngine, ports.subList(0, 3), ports.subList(3,size));
     } else if (type.equals(NAND_GATE)) {
       new NandGate(simulationEngine, ports.subList(0, size - 1), ports.get(size - 1));
+    } else if (type.equals(THREE_INPUT_NAND_GATE)) {
+    	new ThreeInputNandGate(simulationEngine, ports.subList(0, 3), ports.subList(3,size));
     } else if (type.equals(NOR_GATE)) {
       new NorGate(simulationEngine, ports.subList(0, size - 1), ports.get(size - 1));
+    } else if (type.equals(THREE_INPUT_NOR_GATE)) {
+    	new ThreeInputNorGate(simulationEngine, ports.subList(0, 3), ports.subList(3,size));
     } else if (type.equals(NOT_GATE)) {
       new NotGate(simulationEngine, ports.get(0), ports.get(1));
     } else if (type.equals(OR_GATE)) {
       new OrGate(simulationEngine, ports.subList(0, size - 1), ports.get(size - 1));
+    } else if (type.equals(THREE_INPUT_OR_GATE)) {
+    	new ThreeInputOrGate(simulationEngine, ports.subList(0, 3), ports.subList(3,size));
     } else if (type.equals(XNOR_GATE)) {
       new XnorGate(simulationEngine, ports.subList(0, size - 1), ports.get(size - 1));
     } else if (type.equals(XOR_GATE)) {
