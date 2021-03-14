@@ -17,6 +17,7 @@ import ComponentPreview from '../../Component/ComponentPreview';
 import ComponentShadowFactory from '../../Component/ComponentShadowFactory';
 import PortFactory from '../../PortFactory/PortFactory';
 import Konva from 'konva';
+import CollisionDetectionLayer from '../CollisionDetectionGrid';
 
 const stageWrapperStyle = {
   width: 'auto',
@@ -74,55 +75,6 @@ const App = (props) => {
     }
   };
 
-  function haveIntersection(r1, r2) {
-    console.log('r1 = ' + JSON.stringify(r1, null));
-    console.log('r2 = ' + JSON.stringify(r2, null));
-    console.log(`r1.x = ${r1.x}, r1.y = ${r1.y}, r1.width = ${r1.width}, r1.height = ${r1.height},`)
-    console.log(`r2.x = ${r2.x}, r2.y = ${r2.y}, r2.width = ${r2.width}, r2.height = ${r2.height},`)
-    return !(
-      r2.x > r1.x + r1.width ||
-      r2.x + r2.width < r1.x ||
-      r2.y > r1.y + r1.height||
-      r2.y + r2.height < r1.y
-    );
-  }
-
-  let rectDrawn = false;
-
-  const checkForCollisions = (e) => {
-    console.log(e);
-    console.log('in check for collision');
-    const target = e.target;
-    const targetRect = e.target.getClientRect();
-    const layer = e.currentTarget;
-    // console.log(layer);
-    // For each child in layer object, check if there is a collision
-    console.log('targetRect below' + targetRect);
-    console.log(targetRect)
-    layer.children.each(function (group) {
-      // do not check intersection with self
-      // console.log(group);
-      if (group === target) {
-        return;
-      }
-      if (haveIntersection(group.getClientRect(), targetRect)) {
-        console.log('collision');
-        if (!rectDrawn) {
-          const selectionRect = new Konva.Rect({stroke: 'red', visible: true, listening: false});
-          layer.add(selectionRect);
-          selectionRect.setAttrs(group.getClientRect());
-          layer.draw();
-          rectDrawn = true;
-        }
-        
-        // console.log('colliding with ' + group.name())
-      } else {
-        console.log('no collision');
-      }
-    });
-
-  }
-
   return (
     <StageWrapper
       onMouseUp={() => onMouseUp()}
@@ -130,7 +82,7 @@ const App = (props) => {
       dragMove={(e) => onMouseMove(e)}
       dragEnd={() => onMouseUp()}
       style={stageWrapperStyle}
-      onDragMove={(e) => checkForCollisions(e)}
+      // onDragMove={(e) => checkForCollisions(e)}
     >
       <Layer>
         <SimpleGrid />
@@ -139,14 +91,16 @@ const App = (props) => {
       <FastLayer>
         <WireFactory />
       </FastLayer>
-      <Layer
+      {/* <Layer
         onDragMove={(e) => checkForCollisions(e)}
-      >
-        {/* <ComponentShadowFactory /> */}
+      > */}
+      <CollisionDetectionLayer>
+        <ComponentShadowFactory />
         <ComponentPreview />
         <ComponentFactory />
         <PortFactory />
-      </Layer>
+      </CollisionDetectionLayer>
+      {/* </Layer> */}
     </StageWrapper>
   );
 };

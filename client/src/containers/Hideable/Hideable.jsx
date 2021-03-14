@@ -11,7 +11,7 @@ const Hideable = ({ isHidden, children }) => {
   if (isHidden) {
     return null;
   }
-  return <Group>{children}</Group>;
+  return <Group name='HideableGroup' ignoreCollisions={true}>{children}</Group>;
 };
 
 export default Hideable;

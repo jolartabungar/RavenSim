@@ -36,17 +36,21 @@ const NotGateShape = ({
       onDragEnd={onDragEnd}
       onDragMove={onDragMove}
       onMouseDown={onMouseDown}
+      name={'NotGate'}
+      isShadow={isShadow ? true : false}
       {...commonShapeProps(x, y, draggable, isSmall)}
     >
       <Line
         points={[0, 0, 0, notGateHeight, notGateWidth, notGateHeight / 2]}
         closed
+        isShadow={isShadow ? true : false}
         {...commonShadowProps(isShadow, isSmall)}
       />
       <Circle
         x={notGateWidth + negateRadius}
         y={notGateHeight / 2}
         radius={negateRadius}
+        isShadow={isShadow ? true : false}
         {...commonShadowProps(isShadow, isSmall)}
       />
     </Group>

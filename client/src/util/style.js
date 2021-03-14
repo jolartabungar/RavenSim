@@ -141,6 +141,7 @@ export const commonShadowProps = (isShadow, isSmall) => ({
   shadowBlur: isShadow ? undefined : 2,
   shadowOffset: isShadow ? undefined : { x: 1, y: 1 },
   shadowOpacity: isShadow ? undefined : 0.4,
+  ignoreCollisions: isShadow ? true : false
 });
 
 export const commonShapeProps = (x, y, draggable, isSmall) => ({
@@ -155,4 +156,5 @@ export const commonShapeProps = (x, y, draggable, isSmall) => ({
   x: isSmall ? 0.5 : x,
   y: isSmall ? 0.5 : y,
   draggable,
+  ignoreCollisions: false
 });
