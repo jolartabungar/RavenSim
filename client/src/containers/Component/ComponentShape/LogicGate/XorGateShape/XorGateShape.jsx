@@ -38,6 +38,7 @@ const XorGateShape = ({
     <Shape
       width={width}
       heigh={height}
+      name={'XorGate'}
       sceneFunc={(context, shape) => {
         context.beginPath();
         context.moveTo(0, 0);

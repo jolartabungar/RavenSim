@@ -37,6 +37,7 @@ const NandGateShape = ({
       onDragEnd={onDragEnd}
       onDragMove={onDragMove}
       onMouseDown={onMouseDown}
+      name={'NAndGate'}
       {...commonShapeProps(x, y, draggable, isSmall)}
     >
       <AndGateShape

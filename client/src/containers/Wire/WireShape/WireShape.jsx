@@ -13,7 +13,7 @@ const getStrokeColor = (signal) => {
 };
 
 const WireShape = ({ points, signal }) => (
-  <Line stroke={getStrokeColor(signal)} points={points} strokeWidth={wireWidth} />
+  <Line stroke={getStrokeColor(signal)} points={points} strokeWidth={wireWidth} name={'Wire'} />
 );
 
 export default WireShape;

@@ -43,6 +43,7 @@ const AndGateShape = ({
       onDragEnd={onDragEnd}
       onDragMove={onDragMove}
       onMouseDown={onMouseDown}
+      name={'AndGate'}
       {...commonShapeProps(x, y, draggable, isSmall)}
       {...commonShadowProps(isShadow, isSmall)}
     />

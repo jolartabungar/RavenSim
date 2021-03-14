@@ -16,6 +16,8 @@ import {
 import ComponentPreview from '../../Component/ComponentPreview';
 import ComponentShadowFactory from '../../Component/ComponentShadowFactory';
 import PortFactory from '../../PortFactory/PortFactory';
+import Konva from 'konva';
+import CollisionDetectionLayer from '../CollisionDetectionGrid';
 
 const stageWrapperStyle = {
   width: 'auto',
@@ -47,6 +49,13 @@ const App = (props) => {
     if (shadow.type !== undefined) {
       props.showComponentShadow(point[0], point[1]);
     }
+
+    // Trigger event on drag move
+    if (e.type === 'dragmove') {
+      console.log('drag move');
+    } else {
+      // console.log(e);
+    }
   };
 
   const onMouseUp = () => {
@@ -73,6 +82,7 @@ const App = (props) => {
       dragMove={(e) => onMouseMove(e)}
       dragEnd={() => onMouseUp()}
       style={stageWrapperStyle}
+      // onDragMove={(e) => checkForCollisions(e)}
     >
       <Layer>
         <SimpleGrid />
@@ -81,12 +91,16 @@ const App = (props) => {
       <FastLayer>
         <WireFactory />
       </FastLayer>
-      <Layer>
+      {/* <Layer
+        onDragMove={(e) => checkForCollisions(e)}
+      > */}
+      <CollisionDetectionLayer>
         <ComponentShadowFactory />
         <ComponentPreview />
         <ComponentFactory />
         <PortFactory />
-      </Layer>
+      </CollisionDetectionLayer>
+      {/* </Layer> */}
     </StageWrapper>
   );
 };

@@ -83,6 +83,10 @@ export const largeXnorGateHeight = cellSize * 4;
 export const smallXnorGateWidth = stageSize - smallNegateRadius * 2;
 export const smallXnorGateHeight = stageSize;
 
+// Multiplexers and Arithmetics
+export const muxSize = cellSize * 6;
+export const smallMuxSize = stageSize;
+
 // Flip-Flops
 export const flipFlopSize = cellSize * 4;
 export const smallFlipFlopSize = stageSize;
@@ -137,6 +141,7 @@ export const commonShadowProps = (isShadow, isSmall) => ({
   shadowBlur: isShadow ? undefined : 2,
   shadowOffset: isShadow ? undefined : { x: 1, y: 1 },
   shadowOpacity: isShadow ? undefined : 0.4,
+  ignoreCollisions: isShadow ? true : false
 });
 
 export const commonShapeProps = (x, y, draggable, isSmall) => ({
@@ -151,4 +156,5 @@ export const commonShapeProps = (x, y, draggable, isSmall) => ({
   x: isSmall ? 0.5 : x,
   y: isSmall ? 0.5 : y,
   draggable,
+  ignoreCollisions: false
 });

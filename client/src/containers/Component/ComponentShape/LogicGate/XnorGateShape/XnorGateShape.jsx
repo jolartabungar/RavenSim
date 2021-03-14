@@ -37,6 +37,7 @@ const XnorGateShape = ({
       onDragEnd={onDragEnd}
       onDragMove={onDragMove}
       onMouseDown={onMouseDown}
+      name={'XnorGate'}
       {...commonShapeProps(x, y, draggable, isSmall)}
     >
       <XorGateShape

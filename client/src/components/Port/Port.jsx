@@ -38,6 +38,7 @@ class Port extends React.Component {
         y={y}
         opacity={isMouseOver ? 1 : 0}
         draggable
+        name={'port'}
         onMouseOver={() => this.setState({ isMouseOver: true })}
         onMouseOut={() => this.setState({ isMouseOver: false })}
         onDragStart={() => this.setState({ isMouseOver: false })}
@@ -63,6 +64,7 @@ class Port extends React.Component {
           refs.port.position({ x, y });
           refs.port.draw();
         }}
+        ignoreCollisions={true}
       >
         <Circle
           radius={portRadius}

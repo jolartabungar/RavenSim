@@ -12,6 +12,10 @@ import com.ravensim.simulator.port.Port;
 import com.ravensim.simulator.signal.Button;
 import com.ravensim.simulator.signal.Clock;
 import com.ravensim.simulator.subcircuit.DFlipFlop;
+import com.ravensim.simulator.subcircuit.HalfAdder;
+import com.ravensim.simulator.subcircuit.FullAdder;
+import com.ravensim.simulator.subcircuit.HalfSubtractor;
+import com.ravensim.simulator.subcircuit.FullSubtractor;
 import org.springframework.web.socket.WebSocketSession;
 
 import java.awt.*;
@@ -35,6 +39,10 @@ public class SimulationModelBuilder {
   private static final String XOR_GATE = "XorGate";
   private static final String CLOCK = "Clock";
   private static final String D_FLIP_FLOP = "DFlipFlop";
+  private static final String Half_Adder = "HalfAdder";
+  private static final String Full_Adder = "FullAdder";
+  private static final String Half_Subtractor = "HalfSubtractor";
+  private static final String Full_Subtractor = "FullSubtractor";
   private static final String BUTTON = "InputButton";
   private static final String BUTTON_PRESS = "ButtonPress";
   private final SimulationEngine simulationEngine;
@@ -152,7 +160,15 @@ public class SimulationModelBuilder {
       new XorGate(simulationEngine, ports.subList(0, size - 1), ports.get(size - 1));
     } else if (type.equals(D_FLIP_FLOP)) {
       new DFlipFlop(simulationEngine, ports.subList(0, 2), ports.subList(2, size));
-    } else {
+    } else if (type.equals(Half_Adder)){
+      new HalfAdder(simulationEngine, ports.subList(0,2), ports.subList(2,size));
+    } else if (type.equals(Full_Adder)){
+      new FullAdder(simulationEngine, ports.subList(0,3), ports.subList(3,size));
+    } else if (type.equals(Half_Subtractor)){
+      new HalfSubtractor(simulationEngine, ports.subList(0,2), ports.subList(2,size));
+    } else if (type.equals(Full_Subtractor)){
+      new FullSubtractor(simulationEngine, ports.subList(0,3), ports.subList(3,size));
+    }else {
       throw new UnsupportedOperationException(
           String.format("%s is an unimplemented component type", type));
     }
