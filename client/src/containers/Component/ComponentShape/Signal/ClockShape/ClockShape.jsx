@@ -43,6 +43,7 @@ const ClockShape = ({
       onDragEnd={onDragEnd}
       onDragMove={onDragMove}
       onMouseDown={onMouseDown}
+      name={'ClockShape'}
     >
       <Rect width={size} height={size} {...commonShadowProps(isShadow, isSmall)} />
       <Line

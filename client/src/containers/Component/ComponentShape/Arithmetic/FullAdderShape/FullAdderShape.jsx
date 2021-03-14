@@ -31,6 +31,7 @@ const FullAdderShape = ({
       onDragEnd={onDragEnd}
       onDragMove={onDragMove}
       onMouseDown={onMouseDown}
+      name={'FullAdder'}
       {...commonShapeProps(x, y, draggable, isSmall)}
     >
       <Rect height={height} width={dimension} {...commonShadowProps(isShadow, isSmall)} />

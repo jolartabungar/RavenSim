@@ -35,6 +35,7 @@ const RSFlipFlopShape = ({
       onDragEnd={onDragEnd}
       onDragMove={onDragMove}
       onMouseDown={onMouseDown}
+      name={'RSFlipFlop'}
       {...commonShapeProps(x, y, draggable, isSmall)}
     >
       <Rect height={dimension} width={dimension} {...commonShadowProps(isShadow, isSmall)} />

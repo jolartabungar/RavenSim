@@ -37,6 +37,7 @@ const NorGateShape = ({
       onDragEnd={onDragEnd}
       onDragMove={onDragMove}
       onMouseDown={onMouseDown}
+      name={'NorGate'}
       {...commonShapeProps(x, y, draggable, isSmall)}
     >
       <OrGateShape

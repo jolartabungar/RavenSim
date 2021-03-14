@@ -47,6 +47,7 @@ const OrGateShape = ({
       onDragEnd={onDragEnd}
       onDragMove={onDragMove}
       onMouseDown={onMouseDown}
+      name={'OrGate'}
       {...commonShapeProps(x, y, draggable, isSmall)}
       {...commonShadowProps(isShadow, isSmall)}
     />

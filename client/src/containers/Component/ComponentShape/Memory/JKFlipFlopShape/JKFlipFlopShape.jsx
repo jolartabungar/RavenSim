@@ -35,6 +35,7 @@ const JKFlipFlopShape = ({
       onDragEnd={onDragEnd}
       onDragMove={onDragMove}
       onMouseDown={onMouseDown}
+      name={'JKFlipFlop'}
       {...commonShapeProps(x, y, draggable, isSmall)}
     >
       <Rect height={dimension} width={dimension} {...commonShadowProps(isShadow, isSmall)} />

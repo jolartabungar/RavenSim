@@ -31,6 +31,7 @@ const HalfAdderShape = ({
       onDragEnd={onDragEnd}
       onDragMove={onDragMove}
       onMouseDown={onMouseDown}
+      name={'HalfAdder'}
       {...commonShapeProps(x, y, draggable, isSmall)}
     >
       <Rect height={height} width={dimension} {...commonShadowProps(isShadow, isSmall)} />

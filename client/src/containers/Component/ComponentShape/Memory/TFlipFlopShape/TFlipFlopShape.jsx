@@ -36,6 +36,7 @@ const TFlipFlopShape = ({
       onDragEnd={onDragEnd}
       onDragMove={onDragMove}
       onMouseDown={onMouseDown}
+      name={'TFlipFlop'}
       {...commonShapeProps(x, y, draggable, isSmall)}
     >
       <Rect height={dimension} width={dimension} {...commonShadowProps(isShadow, isSmall)} />
