@@ -1,5 +1,5 @@
 import React from 'react';
-import { Shape } from 'react-konva';
+import { Group, Shape } from 'react-konva';
 import {
   commonShadowProps,
   commonShapeProps,
@@ -35,29 +35,34 @@ const XorGateShape = ({
       : smallXorGateHeight
     : largeXorGateHeight;
   return (
-    <Shape
-      width={width}
-      heigh={height}
-      name={'XorGate'}
-      sceneFunc={(context, shape) => {
-        context.beginPath();
-        context.moveTo(0, 0);
-        context.quadraticCurveTo((1 / 3) * width, 0.5 * height, 0, height);
-        context.quadraticCurveTo((1 / 3) * width, 0.5 * height, 0, 0);
-        context.moveTo(0.1 * width, 0);
-        context.quadraticCurveTo(0.8 * width, 0, width, 0.5 * height);
-        context.quadraticCurveTo(0.8 * width, height, 0.1 * width, height);
-        context.quadraticCurveTo((13 / 30) * width, 0.5 * height, 0.1 * width, 0);
-        context.closePath();
-        context.fillStrokeShape(shape);
-      }}
+    <Group
       onDragStart={onDragStart}
       onDragEnd={onDragEnd}
       onDragMove={onDragMove}
       onMouseDown={onMouseDown}
+      name={'XorGate'}
       {...commonShapeProps(x, y, draggable, isSmall)}
-      {...commonShadowProps(isShadow, isSmall)}
-    />
+    >
+      <Shape
+        width={width}
+        heigh={height}
+        sceneFunc={(context, shape) => {
+          context.beginPath();
+          context.moveTo(0, 0);
+          context.quadraticCurveTo((1 / 3) * width, 0.5 * height, 0, height);
+          context.quadraticCurveTo((1 / 3) * width, 0.5 * height, 0, 0);
+          context.moveTo(0.1 * width, 0);
+          context.quadraticCurveTo(0.8 * width, 0, width, 0.5 * height);
+          context.quadraticCurveTo(0.8 * width, height, 0.1 * width, height);
+          context.quadraticCurveTo((13 / 30) * width, 0.5 * height, 0.1 * width, 0);
+          context.closePath();
+          context.fillStrokeShape(shape);
+        }}
+        {...commonShadowProps(isShadow, isSmall)}
+      />
+    </Group>
+
+    
   );
 };
 
