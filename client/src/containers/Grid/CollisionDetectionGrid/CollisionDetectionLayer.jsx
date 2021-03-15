@@ -57,6 +57,7 @@ const CollisionDetectionLayer = ({children}) => {
       if (group._id === targetId) {
         return;
       }
+
       // Do not check collisions with parent group
       if (target.parent === group) {
         return;
@@ -66,6 +67,9 @@ const CollisionDetectionLayer = ({children}) => {
       if (group.getAttr("ignoreCollisions") === true) {
         return;
       }
+
+      console.log('checking collision with')
+      console.log(group)
 
       if (haveIntersection(group.getClientRect(), targetRect)) {
         collisionFlag = true;

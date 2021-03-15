@@ -61,8 +61,6 @@ const XorGateShape = ({
         {...commonShadowProps(isShadow, isSmall)}
       />
     </Group>
-
-    
   );
 };
 
