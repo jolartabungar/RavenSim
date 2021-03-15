@@ -12,6 +12,7 @@ import XnorGate from '../../../components/SmartComponent/LogicGate/XnorGate';
 import DFlipFlop from '../../../components/SmartComponent/Memory/DFlipFlop';
 import TFlipFlop from '../../../components/SmartComponent/Memory/TFlipFlop';
 import JKFlipFlop from '../../../components/SmartComponent/Memory/JKFlipFlop';
+import JKFlipFlopPRECLRShape from '../ComponentShape/Memory/JKFlipFlopPRECLRShape';
 import RSFlipFlop from '../../../components/SmartComponent/Memory/RSFlipFlop';
 import HalfAdderShape from '../ComponentShape/Arithmetic/HalfAdderShape';
 import FullAdderShape from '../ComponentShape/Arithmetic/FullAdderShape';
@@ -47,6 +48,7 @@ const ComponentFactory = ({ componentReducer }) => componentReducer.grid.map((co
       dFlipFlop={<DFlipFlop x={x} y={y} />}
       tFlipFlop={<TFlipFlop x={x} y={y} />}
       jkFlipFlop={<JKFlipFlop x={x} y={y} />}
+      jkFlipFlopPRECLR={<JKFlipFlopPRECLRShape x={x} y={y} />}
       rsFlipFlop={<RSFlipFlop x={x} y={y} />}
       halfAdder = {<HalfAdderShape x={x} y={y} />}
       fullAdder = {<FullAdderShape x={x} y={y} />}

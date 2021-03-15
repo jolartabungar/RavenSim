@@ -27,6 +27,7 @@ import {
   D_FLIP_FLOP,
   T_FLIP_FLOP,
   JK_FLIP_FLOP,
+  JK_FLIP_FLOP_PRE_CLR,
   RS_FLIP_FLOP,
   HALF_ADDER,
   FULL_ADDER,
@@ -167,6 +168,15 @@ class CreateComponentMessage extends MessageFactory {
         ports.push({ x: x1 + flipFlopSize, y: y1 + cellSize });
         ports.push({ x: x1 + flipFlopSize, y: y1 + 3 * cellSize });
         break;
+      case JK_FLIP_FLOP_PRE_CLR:
+        for (let i = 1; i <= 3; i++) {
+          ports.push({ x: x1, y: y1 + i * cellSize });
+        }
+        ports.push({ x: x1 + cellSize * 2, y: y1 });
+        ports.push({ x: x1 + cellSize * 2, y: y1 + flipFlopSize });
+        ports.push({ x: x1 + flipFlopSize, y: y1 + cellSize });
+        ports.push({ x: x1 + flipFlopSize, y: y1 + 3 * cellSize });
+        break;
       case JK_FLIP_FLOP:
       case RS_FLIP_FLOP:
         for (let i = 1; i <= 3; i++) {
@@ -293,6 +303,12 @@ class CreateComponentMessage extends MessageFactory {
         properties = {
           inputs: [ports[0], ports[1]],
           outputs: [ports[2], ports[3]],
+        };
+        break;
+      case JK_FLIP_FLOP_PRE_CLR:
+        properties = {
+          inputs: [ports[0], ports[1], ports[2], ports[3], ports[4]],
+          outputs: [ports[5], ports[6]],
         };
         break;
       case JK_FLIP_FLOP:

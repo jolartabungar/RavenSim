@@ -32,6 +32,7 @@ import TwoToOneMuxShape from '../Component/ComponentShape/Plexers/TwoToOneMuxSha
 import FourToOneMuxShape from '../Component/ComponentShape/Plexers/FourToOneMuxShape';
 import OneToTwoDemuxShape from '../Component/ComponentShape/Plexers/OneToTwoDemuxShape';
 import OneToFourDemuxShape from '../Component/ComponentShape/Plexers/OneToFourDemuxShape';
+import JKFlipFlopPRECLRShape from '../Component/ComponentShape/Memory/JKFlipFlopPRECLRShape';
 import InputButtonShape from '../Component/ComponentShape/Signal/InputButtonShape';
 
 const sidebarStyle = {
@@ -94,6 +95,7 @@ const menuItems = [
       <DFlipFlopShape isSmall />, 
       <RSFlipFlopShape isSmall />,
       <JKFlipFlopShape isSmall />,
+      <JKFlipFlopPRECLRShape isSmall />,
     ],
   },
   {

@@ -33,6 +33,7 @@ export const D_FLIP_FLOP = 'DFlipFlop';
 export const T_FLIP_FLOP = 'TFlipFlop';
 export const RS_FLIP_FLOP = 'RSFlipFlop';
 export const JK_FLIP_FLOP = 'JKFlipFlop';
+export const JK_FLIP_FLOP_PRE_CLR = "JKFlipFlopPRECLR";
 
 // Arithmetic
 export const HALF_ADDER = 'HalfAdder';

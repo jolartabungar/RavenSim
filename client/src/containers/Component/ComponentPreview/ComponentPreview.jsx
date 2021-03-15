@@ -13,6 +13,7 @@ import XnorGateShape from '../ComponentShape/LogicGate/XnorGateShape';
 import DFlipFlopShape from '../ComponentShape/Memory/DFlipFlopShape';
 import TFlipFlopShape from '../ComponentShape/Memory/TFlipFlopShape';
 import JKFlipFlopShape from '../ComponentShape/Memory/JKFlipFlopShape';
+import JKFlipFlopPRECLRShape from '../ComponentShape/Memory/JKFlipFlopPRECLRShape';
 import RSFlipFlopShape from '../ComponentShape/Memory/RSFlipFlopShape';
 import HalfAdderShape from '../ComponentShape/Arithmetic/HalfAdderShape';
 import FullAdderShape from '../ComponentShape/Arithmetic/FullAdderShape';
@@ -46,6 +47,7 @@ const ComponentPreview = ({ componentReducer }) => {
         dFlipFlop={<DFlipFlopShape x={x} y={y} />}
         tFlipFlop={<TFlipFlopShape x={x} y={y} />}
         jkFlipFlop={<JKFlipFlopShape x={x} y={y} />}
+        jkFlipFlopPRECLR = {<JKFlipFlopPRECLRShape x={x} y={y} />}
         rsFlipFlop={<RSFlipFlopShape x={x} y={y} />}
         halfAdder = {<HalfAdderShape x={x} y={y} />}
         fullAdder = {<FullAdderShape x={x} y={y} />}

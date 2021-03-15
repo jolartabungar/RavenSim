@@ -29,6 +29,7 @@ import {
   FOUR_TO_ONE_MUX,
   ONE_TO_TWO_DEMUX,
   ONE_TO_FOUR_DEMUX,
+  JK_FLIP_FLOP_PRE_CLR,
 } from '../../../store/component/types';
 import AndGateShape from '../../Component/ComponentShape/LogicGate/AndGateShape';
 import ClockShape from '../../Component/ComponentShape/Signal/ClockShape';
@@ -41,6 +42,7 @@ import XnorGateShape from '../../Component/ComponentShape/LogicGate/XnorGateShap
 import DFlipFlopShape from '../../Component/ComponentShape/Memory/DFlipFlopShape';
 import TFlipFlopShape from '../../Component/ComponentShape/Memory/TFlipFlopShape';
 import JKFlipFlopShape from '../../Component/ComponentShape/Memory/JKFlipFlopShape';
+import JKFlipFlopPRECLRShape from '../../Component/ComponentShape/Memory/JKFlipFlopPRECLRShape';
 import RSFlipFlopShape from '../../Component/ComponentShape/Memory/RSFlipFlopShape';
 import HalfAdderShape from '../../Component/ComponentShape/Arithmetic/HalfAdderShape';
 import FullAdderShape from '../../Component/ComponentShape/Arithmetic/FullAdderShape';
@@ -101,6 +103,9 @@ const DropDownMenu = (props) => {
         break;
       case JKFlipFlopShape:
         type = JK_FLIP_FLOP;
+        break;
+      case JKFlipFlopPRECLRShape:
+        type = JK_FLIP_FLOP_PRE_CLR;
         break;
       case RSFlipFlopShape:
         type = RS_FLIP_FLOP;

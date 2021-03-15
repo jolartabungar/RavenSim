@@ -10,6 +10,7 @@ import {
   D_FLIP_FLOP,
   T_FLIP_FLOP,
   JK_FLIP_FLOP,
+  JK_FLIP_FLOP_PRE_CLR,
   RS_FLIP_FLOP,
   SOURCE,
   INPUT_BUTTON,
@@ -43,6 +44,7 @@ const ComponentDemux = ({
   dFlipFlop,
   tFlipFlop,
   jkFlipFlop,
+  jkFlipFlopPRECLR,
   rsFlipFlop,
   halfAdder,
   fullAdder,
@@ -80,6 +82,8 @@ const ComponentDemux = ({
       return tFlipFlop;
     case JK_FLIP_FLOP:
       return jkFlipFlop;
+    case JK_FLIP_FLOP_PRE_CLR:
+      return jkFlipFlopPRECLR;
     case RS_FLIP_FLOP:
       return rsFlipFlop;
     case HALF_ADDER:
