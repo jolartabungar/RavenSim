@@ -10,6 +10,8 @@ import com.ravensim.simulator.simulation.SimulationEngine;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.Serializable;
+
 public abstract class LogicGate<T extends AbstractIO> implements PortObserver, Runnable {
   public static final int PROPAGATION_DELAY = 1;
   private static final Logger LOGGER = LogManager.getLogger(LogicGate.class.getSimpleName());

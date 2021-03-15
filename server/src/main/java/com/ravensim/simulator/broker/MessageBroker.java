@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.ravensim.simulator.event.Observable;
 import com.ravensim.simulator.event.ShutdownEvent;
 import com.ravensim.simulator.event.Shutdownable;
+import com.ravensim.simulator.model.CircuitModel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.web.socket.TextMessage;
@@ -70,6 +71,17 @@ public class MessageBroker implements Runnable, Observable<Shutdownable> {
     } while (session.get().isOpen() && !shutdownNow);
     observers.stream().forEach(observer -> observer.update(new ShutdownEvent()));
     LOGGER.info("Shutdown complete");
+  }
+
+  public void loadCircuit(CircuitModel model) {
+    if (session.isEmpty()) {
+      return;
+    }
+    try {
+      session.get().sendMessage(new TextMessage(new Gson().toJson(model)));
+    } catch (IOException e) {
+      LOGGER.warn("Broken pipe: Failed to send circuit model");
+    }
   }
 
   public void shutdownNow() {

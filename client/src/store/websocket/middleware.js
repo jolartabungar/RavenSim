@@ -10,6 +10,9 @@ import {
   SET_SIGNAL,
   TOGGLE_POKE,
   BUTTON_PRESS,
+  LOAD_CIRCUIT,
+  SAVE_CIRCUIT,
+  CIRCUIT_MODEL,
 } from '../command/types';
 import { tick } from '../command/actions';
 import { CREATE_WIRE } from '../wire/types';
@@ -45,7 +48,8 @@ import {
   flipFlopSize,
 } from '../../util/style';
 import { createPorts } from '../port/actions';
-import { setWireSignal } from '../wire/actions';
+import { createWire, setWireSignal } from '../wire/actions';
+import { clearGrid, createComponent } from '../component/actions';
 
 class MessageFactory {
   constructor(socket) {
@@ -261,9 +265,22 @@ class ButtonPressEvent extends MessageFactory {
   }
 }
 
+class LoadEvent extends MessageFactory {
+  buildMessage() {
+    return { type: COMMAND, message: LOAD_CIRCUIT };
+  }
+}
+
+class SaveEvent extends MessageFactory {
+  buildMessage() {
+    return { type: COMMAND, message: SAVE_CIRCUIT };
+  }
+}
+
 let id = 0;
 const wsMiddleware = () => {
   let socket = null;
+  let allowMessages = true;
 
   const onOpen = (store) => (event) => {
     store.dispatch(wsConnected(event.target.url));
@@ -306,6 +323,35 @@ const wsMiddleware = () => {
         });
         break;
       }
+      case CIRCUIT_MODEL: {
+        allowMessages = false;
+        const circuitModel = message;
+        store.dispatch(clearGrid());
+        for (let i = 0; i < circuitModel.length; i++) {
+          const c = circuitModel[i];
+
+          if (c.type === WIRE) {
+            const difference = Math.round(
+              Math.abs((c.start.x - c.end.x) / 2) / cellSize,
+            ) * cellSize;
+            const x2 = c.start.x < c.end.x ? c.start.x + difference : c.start.x - difference;
+            const y2 = c.start.y;
+
+            const x3 = x2;
+            const y3 = c.end.y;
+            const points = [c.start.x, c.start.y, x2, y2, x3, y3, c.end.x, c.end.y];
+            store.dispatch(createWire(points));
+          } else {
+            const componentMessage = new CreateComponentMessage(
+              socket, c.type, id++, [c.point.x, c.point.y],
+            );
+            store.dispatch(createComponent(c.type, c.point.x, c.point.y));
+            store.dispatch(createPorts(componentMessage.ports));
+          }
+        }
+        allowMessages = true;
+        break;
+      }
       default:
         throw new Error(`${type}: is an invalid type`);
     }
@@ -338,7 +384,7 @@ const wsMiddleware = () => {
       }
       case CREATE_COMPONENT: {
         const { componentType, x, y } = action;
-        if (componentType !== undefined) {
+        if (componentType !== undefined && allowMessages) {
           const message = new CreateComponentMessage(socket, componentType, id++, [x, y]);
           store.dispatch(createPorts(message.ports));
           message.send();
@@ -357,6 +403,12 @@ const wsMiddleware = () => {
             break;
           case BUTTON_PRESS:
             new ButtonPressEvent(socket).send();
+            break;
+          case SAVE_CIRCUIT:
+            new SaveEvent(socket).send();
+            break;
+          case LOAD_CIRCUIT:
+            new LoadEvent(socket).send();
             break;
           default:
             throw new Error(`${message}: is an invalid command message`);
