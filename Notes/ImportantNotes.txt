@@ -22,6 +22,7 @@ Two to One mux
 Four to One mux
 One to Two demux
 One to Four demux
+JK Flip Flop with Preset and Clear 
 
 
 Important Note:
