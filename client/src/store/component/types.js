@@ -33,9 +33,18 @@ export const D_FLIP_FLOP = 'DFlipFlop';
 export const T_FLIP_FLOP = 'TFlipFlop';
 export const RS_FLIP_FLOP = 'RSFlipFlop';
 export const JK_FLIP_FLOP = 'JKFlipFlop';
+export const JK_FLIP_FLOP_PRE_CLR = "JKFlipFlopPRECLR";
 
 // Arithmetic
 export const HALF_ADDER = 'HalfAdder';
 export const FULL_ADDER = 'FullAdder';
 export const HALF_SUBTRACTOR = 'HalfSubtractor';
 export const FULL_SUBTRACTOR = 'FullSubtractor';
+
+// Plexers
+export const EIGHT_TO_THREE_ENCODER = 'EighttoThreeEncoder';
+export const THREE_TO_EIGHT_DECODER = 'ThreetoEightDecoder';
+export const TWO_TO_ONE_MUX         = 'TwoToOneMux';
+export const FOUR_TO_ONE_MUX        = 'FourToOneMux';
+export const ONE_TO_TWO_DEMUX       = 'OneToTwoDemux';
+export const ONE_TO_FOUR_DEMUX      = 'OneToFourDemux';

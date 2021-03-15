@@ -62,24 +62,6 @@ const RSFlipFlopShape = ({
         fill="#FFFFFF"
       />
       <Text
-        x={0.2 * dimension}
-        y={0.8 * dimension}
-        text="1"
-        fill="#FFFFFF"
-      />
-      <Text
-        x={0.4 * dimension}
-        y={0.8 * dimension}
-        text="en"
-        fill="#FFFFFF"
-      />
-      <Text
-        x={0.7 * dimension}
-        y={0.8 * dimension}
-        text="0"
-        fill="#FFFFFF"
-      />
-      <Text
         x={0.8 * dimension}
         y={0.2 * dimension}
         text="Q"
