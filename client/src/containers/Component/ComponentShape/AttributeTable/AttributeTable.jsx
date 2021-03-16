@@ -58,6 +58,21 @@ const attributesData = {
     'no_of_outputs': 1,
     'name_of_device': 'AND Gate'
   },
+  'three input nor': {
+    'no_of_inputs': 3,
+    'no_of_outputs': 1,
+    'name_of_device': 'NOR Gate'
+  },
+  'three input or': {
+    'no_of_inputs': 3,
+    'no_of_outputs': 1,
+    'name_of_device': 'OR Gate'
+  },
+  'three input nand': {
+    'no_of_inputs': 3,
+    'no_of_outputs': 1,
+    'name_of_device': 'NAND Gate'
+  },
   'nand': {
     'no_of_inputs': 2,
     'no_of_outputs': 1,

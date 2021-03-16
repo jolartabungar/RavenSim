@@ -19,6 +19,9 @@ export const NAND_GATE = 'NandGate';
 export const NOR_GATE = 'NorGate';
 export const XNOR_GATE = 'XnorGate';
 export const THREE_INPUT_AND_GATE = 'ThreeInputAndGate';
+export const THREE_INPUT_NOR_GATE = 'ThreeInputNorGate';
+export const THREE_INPUT_OR_GATE = 'ThreeInputOrGate';
+export const THREE_INPUT_NAND_GATE = 'ThreeInputNandGate';
 
 // Wiring
 export const WIRE = 'Wire';

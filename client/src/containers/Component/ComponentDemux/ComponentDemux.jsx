@@ -1,6 +1,9 @@
 import {
   AND_GATE,
   THREE_INPUT_AND_GATE,
+  THREE_INPUT_NOR_GATE,
+  THREE_INPUT_OR_GATE,
+  THREE_INPUT_NAND_GATE,
   CLOCK,
   NOT_GATE,
   XOR_GATE,
@@ -25,6 +28,9 @@ const ComponentDemux = ({
   type,
   andGate,
   threeInputAndGate,
+  threeInputNorGate,
+  threeInputOrGate,
+  threeInputNandGate,
   clock,
   notGate,
   xorGate,
@@ -44,6 +50,12 @@ const ComponentDemux = ({
       return andGate;
     case THREE_INPUT_AND_GATE:
       return threeInputAndGate;
+    case THREE_INPUT_NOR_GATE:
+      return threeInputNorGate;
+    case THREE_INPUT_OR_GATE:
+      return threeInputOrGate;
+    case THREE_INPUT_NAND_GATE:
+      return threeInputNandGate;
     case CLOCK:
       return clock;
     case NOT_GATE:

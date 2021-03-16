@@ -2,6 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import AndGate from '../../../components/SmartComponent/LogicGate/AndGate';
 import ThreeInputAndGateShape from '../ComponentShape/LogicGate/ThreeInputAndGateShape';
+import ThreeInputNorGateShape from '../ComponentShape/LogicGate/ThreeInputNorGateShape';
+import ThreeInputOrGateShape from '../ComponentShape/LogicGate/ThreeInputOrGateShape';
+import ThreeInputNandGateShape from '../ComponentShape/LogicGate/ThreeInputNandGateShape';
 import Clock from '../../../components/SmartComponent/Signal/Clock';
 import ComponentDemux from '../ComponentDemux';
 import NotGate from '../../../components/SmartComponent/LogicGate/NotGate';
@@ -29,6 +32,9 @@ const ComponentFactory = ({ componentReducer }) => componentReducer.grid.map((co
       type={type}
       andGate={<AndGate x={x} y={y} />}
       threeInputAndGate={<ThreeInputAndGateShape x={x} y={y} />} 
+      threeInputNorGate={<ThreeInputNorGateShape x={x} y={y} />} 
+      threeInputOrGate={<ThreeInputOrGateShape x={x} y={y} />} 
+      threeInputNandGate={<ThreeInputNandGateShape x={x} y={y} />} 
       clock={<Clock x={x} y={y} />}
       notGate={<NotGate x={x} y={y} />}
       xorGate={<XorGate x={x} y={y} />}

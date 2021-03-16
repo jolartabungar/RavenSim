@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Button from '../Button';
-import { startSimulation, togglePoke, savefile, saveAs, restore } from '../../store/command/actions';
+import { startSimulation, togglePoke, savefile, load} from '../../store/command/actions';
 import { headerBackgroundColor, headerHeight } from '../../util/style';
 
 /**
@@ -22,8 +22,8 @@ const Header = (props) => (
     <Button text="TOGGLE POKE" onClick={() => props.togglePoke()} />
     <Button text="SIM" onClick={() => props.startSimulation()} />
     <Button text="SAVE" onClick={() => props.savefile()} />
-    <Button text="SAVEAS" onClick={() => props.saveAs()} />
-    <Button text="RESTORE" onClick={() => props.restore()} />
+    <Button text="LOAD" onClick={() => props.load()} />
+    
   </div>
 );
 
@@ -31,8 +31,7 @@ const mapDispatchToProps = {
   startSimulation,
   togglePoke,
   savefile,
-  saveAs,
-  restore,
+  load,
 };
 
 export default connect(null, mapDispatchToProps)(Header);

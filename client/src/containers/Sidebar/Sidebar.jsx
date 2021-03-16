@@ -11,6 +11,9 @@ import {
   stageSize,
 } from '../../util/style';
 import ThreeInputAndGateShape from '../Component/ComponentShape/LogicGate/ThreeInputAndGateShape';
+import ThreeInputNorGateShape from '../Component/ComponentShape/LogicGate/ThreeInputNorGateShape';
+import ThreeInputOrGateShape from '../Component/ComponentShape/LogicGate/ThreeInputOrGateShape';
+import ThreeInputNandGateShape from '../Component/ComponentShape/LogicGate/ThreeInputNandGateShape';
 import ClockShape from '../Component/ComponentShape/Signal/ClockShape';
 import NotGateShape from '../Component/ComponentShape/LogicGate/NotGateShape';
 import XorGateShape from '../Component/ComponentShape/LogicGate/XorGateShape';
@@ -60,6 +63,9 @@ const menuItems = [
       <XorGateShape isSmall isMain/>,
       <XnorGateShape isSmall />,
       <ThreeInputAndGateShape isSmall />,
+      <ThreeInputNorGateShape isSmall />,
+      <ThreeInputOrGateShape isSmall />,
+      <ThreeInputNandGateShape isSmall />,
     ],
   },
   { name: 'PLEXERS', children: [] },

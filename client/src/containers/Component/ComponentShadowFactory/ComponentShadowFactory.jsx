@@ -2,6 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import AndGateShape from '../ComponentShape/LogicGate/AndGateShape';
 import ThreeInputAndGateShape from '../ComponentShape/LogicGate/ThreeInputAndGateShape';
+import ThreeInputNorGateShape from '../ComponentShape/LogicGate/ThreeInputNorGateShape';
+import ThreeInputOrGateShape from '../ComponentShape/LogicGate/ThreeInputOrGateShape';
+import ThreeInputNandGateShape from '../ComponentShape/LogicGate/ThreeInputNandGateShape';
 import ClockShape from '../ComponentShape/Signal/ClockShape';
 import Hideable from '../../Hideable';
 import ComponentDemux from '../ComponentDemux';
@@ -33,6 +36,9 @@ const ComponentShadowFactory = ({ componentReducer }) => {
         type={type}
         andGate={<AndGateShape x={x} y={y} isShadow />}
         threeInputAndGate={<ThreeInputAndGateShape x={x} y={y} isShadow />}
+        threeInputNorGate={<ThreeInputNorGateShape x={x} y={y} isShadow />}
+        threeInputOrGate={<ThreeInputOrGateShape x={x} y={y} isShadow />}
+        threeInputNandGate={<ThreeInputNandGateShape x={x} y={y} isShadow />}
         clock={<ClockShape x={x} y={y} isShadow />}
         notGate={<NotGateShape x={x} y={y} isShadow />}
         xorGate={<XorGateShape x={x} y={y} isShadow />}

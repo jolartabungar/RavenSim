@@ -6,8 +6,7 @@ import {
   TOGGLE_POKE,
   BUTTON_PRESS,
   SAVE,
-  SAVEAS,
-  RESTORE,
+  LOAD,
 } from './types';
 
 export const startSimulation = () => ({
@@ -40,12 +39,7 @@ export const savefile = () => ({
   message: SAVE,
 });
 
-export const saveAs = () => ({
+export const load = () => ({
   type: COMMAND,
-  message: SAVEAS,
-});
-
-export const restore = () => ({
-  type: COMMAND,
-  message: RESTORE,
+  message: LOAD,
 });

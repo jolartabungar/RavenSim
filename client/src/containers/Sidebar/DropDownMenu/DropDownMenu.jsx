@@ -7,6 +7,9 @@ import { componentWidth } from '../../../util/style';
 import {
   AND_GATE,
   THREE_INPUT_AND_GATE,
+  THREE_INPUT_NOR_GATE,
+  THREE_INPUT_OR_GATE,
+  THREE_INPUT_NAND_GATE,
   CLOCK,
   NOT_GATE,
   XOR_GATE,
@@ -23,6 +26,9 @@ import {
 } from '../../../store/component/types';
 import AndGateShape from '../../Component/ComponentShape/LogicGate/AndGateShape';
 import ThreeInputAndGateShape from '../../Component/ComponentShape/LogicGate/ThreeInputAndGateShape';
+import ThreeInputNorGateShape from '../../Component/ComponentShape/LogicGate/ThreeInputNorGateShape';
+import ThreeInputOrGateShape from '../../Component/ComponentShape/LogicGate/ThreeInputOrGateShape';
+import ThreeInputNandGateShape from '../../Component/ComponentShape/LogicGate/ThreeInputNandGateShape';
 import ClockShape from '../../Component/ComponentShape/Signal/ClockShape';
 import NotGateShape from '../../Component/ComponentShape/LogicGate/NotGateShape';
 import XorGateShape from '../../Component/ComponentShape/LogicGate/XorGateShape';
@@ -70,12 +76,21 @@ const DropDownMenu = (props) => {
       case OrGateShape:
         type = OR_GATE;
         break;
+      case ThreeInputOrGateShape:
+        type = THREE_INPUT_OR_GATE;
+        break;
       case NandGateShape:
         type = NAND_GATE;
         break;
+        case ThreeInputNandGateShape:
+          type = THREE_INPUT_NAND_GATE;
+          break;
       case NorGateShape:
         type = NOR_GATE;
         break;
+      case ThreeInputNorGateShape:
+        type = THREE_INPUT_NOR_GATE;
+      break;
       case XnorGateShape:
         type = XNOR_GATE;
         break;

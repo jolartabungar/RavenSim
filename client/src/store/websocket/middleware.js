@@ -17,6 +17,9 @@ import {
   CREATE_COMPONENT,
   AND_GATE,
   THREE_INPUT_AND_GATE,
+  THREE_INPUT_NOR_GATE,
+  THREE_INPUT_OR_GATE,
+  THREE_INPUT_NAND_GATE,
   CLOCK,
   WIRE,
   NOT_GATE,
@@ -127,7 +130,25 @@ class CreateComponentMessage extends MessageFactory {
         ports.push({ x: x1, y: y1 + 2 * cellSize });
         ports.push({ x: x1, y: y1 + 3 * cellSize });
         ports.push({ x: x1 + largeAndGateWidth, y: y1 + 2 * cellSize });
-        break;
+      break;
+      case THREE_INPUT_NOR_GATE:
+        ports.push({ x: x1, y: y1 + cellSize });
+        ports.push({ x: x1, y: y1 + 2 * cellSize });
+        ports.push({ x: x1, y: y1 + 3 * cellSize });
+        ports.push({ x: x1 + largeNorGateWidth, y: y1 + 2 * cellSize });
+      break;
+      case THREE_INPUT_OR_GATE:
+        ports.push({ x: x1, y: y1 + cellSize });
+        ports.push({ x: x1, y: y1 + 2 * cellSize });
+        ports.push({ x: x1, y: y1 + 3 * cellSize });
+        ports.push({ x: x1 + largeOrGateWidth, y: y1 + 2 * cellSize });
+      break;
+      case THREE_INPUT_NAND_GATE:
+        ports.push({ x: x1, y: y1 + cellSize });
+        ports.push({ x: x1, y: y1 + 2 * cellSize });
+        ports.push({ x: x1, y: y1 + 3 * cellSize });
+        ports.push({ x: x1 + largeAndGateWidth, y: y1 + 2 * cellSize });
+      break;
       case CLOCK:
         ports.push({ x: x1 + clockSize, y: y1 + clockSize / 2 });
         break;
@@ -210,6 +231,23 @@ class CreateComponentMessage extends MessageFactory {
           outputs: [ports[3]]
         };
         break;
+      case THREE_INPUT_NOR_GATE:
+        properties = {
+          inputs: [ports[0], ports[1], ports[2]],
+          outputs: [ports[3]]
+        };
+        case THREE_INPUT_OR_GATE:
+        properties = {
+          inputs: [ports[0], ports[1], ports[2]],
+          outputs: [ports[3]]
+        };
+        break;
+      case THREE_INPUT_NAND_GATE:
+        properties = {
+          inputs: [ports[0], ports[1], ports[2]],
+          outputs: [ports[3]]
+        };
+      break;
       case SOURCE:
       case INPUT_BUTTON:
       case CLOCK:
