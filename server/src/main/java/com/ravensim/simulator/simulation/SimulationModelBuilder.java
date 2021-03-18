@@ -80,10 +80,12 @@ public class SimulationModelBuilder {
         new Thread(locationOfButton.get(69)).start();
         break;
       case LOAD_CIRCUIT:
-        loadSave();
+        System.out.println("Load circuit sequence initiated.");
+        loadSave(command.getFileName());
         break;
       case SAVE_CIRCUIT:
-        initiateSave();
+        System.out.println("Save circuit sequence initiated.");
+        initiateSave(command.getFileName());
         break;
       default:
         throw new UnsupportedOperationException(String.format("%s is an invalid command", message));
@@ -239,15 +241,16 @@ public class SimulationModelBuilder {
 
   // Temporary save and load calls
   // To Do: Allow option for filename input
-  public void initiateSave() {
-    fileManager.saveToFile(model);
+  
+  public void initiateSave(String fileName) {
+    fileManager.saveToFile(model, fileName);
   }
 
-  public void loadSave() {
+  public void loadSave(String fileName) {
     // Remove everything in the current change list since we are loading a new save
     this.model.clearChanges();
 
-    rebuildModel(fileManager.loadFromFile());
+    rebuildModel(fileManager.loadFromFile(fileName));
     simulationEngine.loadCircuit(new CircuitModel(model));
   }
 }
