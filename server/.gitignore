@@ -26,3 +26,5 @@ hs_err_pid*
 *.iml
 
 target/
+/target\generated-sources\annotations/
+/target\generated-test-sources\test-annotations/

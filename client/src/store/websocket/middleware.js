@@ -56,8 +56,12 @@ class MessageFactory {
     this.socket = socket;
   }
 
-  send() {
+  send(fileName = '') {
     const message = this.buildMessage();
+    if (fileName){
+      message['fileName'] = fileName;
+    }
+
     if (message !== null) {
       this.socket.send(JSON.stringify(message));
     }
@@ -405,10 +409,10 @@ const wsMiddleware = () => {
             new ButtonPressEvent(socket).send();
             break;
           case SAVE_CIRCUIT:
-            new SaveEvent(socket).send();
+            new SaveEvent(socket).send(action.fileName);
             break;
           case LOAD_CIRCUIT:
-            new LoadEvent(socket).send();
+            new LoadEvent(socket).send(action.fileName);
             break;
           default:
             throw new Error(`${message}: is an invalid command message`);
