@@ -26,28 +26,43 @@ const Header = (props) => {
     localStorage.getItem(localStorageKey) || ''
   );
   
-  // might be better to use useRef here
   const [isSaveClicked, setIsSaveClicked] = useState(false);
+
+  const [state, setState] = useState(
+    localStorage.getItem(localStorageKey) || ''
+  );
+
+  const [isLoadClicked, setIsLoadClicked] = useState(false);
 
   const onChange = event => {
     isSaveClicked && setIsSaveClicked(false);
     setFileName(event.target.value)
   };
-  
-  const onSaveClicked = fileName => {
+
+  const onChangeLoad = event => {
+    isLoadClicked && setIsLoadClicked(false);
+    setState(event.target.value)
+  }
+
+  const onSaveClicked = () => {
     setIsSaveClicked(true);
     return props.saveCircuit(fileName)
   };
+  
+  const onLoadClicked = () => {
+    setIsLoadClicked(true);
+    return props.loadCircuit(state)
+  };
 
-  const onLoadClicked = fileName => {
-    // use updatedCircuitNames to get the circuits saved
-    // in here, give the user the option to pick from the list of circuits saved 
-    // using a pop up option of the list, or a dropdown menu of the list 
-    // then load the circuit which the user has selected
-    // so fileName will be equal to the selected option from the user
-    console.log(localStorage.getItem(circuitNamesKey))
+  const createOptionsList = () => {
+    const circuitNamesList = JSON.parse(localStorage.getItem(circuitNamesKey));
+    if(circuitNamesList == null){
+      return;
+    }
+    const createdOptionsList = circuitNamesList.map((circuitName) => 
+      <option>{circuitName}</option>);
+    return createdOptionsList
   }
-
 
   useEffect(() => {
     if (!fileName || !fileName.trim() || !isSaveClicked){
@@ -70,13 +85,15 @@ const Header = (props) => {
       <Button text="SIMULATE" onClick={() => props.startSimulation()} />
       <Button
         text="LOAD CIRCUIT" 
-        // onClick={onLoadClicked}
-        onClick={(fileName) => props.loadCircuit(fileName)}
+        onClick={onLoadClicked}
       />
       <Button
         text="SAVE CIRCUIT"
         onClick={onSaveClicked} 
       />
+      <select value={state} name= "Saved Files" onChange = {onChangeLoad}>
+        {createOptionsList()}
+      </select>
     </div>
   );
 };
