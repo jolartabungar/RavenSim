@@ -5,6 +5,7 @@ import {
   LOW_SIGNAL,
   HIGH_SIGNAL,
   ERROR_SIGNAL,
+  CLEAR_WIRES,
 } from './types';
 
 const initialState = {
@@ -31,6 +32,11 @@ const wireReducer = (state = { ...initialState }, action) => {
     case CREATE_WIRE:
       state.wires.set(action.id, { points: action.points, signal: LOW_SIGNAL });
       return { ...state, isTheWirePreviewHidden: true };
+    case CLEAR_WIRES:
+      return {
+        ...state,
+        wires: new Map(),
+      };
     case SET_WIRE_SIGNAL: {
       if (state.wires.has(action.id)) {
         state.wires.get(action.id).signal = mapSignal(action.signal);

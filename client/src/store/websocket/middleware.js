@@ -47,8 +47,8 @@ import {
   largeOrGateWidth,
   flipFlopSize,
 } from '../../util/style';
-import { createPorts } from '../port/actions';
-import { createWire, setWireSignal } from '../wire/actions';
+import { createPorts, clearPorts } from '../port/actions';
+import { createWire, setWireSignal, clearWires } from '../wire/actions';
 import { clearGrid, createComponent } from '../component/actions';
 
 class MessageFactory {
@@ -331,6 +331,8 @@ const wsMiddleware = () => {
         allowMessages = false;
         const circuitModel = message;
         store.dispatch(clearGrid());
+        store.dispatch(clearPorts());
+        store.dispatch(clearWires());
         for (let i = 0; i < circuitModel.length; i++) {
           const c = circuitModel[i];
 
