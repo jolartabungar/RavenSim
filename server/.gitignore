@@ -22,9 +22,19 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
-.idea/
-*.iml
+# IntelliJ
+/.idea/
+/*.iml
+
+# Eclipse
+/.classpath
+/.project
+
+# Save Files
+/*.ser
 
 target/
 /target\generated-sources\annotations/
 /target\generated-test-sources\test-annotations/
+
+/venv/
