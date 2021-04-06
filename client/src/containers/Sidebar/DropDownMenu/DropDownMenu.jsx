@@ -23,6 +23,13 @@ import {
   FULL_ADDER,
   HALF_SUBTRACTOR,
   FULL_SUBTRACTOR,
+  EIGHT_TO_THREE_ENCODER,
+  THREE_TO_EIGHT_DECODER,
+  TWO_TO_ONE_MUX,
+  FOUR_TO_ONE_MUX,
+  ONE_TO_TWO_DEMUX,
+  ONE_TO_FOUR_DEMUX,
+  JK_FLIP_FLOP_PRE_CLR,
 } from '../../../store/component/types';
 import AndGateShape from '../../Component/ComponentShape/LogicGate/AndGateShape';
 import ClockShape from '../../Component/ComponentShape/Signal/ClockShape';
@@ -35,11 +42,18 @@ import XnorGateShape from '../../Component/ComponentShape/LogicGate/XnorGateShap
 import DFlipFlopShape from '../../Component/ComponentShape/Memory/DFlipFlopShape';
 import TFlipFlopShape from '../../Component/ComponentShape/Memory/TFlipFlopShape';
 import JKFlipFlopShape from '../../Component/ComponentShape/Memory/JKFlipFlopShape';
+import JKFlipFlopPRECLRShape from '../../Component/ComponentShape/Memory/JKFlipFlopPRECLRShape';
 import RSFlipFlopShape from '../../Component/ComponentShape/Memory/RSFlipFlopShape';
 import HalfAdderShape from '../../Component/ComponentShape/Arithmetic/HalfAdderShape';
 import FullAdderShape from '../../Component/ComponentShape/Arithmetic/FullAdderShape';
 import HalfSubtractorShape from '../../Component/ComponentShape/Arithmetic/HalfSubtractorShape';
 import FullSubtractorShape from '../../Component/ComponentShape/Arithmetic/FullSubtractorShape';
+import EighttoThreeEncoderShape from '../../Component/ComponentShape/Plexers/EighttoThreeEncoderShape';
+import ThreetoEightDecoderShape from '../../Component/ComponentShape/Plexers/ThreetoEightDecoderShape';
+import TwoToOneMuxShape from '../../Component/ComponentShape/Plexers/TwoToOneMuxShape';
+import FourToOneMuxShape from '../../Component/ComponentShape/Plexers/FourToOneMuxShape';
+import OneToTwoDemuxShape from '../../Component/ComponentShape/Plexers/OneToTwoDemuxShape';
+import OneToFourDemuxShape from '../../Component/ComponentShape/Plexers/OneToFourDemuxShape';
 import SourceShape from '../../Component/ComponentShape/Wiring/SourceShape';
 import InputButtonShape from '../../Component/ComponentShape/Signal/InputButtonShape';
 
@@ -90,6 +104,9 @@ const DropDownMenu = (props) => {
       case JKFlipFlopShape:
         type = JK_FLIP_FLOP;
         break;
+      case JKFlipFlopPRECLRShape:
+        type = JK_FLIP_FLOP_PRE_CLR;
+        break;
       case RSFlipFlopShape:
         type = RS_FLIP_FLOP;
         break;
@@ -107,6 +124,24 @@ const DropDownMenu = (props) => {
         break;
       case FullSubtractorShape:
         type = FULL_SUBTRACTOR;
+        break;
+      case EighttoThreeEncoderShape:
+        type = EIGHT_TO_THREE_ENCODER;
+        break;
+      case ThreetoEightDecoderShape:
+        type = THREE_TO_EIGHT_DECODER;
+        break;
+      case TwoToOneMuxShape:
+        type = TWO_TO_ONE_MUX;
+        break;
+      case FourToOneMuxShape:
+        type = FOUR_TO_ONE_MUX;
+        break;
+      case OneToTwoDemuxShape:
+        type = ONE_TO_TWO_DEMUX;
+        break;
+      case OneToFourDemuxShape:
+        type = ONE_TO_FOUR_DEMUX;
         break;
       default:
         throw new Error(`${type}: is an unimplemented type in the DropDownMenu`);

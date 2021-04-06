@@ -178,6 +178,15 @@ public class SimulationModelBuilder {
       case ComponentType.D_FLIP_FLOP:
         new DFlipFlop(simulationEngine, inputPorts, outputPorts);
         break;
+      case ComponentType.RS_FLIP_FLOP:
+        new RSFlipFlop(simulationEngine, inputPorts, outputPorts);
+        break;
+      case ComponentType.JK_FLIP_FLOP:
+        new JKFlipFlop(simulationEngine, inputPorts, outputPorts);
+        break;
+      case ComponentType.JK_FLIP_FLOP_PRE_CLR:
+        new JKFlipFlopPRECLR(simulationEngine, inputPorts, outputPorts);
+        break;
       case ComponentType.HALF_ADDER:
         new HalfAdder(simulationEngine, inputPorts, outputPorts);
         break;
@@ -189,6 +198,24 @@ public class SimulationModelBuilder {
         break;
       case ComponentType.FULL_SUBTRACTOR:
         new FullSubtractor(simulationEngine, inputPorts, outputPorts);
+        break;
+      case ComponentType.EIGHT_TO_THREE_ENCODER:
+        new EighttoThreeEncoder(simulationEngine, inputPorts, outputPorts);
+        break;
+      case ComponentType.THREE_TO_EIGHT_DECODER:
+        new ThreetoEightDecoder(simulationEngine, inputPorts, outputPorts);
+        break;
+      case ComponentType.TWO_TO_ONE_MUX:
+        new TwoToOneMux(simulationEngine, inputPorts, outputPorts);
+        break;
+      case ComponentType.FOUR_TO_ONE_MUX:
+        new FourToOneMux(simulationEngine, inputPorts, outputPorts);
+        break;
+      case ComponentType.ONE_TO_TWO_DEMUX:
+        new OneToTwoDemux(simulationEngine, inputPorts, outputPorts);
+        break;
+      case ComponentType.ONE_TO_FOUR_DEMUX:
+        new OneToFourDemux(simulationEngine, inputPorts, outputPorts);
         break;
       default:
         throw new UnsupportedOperationException(

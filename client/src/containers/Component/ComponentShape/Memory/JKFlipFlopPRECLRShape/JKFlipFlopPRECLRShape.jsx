@@ -17,7 +17,7 @@ import {
  * a grid component, or a shadow, depending on passed parameters
  * @author:kajhemmingsen
  */
-const JKFlipFlopShape = ({
+const JKFlipFlopPRECLRShape = ({
   isShadow,
   isSmall,
   x,
@@ -60,6 +60,28 @@ const JKFlipFlopShape = ({
         text="K"
         fill="#FFFFFF"
       />
+            <Line
+        points={[0.35*dimension, 0.05 * dimension, 0.7 * dimension, 0.05 * dimension]}
+        stroke={logicGateStrokeColor}
+        {...commonShadowProps(isShadow, isSmall)}
+      />
+      <Text
+        x={0.4 * dimension}
+        y={0.1 * dimension}
+        text="PRE"
+        fill="#FFFFFF"
+      />
+            <Line
+        points={[0.35*dimension, 0.75 * dimension, 0.7 * dimension, 0.75 * dimension]}
+        stroke={logicGateStrokeColor}
+        {...commonShadowProps(isShadow, isSmall)}
+      />
+      <Text
+        x={0.4 * dimension}
+        y={0.8 * dimension}
+        text="CLR"
+        fill="#FFFFFF"
+      />
       <Text
         x={0.8 * dimension}
         y={0.2 * dimension}
@@ -81,4 +103,4 @@ const JKFlipFlopShape = ({
   );
 };
 
-export default JKFlipFlopShape;
+export default JKFlipFlopPRECLRShape;
