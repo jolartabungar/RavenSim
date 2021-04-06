@@ -14,6 +14,10 @@ import DFlipFlopShape from '../ComponentShape/Memory/DFlipFlopShape';
 import TFlipFlopShape from '../ComponentShape/Memory/TFlipFlopShape';
 import JKFlipFlopShape from '../ComponentShape/Memory/JKFlipFlopShape';
 import RSFlipFlopShape from '../ComponentShape/Memory/RSFlipFlopShape';
+import HalfAdderShape from '../ComponentShape/Arithmetic/HalfAdderShape';
+import FullAdderShape from '../ComponentShape/Arithmetic/FullAdderShape';
+import HalfSubtractorShape from '../ComponentShape/Arithmetic/HalfSubtractorShape';
+import FullSubtractorShape from '../ComponentShape/Arithmetic/FullSubtractorShape';
 import SourceShape from '../ComponentShape/Wiring/SourceShape';
 import InputButtonShape from '../ComponentShape/Signal/InputButtonShape';
 
@@ -42,6 +46,10 @@ const ComponentShadowFactory = ({ componentReducer }) => {
         tFlipFlop={<TFlipFlopShape x={x} y={y} isShadow />}
         jkFlipFlop={<JKFlipFlopShape x={x} y={y} isShadow />}
         rsFlipFlop={<RSFlipFlopShape x={x} y={y} isShadow />}
+        halfAdder = {<HalfAdderShape x={x} y={y} isShadow />}
+        fullAdder = {<FullAdderShape x={x} y={y} isShadow />}
+        halfSubtractor = {<HalfSubtractorShape x={x} y={y} isShadow />}
+        fullSubtractor = {<FullSubtractorShape x={x} y={y} isShadow />}
         source={<SourceShape x={x} y={y} isShadow />}
         inputButton={<InputButtonShape x={x} y={y} isShadow />}
       />

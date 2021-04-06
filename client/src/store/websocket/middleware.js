@@ -31,6 +31,10 @@ import {
   T_FLIP_FLOP,
   JK_FLIP_FLOP,
   RS_FLIP_FLOP,
+  HALF_ADDER,
+  FULL_ADDER,
+  HALF_SUBTRACTOR,
+  FULL_SUBTRACTOR,
   SOURCE,
   INPUT_BUTTON,
 } from '../component/types';
@@ -46,6 +50,7 @@ import {
   largeXorGateWidth,
   largeOrGateWidth,
   flipFlopSize,
+  muxSize,
 } from '../../util/style';
 import { createPorts, clearPorts } from '../port/actions';
 import { createWire, setWireSignal, clearWires } from '../wire/actions';
@@ -184,6 +189,21 @@ class CreateComponentMessage extends MessageFactory {
         ports.push({ x: x1 + flipFlopSize, y: y1 + cellSize });
         ports.push({ x: x1 + flipFlopSize, y: y1 + 3 * cellSize });
         break;
+      case HALF_ADDER:
+      case HALF_SUBTRACTOR:
+        ports.push({ x: x1, y: y1 + cellSize });
+        ports.push({ x: x1, y: y1 + 3 * cellSize });
+        ports.push({ x: x1 + muxSize, y: y1 + cellSize });
+        ports.push({ x: x1 + muxSize, y: y1 + 3 * cellSize });
+        break;
+      case FULL_ADDER:
+      case FULL_SUBTRACTOR:
+        ports.push({ x: x1, y: y1 + cellSize });
+        ports.push({ x: x1, y: y1 + 2 * cellSize });
+        ports.push({ x: x1, y: y1 + 3 * cellSize });
+        ports.push({ x: x1 + muxSize, y: y1 + cellSize });
+        ports.push({ x: x1 + muxSize, y: y1 + 3 * cellSize });
+        break;
       default:
         throw new Error(`${this.type}: is an unimplemented type in the CreateComponentMessage`);
     }
@@ -225,6 +245,8 @@ class CreateComponentMessage extends MessageFactory {
         };
         break;
       case D_FLIP_FLOP:
+      case HALF_ADDER:
+      case HALF_SUBTRACTOR:
       case T_FLIP_FLOP:
         properties = {
           inputs: [ports[0], ports[1]],
@@ -236,6 +258,13 @@ class CreateComponentMessage extends MessageFactory {
         properties = {
           inputs: [ports[0], ports[1], ports[2], ports[3], ports[4], ports[5]],
           outputs: [ports[6], ports[7]],
+        };
+        break;
+      case FULL_ADDER:
+      case FULL_SUBTRACTOR:
+        properties = {
+          inputs: [ports[0], ports[1], ports[2]],
+          outputs: [ports[3], ports[4]],
         };
         break;
       default:

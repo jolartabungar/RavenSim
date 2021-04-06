@@ -35,29 +35,12 @@ public class CircuitModel extends TextMessage implements Serializable {
      ArrayList<CircuitComponent> circuits = new ArrayList<>();
 
         String jsonInfo = "";
-
+        int x_position;
+        int y_position;
         // Get the information for each circuit in the system
         for(CircuitChange c: changeList) {
             CircuitComponent cc;
             switch (c.getType()) {
-                case ComponentType.AND_GATE:
-                case ComponentType.NOT_GATE:
-                case ComponentType.XOR_GATE:
-                case ComponentType.OR_GATE:
-                case ComponentType.NAND_GATE:
-                case ComponentType.NOR_GATE:
-                case ComponentType.XNOR_GATE:
-                    List<Point> points = c.getProperties().getInputs();
-
-                    // Calculate the relative cursor position of each gate
-                    // The cursor is positioned on the top left corner of the component and that will be used client-side to place
-                    // the component in the right place
-                    int x_position = points.get(0).x;
-                    int y_position = points.get(0).y - 20;
-
-                    cc = new CircuitComponent(c.getType(),new Point(x_position, y_position));
-                    circuits.add(cc);
-                    break;
                 case ComponentType.CLOCK:
                 case ComponentType.BUTTON:
                     Point p = c.getProperties().getOutput();
@@ -78,6 +61,18 @@ public class CircuitModel extends TextMessage implements Serializable {
                     WireComponent wc = new WireComponent(start, end);
 
                     circuits.add(wc);
+                    break;
+                default:
+                    List<Point> points = c.getProperties().getInputs();
+
+                    // Calculate the relative cursor position of each gate
+                    // The cursor is positioned on the top left corner of the component and that will be used client-side to place
+                    // the component in the right place
+                    x_position = points.get(0).x;
+                    y_position = points.get(0).y - 20;
+
+                    cc = new CircuitComponent(c.getType(),new Point(x_position, y_position));
+                    circuits.add(cc);
                     break;
             }
 

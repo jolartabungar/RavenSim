@@ -34,3 +34,9 @@ export const D_FLIP_FLOP = 'DFlipFlop';
 export const T_FLIP_FLOP = 'TFlipFlop';
 export const RS_FLIP_FLOP = 'RSFlipFlop';
 export const JK_FLIP_FLOP = 'JKFlipFlop';
+
+// Arithmetic
+export const HALF_ADDER = 'HalfAdder';
+export const FULL_ADDER = 'FullAdder';
+export const HALF_SUBTRACTOR = 'HalfSubtractor';
+export const FULL_SUBTRACTOR = 'FullSubtractor';

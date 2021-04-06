@@ -10,7 +10,7 @@ import com.ravensim.simulator.port.Port;
 import com.ravensim.simulator.save_load.FileManager;
 import com.ravensim.simulator.signal.Button;
 import com.ravensim.simulator.signal.Clock;
-import com.ravensim.simulator.subcircuit.DFlipFlop;
+import com.ravensim.simulator.subcircuit.*;
 import org.springframework.web.socket.WebSocketSession;
 
 import java.awt.*;
@@ -56,7 +56,7 @@ public class SimulationModelBuilder {
       commandReducer((Command) message);
     } else {
       throw new UnsupportedOperationException(
-              String.format("%s is neither an event or command", message));
+          String.format("%s is neither an event or command", message));
     }
   }
 
@@ -178,6 +178,18 @@ public class SimulationModelBuilder {
       case ComponentType.D_FLIP_FLOP:
         new DFlipFlop(simulationEngine, inputPorts, outputPorts);
         break;
+      case ComponentType.HALF_ADDER:
+        new HalfAdder(simulationEngine, inputPorts, outputPorts);
+        break;
+      case ComponentType.FULL_ADDER:
+        new FullAdder(simulationEngine, inputPorts, outputPorts);
+        break;
+      case ComponentType.HALF_SUBTRACTOR:
+        new HalfSubtractor(simulationEngine, inputPorts, outputPorts);
+        break;
+      case ComponentType.FULL_SUBTRACTOR:
+        new FullSubtractor(simulationEngine, inputPorts, outputPorts);
+        break;
       default:
         throw new UnsupportedOperationException(
                 String.format("%s is an unimplemented component type", type));
@@ -241,7 +253,7 @@ public class SimulationModelBuilder {
 
   // Temporary save and load calls
   // To Do: Allow option for filename input
-  
+
   public void initiateSave(String fileName) {
     fileManager.saveToFile(model, fileName);
   }
