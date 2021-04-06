@@ -11,5 +11,9 @@ public class ComponentType {
     public static final String XOR_GATE = "XorGate";
     public static final String CLOCK = "Clock";
     public static final String D_FLIP_FLOP = "DFlipFlop";
+    public static final String HALF_ADDER = "HalfAdder";
+    public static final String FULL_ADDER = "FullAdder";
+    public static final String HALF_SUBTRACTOR = "HalfSubtractor";
+    public static final String FULL_SUBTRACTOR = "FullSubtractor";
     public static final String BUTTON = "InputButton";
 }

@@ -13,6 +13,10 @@ import DFlipFlop from '../../../components/SmartComponent/Memory/DFlipFlop';
 import TFlipFlop from '../../../components/SmartComponent/Memory/TFlipFlop';
 import JKFlipFlop from '../../../components/SmartComponent/Memory/JKFlipFlop';
 import RSFlipFlop from '../../../components/SmartComponent/Memory/RSFlipFlop';
+import HalfAdderShape from '../ComponentShape/Arithmetic/HalfAdderShape';
+import FullAdderShape from '../ComponentShape/Arithmetic/FullAdderShape';
+import HalfSubtractorShape from '../ComponentShape/Arithmetic/HalfSubtractorShape';
+import FullSubtractorShape from '../ComponentShape/Arithmetic/FullSubtractorShape';
 import Source from '../../../components/SmartComponent/Wiring/Source';
 import InputButton from '../../../components/SmartComponent/Signal/InputButton';
 
@@ -38,6 +42,10 @@ const ComponentFactory = ({ componentReducer }) => componentReducer.grid.map((co
       tFlipFlop={<TFlipFlop x={x} y={y} />}
       jkFlipFlop={<JKFlipFlop x={x} y={y} />}
       rsFlipFlop={<RSFlipFlop x={x} y={y} />}
+      halfAdder = {<HalfAdderShape x={x} y={y} />}
+      fullAdder = {<FullAdderShape x={x} y={y} />}
+      halfSubtractor = {<HalfSubtractorShape x={x} y={y} />}
+      fullSubtractor = {<FullSubtractorShape x={x} y={y} />}
       source={<Source x={x} y={y} />}
       inputButton={<InputButton x={x} y={y} />}
     />
