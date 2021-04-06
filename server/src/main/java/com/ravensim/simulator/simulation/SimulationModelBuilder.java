@@ -12,10 +12,19 @@ import com.ravensim.simulator.port.Port;
 import com.ravensim.simulator.signal.Button;
 import com.ravensim.simulator.signal.Clock;
 import com.ravensim.simulator.subcircuit.DFlipFlop;
+import com.ravensim.simulator.subcircuit.RSFlipFlop;
+import com.ravensim.simulator.subcircuit.JKFlipFlop;
+import com.ravensim.simulator.subcircuit.JKFlipFlopPRECLR;
 import com.ravensim.simulator.subcircuit.HalfAdder;
 import com.ravensim.simulator.subcircuit.FullAdder;
 import com.ravensim.simulator.subcircuit.HalfSubtractor;
 import com.ravensim.simulator.subcircuit.FullSubtractor;
+import com.ravensim.simulator.subcircuit.EighttoThreeEncoder;
+import com.ravensim.simulator.subcircuit.ThreetoEightDecoder;
+import com.ravensim.simulator.subcircuit.TwoToOneMux;
+import com.ravensim.simulator.subcircuit.FourToOneMux;
+import com.ravensim.simulator.subcircuit.OneToTwoDemux;
+import com.ravensim.simulator.subcircuit.OneToFourDemux;
 import org.springframework.web.socket.WebSocketSession;
 
 import java.awt.*;
@@ -26,25 +35,34 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 public class SimulationModelBuilder {
-  private static final String START_SIMULATION = "StartSimulation";
-  private static final String STOP_SIMULATION = "StopSimulation";
-  private static final String CREATE_COMPONENT = "CreateComponent";
-  private static final String WIRE = "Wire";
-  private static final String AND_GATE = "AndGate";
-  private static final String NAND_GATE = "NandGate";
-  private static final String NOR_GATE = "NorGate";
-  private static final String NOT_GATE = "NotGate";
-  private static final String OR_GATE = "OrGate";
-  private static final String XNOR_GATE = "XnorGate";
-  private static final String XOR_GATE = "XorGate";
-  private static final String CLOCK = "Clock";
-  private static final String D_FLIP_FLOP = "DFlipFlop";
-  private static final String Half_Adder = "HalfAdder";
-  private static final String Full_Adder = "FullAdder";
-  private static final String Half_Subtractor = "HalfSubtractor";
-  private static final String Full_Subtractor = "FullSubtractor";
-  private static final String BUTTON = "InputButton";
-  private static final String BUTTON_PRESS = "ButtonPress";
+  private static final String START_SIMULATION       = "StartSimulation";
+  private static final String STOP_SIMULATION        = "StopSimulation";
+  private static final String CREATE_COMPONENT       = "CreateComponent";
+  private static final String WIRE                   = "Wire";
+  private static final String AND_GATE               = "AndGate";
+  private static final String NAND_GATE              = "NandGate";
+  private static final String NOR_GATE               = "NorGate";
+  private static final String NOT_GATE               = "NotGate";
+  private static final String OR_GATE                = "OrGate";
+  private static final String XNOR_GATE              = "XnorGate";
+  private static final String XOR_GATE               = "XorGate";
+  private static final String CLOCK                  = "Clock";
+  private static final String D_FLIP_FLOP            = "DFlipFlop";
+  private static final String RS_FLIP_FLOP           = "RSFlipFlop";
+  private static final String JK_FLIP_FLOP           = "JKFlipFlop";
+  private static final String JK_FLIP_FLOP_PRE_CLR   = "JKFlipFlopPRECLR";
+  private static final String Half_Adder             = "HalfAdder";
+  private static final String Full_Adder             = "FullAdder";
+  private static final String Half_Subtractor        = "HalfSubtractor";
+  private static final String Full_Subtractor        = "FullSubtractor";
+  private static final String Eight_to_Three_Encoder = "EighttoThreeEncoder";
+  private static final String Three_to_Eight_Decoder = "ThreetoEightDecoder";
+  private static final String Two_to_One_Mux         = "TwoToOneMux";
+  private static final String Four_to_One_Mux        = "FourToOneMux";
+  private static final String One_to_Two_Demux       = "OneToTwoDemux";
+  private static final String One_to_Four_Demux      = "OneToFourDemux"; 
+  private static final String BUTTON                 = "InputButton";
+  private static final String BUTTON_PRESS           = "ButtonPress";
   private final SimulationEngine simulationEngine;
   // The mapping of all ports on the grid space. It assumes the location of the ports must be
   // unique.
@@ -160,6 +178,12 @@ public class SimulationModelBuilder {
       new XorGate(simulationEngine, ports.subList(0, size - 1), ports.get(size - 1));
     } else if (type.equals(D_FLIP_FLOP)) {
       new DFlipFlop(simulationEngine, ports.subList(0, 2), ports.subList(2, size));
+    } else if (type.equals(RS_FLIP_FLOP)) {
+      new RSFlipFlop(simulationEngine, ports.subList(0, 3), ports.subList(3, size));
+    } else if (type.equals(JK_FLIP_FLOP)) {
+      new JKFlipFlop(simulationEngine, ports.subList(0, 3), ports.subList(3, size));
+    } else if(type.equals(JK_FLIP_FLOP_PRE_CLR)) {
+    	new JKFlipFlopPRECLR(simulationEngine, ports.subList(0, 5), ports.subList(5, size));
     } else if (type.equals(Half_Adder)){
       new HalfAdder(simulationEngine, ports.subList(0,2), ports.subList(2,size));
     } else if (type.equals(Full_Adder)){
@@ -168,6 +192,18 @@ public class SimulationModelBuilder {
       new HalfSubtractor(simulationEngine, ports.subList(0,2), ports.subList(2,size));
     } else if (type.equals(Full_Subtractor)){
       new FullSubtractor(simulationEngine, ports.subList(0,3), ports.subList(3,size));
+    } else if (type.equals(Eight_to_Three_Encoder)){
+      new EighttoThreeEncoder(simulationEngine, ports.subList(0,8), ports.subList(8,size));
+    } else if (type.equals(Three_to_Eight_Decoder)){
+      new ThreetoEightDecoder(simulationEngine, ports.subList(0,3), ports.subList(3,size));
+    } else if (type.equals(Two_to_One_Mux)) {
+    	new TwoToOneMux(simulationEngine, ports.subList(0,3), ports.subList(3,size));
+    } else if (type.equals(Four_to_One_Mux)) {
+    	new FourToOneMux(simulationEngine, ports.subList(0,6), ports.subList(6,size));
+    } else if (type.equals(One_to_Two_Demux)) {
+      new OneToTwoDemux(simulationEngine, ports.subList(0, 2), ports.subList(2,size));
+    } else if (type.equals(One_to_Four_Demux)) {
+      new OneToFourDemux(simulationEngine, ports.subList(0,3), ports.subList(3,size));
     }else {
       throw new UnsupportedOperationException(
           String.format("%s is an unimplemented component type", type));

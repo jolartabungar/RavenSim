@@ -10,6 +10,7 @@ import {
   D_FLIP_FLOP,
   T_FLIP_FLOP,
   JK_FLIP_FLOP,
+  JK_FLIP_FLOP_PRE_CLR,
   RS_FLIP_FLOP,
   SOURCE,
   INPUT_BUTTON,
@@ -17,6 +18,12 @@ import {
   FULL_ADDER,
   HALF_SUBTRACTOR,
   FULL_SUBTRACTOR,
+  EIGHT_TO_THREE_ENCODER,
+  THREE_TO_EIGHT_DECODER,
+  TWO_TO_ONE_MUX,
+  FOUR_TO_ONE_MUX,
+  ONE_TO_TWO_DEMUX,
+  ONE_TO_FOUR_DEMUX,
 } from '../../../store/component/types';
 /**
  * Takes the component type of a component being placed onto the grid.
@@ -37,11 +44,18 @@ const ComponentDemux = ({
   dFlipFlop,
   tFlipFlop,
   jkFlipFlop,
+  jkFlipFlopPRECLR,
   rsFlipFlop,
   halfAdder,
   fullAdder,
   halfSubtractor,
   fullSubtractor,
+  eighttoThreeEncoder,
+  threetoEightDecoder,
+  twotoOneMux,
+  fourtoOneMux,
+  onetoTwoDemux,
+  onetoFourDemux,
   source,
   inputButton,
 }) => {
@@ -68,6 +82,8 @@ const ComponentDemux = ({
       return tFlipFlop;
     case JK_FLIP_FLOP:
       return jkFlipFlop;
+    case JK_FLIP_FLOP_PRE_CLR:
+      return jkFlipFlopPRECLR;
     case RS_FLIP_FLOP:
       return rsFlipFlop;
     case HALF_ADDER:
@@ -78,6 +94,18 @@ const ComponentDemux = ({
       return halfSubtractor;
     case FULL_SUBTRACTOR:
       return fullSubtractor;
+    case EIGHT_TO_THREE_ENCODER:
+      return eighttoThreeEncoder;
+    case THREE_TO_EIGHT_DECODER:
+      return threetoEightDecoder;
+    case TWO_TO_ONE_MUX:
+      return twotoOneMux;
+    case FOUR_TO_ONE_MUX:
+      return fourtoOneMux;
+    case ONE_TO_TWO_DEMUX:
+      return onetoTwoDemux;
+    case ONE_TO_FOUR_DEMUX:
+      return onetoFourDemux;
     case SOURCE:
       return source;
     case INPUT_BUTTON:
