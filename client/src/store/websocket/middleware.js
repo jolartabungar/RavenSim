@@ -30,11 +30,18 @@ import {
   D_FLIP_FLOP,
   T_FLIP_FLOP,
   JK_FLIP_FLOP,
+  JK_FLIP_FLOP_PRE_CLR,
   RS_FLIP_FLOP,
   HALF_ADDER,
   FULL_ADDER,
   HALF_SUBTRACTOR,
   FULL_SUBTRACTOR,
+  EIGHT_TO_THREE_ENCODER,
+  THREE_TO_EIGHT_DECODER,
+  TWO_TO_ONE_MUX,
+  FOUR_TO_ONE_MUX,
+  ONE_TO_TWO_DEMUX,
+  ONE_TO_FOUR_DEMUX,
   SOURCE,
   INPUT_BUTTON,
 } from '../component/types';
@@ -169,22 +176,19 @@ class CreateComponentMessage extends MessageFactory {
         ports.push({ x: x1 + flipFlopSize, y: y1 + cellSize });
         ports.push({ x: x1 + flipFlopSize, y: y1 + 3 * cellSize });
         break;
-      case JK_FLIP_FLOP:
+      case JK_FLIP_FLOP_PRE_CLR:
         for (let i = 1; i <= 3; i++) {
           ports.push({ x: x1, y: y1 + i * cellSize });
         }
-        for (let i = 1; i <= 3; i++) {
-          ports.push({ x: x1 + cellSize * i, y: y1 + flipFlopSize });
-        }
+        ports.push({ x: x1 + cellSize * 2, y: y1 });
+        ports.push({ x: x1 + cellSize * 2, y: y1 + flipFlopSize });
         ports.push({ x: x1 + flipFlopSize, y: y1 + cellSize });
         ports.push({ x: x1 + flipFlopSize, y: y1 + 3 * cellSize });
         break;
+      case JK_FLIP_FLOP:
       case RS_FLIP_FLOP:
         for (let i = 1; i <= 3; i++) {
           ports.push({ x: x1, y: y1 + i * cellSize });
-        }
-        for (let i = 1; i <= 3; i++) {
-          ports.push({ x: x1 + cellSize * i, y: y1 + flipFlopSize });
         }
         ports.push({ x: x1 + flipFlopSize, y: y1 + cellSize });
         ports.push({ x: x1 + flipFlopSize, y: y1 + 3 * cellSize });
@@ -203,6 +207,62 @@ class CreateComponentMessage extends MessageFactory {
         ports.push({ x: x1, y: y1 + 3 * cellSize });
         ports.push({ x: x1 + muxSize, y: y1 + cellSize });
         ports.push({ x: x1 + muxSize, y: y1 + 3 * cellSize });
+        break;
+      case EIGHT_TO_THREE_ENCODER:
+        ports.push({ x: x1, y: y1 + 2 * cellSize });
+        ports.push({ x: x1, y: y1 + 4 * cellSize });
+        ports.push({ x: x1, y: y1 + 6 * cellSize });
+        ports.push({ x: x1, y: y1 + 7 * cellSize });
+        ports.push({ x: x1, y: y1 + 9 * cellSize });
+        ports.push({ x: x1, y: y1 + 11 * cellSize });
+        ports.push({ x: x1, y: y1 + 13 * cellSize });
+        ports.push({ x: x1, y: y1 + 15 * cellSize });
+        ports.push({ x: x1 + muxSize, y: y1 + 4 * cellSize });
+        ports.push({ x: x1 + muxSize, y: y1 + 9 * cellSize });
+        ports.push({ x: x1 + muxSize, y: y1 + 15 * cellSize });
+        break;
+      case THREE_TO_EIGHT_DECODER:
+        ports.push({ x: x1, y: y1 + 4 * cellSize });
+        ports.push({ x: x1, y: y1 + 9 * cellSize });
+        ports.push({ x: x1, y: y1 + 15 * cellSize });
+        ports.push({ x: x1 + muxSize, y: y1 + 2 * cellSize });
+        ports.push({ x: x1 + muxSize, y: y1 + 4 * cellSize });
+        ports.push({ x: x1 + muxSize, y: y1 + 6 * cellSize });
+        ports.push({ x: x1 + muxSize, y: y1 + 8 * cellSize });
+        ports.push({ x: x1 + muxSize, y: y1 + 10 * cellSize });
+        ports.push({ x: x1 + muxSize, y: y1 + 12 * cellSize });
+        ports.push({ x: x1 + muxSize, y: y1 + 14 * cellSize });
+        ports.push({ x: x1 + muxSize, y: y1 + 16 * cellSize });
+        break;
+      case TWO_TO_ONE_MUX:
+        ports.push({ x: x1, y: y1 + cellSize });
+        ports.push({ x: x1, y: y1 + 3 * cellSize });
+        ports.push({ x: x1 + 0.5 * muxSize, y: y1 + 4 * cellSize });
+        ports.push({ x: x1 + muxSize, y: y1 + 2 * cellSize });
+        break;
+      case FOUR_TO_ONE_MUX:
+        ports.push({ x: x1, y: y1 + cellSize });
+        ports.push({ x: x1, y: y1 + 2 * cellSize });
+        ports.push({ x: x1, y: y1 + 3 * cellSize });
+        ports.push({ x: x1, y: y1 + 4 * cellSize });
+        ports.push({ x: x1 + 0.3 * muxSize, y: y1 + 5 * cellSize });
+        ports.push({ x: x1 + 0.7 * muxSize, y: y1 + 5 * cellSize });
+        ports.push({ x: x1 + muxSize, y: y1 + 2 * cellSize });
+        break;
+      case ONE_TO_TWO_DEMUX:
+        ports.push({ x: x1, y: y1 + cellSize });
+        ports.push({ x: x1, y: y1 + 3 * cellSize });
+        ports.push({ x: x1 + muxSize, y: y1 + cellSize });
+        ports.push({ x: x1 + muxSize, y: y1 + 3 * cellSize });
+        break;
+      case ONE_TO_FOUR_DEMUX:
+        ports.push({ x: x1, y: y1 + 3 * cellSize });
+        ports.push({ x: x1 + 0.3 * muxSize, y: y1 + 5 * cellSize });
+        ports.push({ x: x1 + 0.7 * muxSize, y: y1 + 5 * cellSize });
+        ports.push({ x: x1 + muxSize, y: y1 + cellSize });
+        ports.push({ x: x1 + muxSize, y: y1 + 2 * cellSize });
+        ports.push({ x: x1 + muxSize, y: y1 + 3 * cellSize });
+        ports.push({ x: x1 + muxSize, y: y1 + 4 * cellSize });
         break;
       default:
         throw new Error(`${this.type}: is an unimplemented type in the CreateComponentMessage`);
@@ -253,11 +313,17 @@ class CreateComponentMessage extends MessageFactory {
           outputs: [ports[2], ports[3]],
         };
         break;
+      case JK_FLIP_FLOP_PRE_CLR:
+        properties = {
+          inputs: [ports[0], ports[1], ports[2], ports[3], ports[4]],
+          outputs: [ports[5], ports[6]],
+        };
+        break;
       case JK_FLIP_FLOP:
       case RS_FLIP_FLOP:
         properties = {
-          inputs: [ports[0], ports[1], ports[2], ports[3], ports[4], ports[5]],
-          outputs: [ports[6], ports[7]],
+          inputs: [ports[0], ports[1], ports[2]],
+          outputs: [ports[3], ports[4]],
         };
         break;
       case FULL_ADDER:
@@ -266,6 +332,42 @@ class CreateComponentMessage extends MessageFactory {
           inputs: [ports[0], ports[1], ports[2]],
           outputs: [ports[3], ports[4]],
         };
+        break;
+      case EIGHT_TO_THREE_ENCODER:
+        properties = {
+          inputs: [ports[0], ports[1], ports[2], ports[3], ports[4], ports[5], ports[6], ports[7]],
+          outputs: [ports[8], ports[9], ports[10]],
+        };
+        break;
+      case THREE_TO_EIGHT_DECODER:
+        properties = {
+          inputs: [ports[0], ports[1], ports[2]],
+          outputs: [ports[3], ports[4], ports[5], ports[6], ports[7], ports[8], ports[9], ports[10]],
+        };
+        break;
+      case TWO_TO_ONE_MUX:
+        properties = {
+          inputs: [ports[0], ports[1], ports[2]],
+          outputs: [ports[3]],
+        }
+        break;
+      case FOUR_TO_ONE_MUX:
+        properties = {
+          inputs: [ports[0], ports[1], ports[2], ports[3], ports[4], ports[5]],
+          outputs: [ports[6]],
+        }
+        break;
+      case ONE_TO_TWO_DEMUX:
+        properties = {
+          inputs: [ports[0], ports[1]],
+          outputs: [ports[2],ports[3]],
+        }
+        break;
+      case ONE_TO_FOUR_DEMUX:
+        properties = {
+          inputs: [ports[0], ports[1], ports[2]],
+          outputs: [ports[3], ports[4], ports[5], ports[6]],
+        }
         break;
       default:
         throw new Error(`${this.type}: is an unimplemented type in the CreateComponentMessage`);

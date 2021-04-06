@@ -26,6 +26,13 @@ import HalfAdderShape from '../Component/ComponentShape/Arithmetic/HalfAdderShap
 import FullAdderShape from '../Component/ComponentShape/Arithmetic/FullAdderShape';
 import HalfSubtractorShape from '../Component/ComponentShape/Arithmetic/HalfSubtractorShape';
 import FullSubtractorShape from '../Component/ComponentShape/Arithmetic/FullSubtractorShape';
+import EighttoThreeEncoderShape from '../Component/ComponentShape/Plexers/EighttoThreeEncoderShape';
+import ThreetoEightDecoderShape from '../Component/ComponentShape/Plexers/ThreetoEightDecoderShape';
+import TwoToOneMuxShape from '../Component/ComponentShape/Plexers/TwoToOneMuxShape';
+import FourToOneMuxShape from '../Component/ComponentShape/Plexers/FourToOneMuxShape';
+import OneToTwoDemuxShape from '../Component/ComponentShape/Plexers/OneToTwoDemuxShape';
+import OneToFourDemuxShape from '../Component/ComponentShape/Plexers/OneToFourDemuxShape';
+import JKFlipFlopPRECLRShape from '../Component/ComponentShape/Memory/JKFlipFlopPRECLRShape';
 import InputButtonShape from '../Component/ComponentShape/Signal/InputButtonShape';
 
 const sidebarStyle = {
@@ -64,7 +71,16 @@ const menuItems = [
       <XnorGateShape isSmall />,
     ],
   },
-  { name: 'PLEXERS', children: [] },
+  { name: 'PLEXERS', 
+    children: [
+      <EighttoThreeEncoderShape isSmall />,
+      <ThreetoEightDecoderShape isSmall />,
+      <TwoToOneMuxShape isSmall />,
+      <FourToOneMuxShape isSmall />,
+      <OneToTwoDemuxShape isSmall />,
+      <OneToFourDemuxShape isSmall />,
+    ],
+  },
   { name: 'ARITHMETIC', 
     children: [
       <HalfAdderShape isSmall />,
@@ -75,7 +91,12 @@ const menuItems = [
   },
   {
     name: 'MEMORY',
-    children: [<DFlipFlopShape isSmall />],
+    children: [
+      <DFlipFlopShape isSmall />, 
+      <RSFlipFlopShape isSmall />,
+      <JKFlipFlopShape isSmall />,
+      <JKFlipFlopPRECLRShape isSmall />,
+    ],
   },
   {
     name: 'INPUT/OUTPUT',

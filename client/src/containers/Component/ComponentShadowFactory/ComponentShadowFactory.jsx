@@ -13,11 +13,18 @@ import XnorGateShape from '../ComponentShape/LogicGate/XnorGateShape';
 import DFlipFlopShape from '../ComponentShape/Memory/DFlipFlopShape';
 import TFlipFlopShape from '../ComponentShape/Memory/TFlipFlopShape';
 import JKFlipFlopShape from '../ComponentShape/Memory/JKFlipFlopShape';
+import JKFlipFlopPRECLRShape from '../ComponentShape/Memory/JKFlipFlopPRECLRShape';
 import RSFlipFlopShape from '../ComponentShape/Memory/RSFlipFlopShape';
 import HalfAdderShape from '../ComponentShape/Arithmetic/HalfAdderShape';
 import FullAdderShape from '../ComponentShape/Arithmetic/FullAdderShape';
 import HalfSubtractorShape from '../ComponentShape/Arithmetic/HalfSubtractorShape';
 import FullSubtractorShape from '../ComponentShape/Arithmetic/FullSubtractorShape';
+import EighttoThreeEncoderShape from '../ComponentShape/Plexers/EighttoThreeEncoderShape';
+import ThreetoEightDecoderShape from '../ComponentShape/Plexers/ThreetoEightDecoderShape';
+import TwoToOneMuxShape from '../../Component/ComponentShape/Plexers/TwoToOneMuxShape';
+import FourToOneMuxShape from '../../Component/ComponentShape/Plexers/FourToOneMuxShape';
+import OneToTwoDemuxShape from '../ComponentShape/Plexers/OneToTwoDemuxShape';
+import OneToFourDemuxShape from '../ComponentShape/Plexers/OneToFourDemuxShape';
 import SourceShape from '../ComponentShape/Wiring/SourceShape';
 import InputButtonShape from '../ComponentShape/Signal/InputButtonShape';
 
@@ -45,11 +52,18 @@ const ComponentShadowFactory = ({ componentReducer }) => {
         dFlipFlop={<DFlipFlopShape x={x} y={y} isShadow />}
         tFlipFlop={<TFlipFlopShape x={x} y={y} isShadow />}
         jkFlipFlop={<JKFlipFlopShape x={x} y={y} isShadow />}
+        jkFlipFlopPRECLR = {<JKFlipFlopPRECLRShape x={x} y={y} isShadow />}
         rsFlipFlop={<RSFlipFlopShape x={x} y={y} isShadow />}
         halfAdder = {<HalfAdderShape x={x} y={y} isShadow />}
         fullAdder = {<FullAdderShape x={x} y={y} isShadow />}
         halfSubtractor = {<HalfSubtractorShape x={x} y={y} isShadow />}
         fullSubtractor = {<FullSubtractorShape x={x} y={y} isShadow />}
+        eighttoThreeEncoder = {<EighttoThreeEncoderShape x={x} y={y} isShadow />}
+        threetoEightDecoder = {<ThreetoEightDecoderShape x={x} y={y} isShadow />}
+        twotoOneMux = {<TwoToOneMuxShape x={x} y={y} isShadow />}
+        fourtoOneMux = {<FourToOneMuxShape x={x} y={y} isShadow />}
+        onetoTwoDemux = {<OneToTwoDemuxShape x={x} y={y} isShadow />}
+        onetoFourDemux = {<OneToFourDemuxShape x={x} y={y} isShadow />}
         source={<SourceShape x={x} y={y} isShadow />}
         inputButton={<InputButtonShape x={x} y={y} isShadow />}
       />
