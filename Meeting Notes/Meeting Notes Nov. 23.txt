@@ -1,0 +1,15 @@
+To Do:
+Detailed project milestones (just update it)
+For the Progress Report design it such that offshore coder's are able to reproduce the result??
+Get Writing Done sooner than later
+Detail the different requirements, implementation specific details can come later.
+
+How do we write Final Report: 
+One big happy report JUST FOR OUR GROUP
+    - Mainly focused on how we are able to save/load don't really need to talk about the other groups
+Each person's contribution should be documented.
+
+Oral Presentation mixed with poster fair in March showing the product working.
+We will need to show Save/Restore working
+Aim to have documentation sufficient in final report by then
+    - This has to include the testing, implementation, design choices, etc.

@@ -3,28 +3,14 @@ package com.ravensim.simulator.simulation;
 import com.ravensim.simulator.io.IncompatibleBitWidthsException;
 import com.ravensim.simulator.io.InvalidNumberOfPortsException;
 import com.ravensim.simulator.logic_gate.*;
-import com.ravensim.simulator.model.CircuitChange;
-import com.ravensim.simulator.model.Command;
+import com.ravensim.simulator.model.*;
 import com.ravensim.simulator.model.Event;
-import com.ravensim.simulator.model.TextMessage;
 import com.ravensim.simulator.port.InvalidBitWidthException;
 import com.ravensim.simulator.port.Port;
+import com.ravensim.simulator.save_load.FileManager;
 import com.ravensim.simulator.signal.Button;
 import com.ravensim.simulator.signal.Clock;
-import com.ravensim.simulator.subcircuit.DFlipFlop;
-import com.ravensim.simulator.subcircuit.RSFlipFlop;
-import com.ravensim.simulator.subcircuit.JKFlipFlop;
-import com.ravensim.simulator.subcircuit.JKFlipFlopPRECLR;
-import com.ravensim.simulator.subcircuit.HalfAdder;
-import com.ravensim.simulator.subcircuit.FullAdder;
-import com.ravensim.simulator.subcircuit.HalfSubtractor;
-import com.ravensim.simulator.subcircuit.FullSubtractor;
-import com.ravensim.simulator.subcircuit.EighttoThreeEncoder;
-import com.ravensim.simulator.subcircuit.ThreetoEightDecoder;
-import com.ravensim.simulator.subcircuit.TwoToOneMux;
-import com.ravensim.simulator.subcircuit.FourToOneMux;
-import com.ravensim.simulator.subcircuit.OneToTwoDemux;
-import com.ravensim.simulator.subcircuit.OneToFourDemux;
+import com.ravensim.simulator.subcircuit.*;
 import org.springframework.web.socket.WebSocketSession;
 
 import java.awt.*;
@@ -35,45 +21,30 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 public class SimulationModelBuilder {
-  private static final String START_SIMULATION       = "StartSimulation";
-  private static final String STOP_SIMULATION        = "StopSimulation";
-  private static final String CREATE_COMPONENT       = "CreateComponent";
-  private static final String WIRE                   = "Wire";
-  private static final String AND_GATE               = "AndGate";
-  private static final String NAND_GATE              = "NandGate";
-  private static final String NOR_GATE               = "NorGate";
-  private static final String NOT_GATE               = "NotGate";
-  private static final String OR_GATE                = "OrGate";
-  private static final String XNOR_GATE              = "XnorGate";
-  private static final String XOR_GATE               = "XorGate";
-  private static final String CLOCK                  = "Clock";
-  private static final String D_FLIP_FLOP            = "DFlipFlop";
-  private static final String RS_FLIP_FLOP           = "RSFlipFlop";
-  private static final String JK_FLIP_FLOP           = "JKFlipFlop";
-  private static final String JK_FLIP_FLOP_PRE_CLR   = "JKFlipFlopPRECLR";
-  private static final String Half_Adder             = "HalfAdder";
-  private static final String Full_Adder             = "FullAdder";
-  private static final String Half_Subtractor        = "HalfSubtractor";
-  private static final String Full_Subtractor        = "FullSubtractor";
-  private static final String Eight_to_Three_Encoder = "EighttoThreeEncoder";
-  private static final String Three_to_Eight_Decoder = "ThreetoEightDecoder";
-  private static final String Two_to_One_Mux         = "TwoToOneMux";
-  private static final String Four_to_One_Mux        = "FourToOneMux";
-  private static final String One_to_Two_Demux       = "OneToTwoDemux";
-  private static final String One_to_Four_Demux      = "OneToFourDemux"; 
-  private static final String BUTTON                 = "InputButton";
-  private static final String BUTTON_PRESS           = "ButtonPress";
-  private final SimulationEngine simulationEngine;
+  // Event Names
+  private static final String START_SIMULATION = "StartSimulation";
+  private static final String STOP_SIMULATION = "StopSimulation";
+  private static final String LOAD_CIRCUIT = "LoadCircuit";
+  private static final String SAVE_CIRCUIT = "SaveCircuit";
+  private static final String CREATE_COMPONENT = "CreateComponent";
+  private static final String BUTTON_PRESS = "ButtonPress";
+
+  private SimulationEngine simulationEngine;
   // The mapping of all ports on the grid space. It assumes the location of the ports must be
   // unique.
   // todo Maybe create a separate port mediator class?
   private final Map<Point, Port> locationOfPort;
   private final Map<Integer, Button> locationOfButton;
 
+  private CircuitModel model;
+  private FileManager fileManager;
+
   public SimulationModelBuilder(WebSocketSession session) {
     locationOfPort = new ConcurrentHashMap<>();
     locationOfButton = new ConcurrentHashMap<>();
-    simulationEngine = new SimulationEngine(session);
+    model = new CircuitModel();
+    fileManager = new FileManager();
+    simulationEngine = new SimulationEngine(session, this);
     new Thread(simulationEngine).start();
   }
 
@@ -96,16 +67,28 @@ public class SimulationModelBuilder {
 
   private void commandReducer(Command command) {
     var message = command.getMessage();
-    if (message.equals(START_SIMULATION)) {
-      // Only start the simulation if it is not already running as the client may invoke start
-      // multiple times.
-      simulationEngine.startSimulation();
-    } else if (message.equals(STOP_SIMULATION)) {
-      simulationEngine.shutdown();
-    } else if (message.equals(BUTTON_PRESS)) {
-      new Thread(locationOfButton.get(69)).start();
-    } else {
-      throw new UnsupportedOperationException(String.format("%s is an invalid command", message));
+    switch (message) {
+      case START_SIMULATION:
+        // Only start the simulation if it is not already running as the client may invoke start
+        // multiple times.
+        simulationEngine.startSimulation();
+        break;
+      case STOP_SIMULATION:
+        simulationEngine.shutdown();
+        break;
+      case BUTTON_PRESS:
+        new Thread(locationOfButton.get(69)).start();
+        break;
+      case LOAD_CIRCUIT:
+        System.out.println("Load circuit sequence initiated.");
+        loadSave(command.getFileName());
+        break;
+      case SAVE_CIRCUIT:
+        System.out.println("Save circuit sequence initiated.");
+        initiateSave(command.getFileName());
+        break;
+      default:
+        throw new UnsupportedOperationException(String.format("%s is an invalid command", message));
     }
   }
 
@@ -121,21 +104,28 @@ public class SimulationModelBuilder {
   private void createComponentReducer(CircuitChange change) {
     // Switch based on the type of component to create.3
     var type = change.getType();
-    if (type.equals(WIRE)) {
-      createWire(change);
-    } else if (type.equals(CLOCK)) {
-      createClock(change);
-    } else if (type.equals(BUTTON)) {
-      createButton(change);
-    } else {
-      try {
-        createLogicGate(change);
-      } catch (IncompatibleBitWidthsException
-          | InvalidNumberOfPortsException
-          | InvalidBitWidthException e) {
-        // todo
-      }
+    switch (type) {
+      case ComponentType.WIRE:
+        createWire(change);
+        break;
+      case ComponentType.CLOCK:
+        createClock(change);
+        break;
+      case ComponentType.BUTTON:
+        createButton(change);
+        break;
+      default:
+        try {
+          createLogicGate(change);
+        } catch (IncompatibleBitWidthsException
+                | InvalidNumberOfPortsException
+                | InvalidBitWidthException e) {
+          // todo
+        }
+        break;
     }
+
+    model.update(change);
   }
 
   private void createWire(CircuitChange change) {
@@ -159,54 +149,77 @@ public class SimulationModelBuilder {
   private void createLogicGate(CircuitChange change)
       throws IncompatibleBitWidthsException, InvalidNumberOfPortsException,
           InvalidBitWidthException {
-    var ports = instantiatePorts(change);
-    var size = ports.size();
+    var inputPorts = instantiateInputPorts(change);
+    var outputPorts = instantiateOutputPorts(change);
     var type = change.getType();
-    if (type.equals(AND_GATE)) {
-      new AndGate(simulationEngine, ports.subList(0, size - 1), ports.get(size - 1));
-    } else if (type.equals(NAND_GATE)) {
-      new NandGate(simulationEngine, ports.subList(0, size - 1), ports.get(size - 1));
-    } else if (type.equals(NOR_GATE)) {
-      new NorGate(simulationEngine, ports.subList(0, size - 1), ports.get(size - 1));
-    } else if (type.equals(NOT_GATE)) {
-      new NotGate(simulationEngine, ports.get(0), ports.get(1));
-    } else if (type.equals(OR_GATE)) {
-      new OrGate(simulationEngine, ports.subList(0, size - 1), ports.get(size - 1));
-    } else if (type.equals(XNOR_GATE)) {
-      new XnorGate(simulationEngine, ports.subList(0, size - 1), ports.get(size - 1));
-    } else if (type.equals(XOR_GATE)) {
-      new XorGate(simulationEngine, ports.subList(0, size - 1), ports.get(size - 1));
-    } else if (type.equals(D_FLIP_FLOP)) {
-      new DFlipFlop(simulationEngine, ports.subList(0, 2), ports.subList(2, size));
-    } else if (type.equals(RS_FLIP_FLOP)) {
-      new RSFlipFlop(simulationEngine, ports.subList(0, 3), ports.subList(3, size));
-    } else if (type.equals(JK_FLIP_FLOP)) {
-      new JKFlipFlop(simulationEngine, ports.subList(0, 3), ports.subList(3, size));
-    } else if(type.equals(JK_FLIP_FLOP_PRE_CLR)) {
-    	new JKFlipFlopPRECLR(simulationEngine, ports.subList(0, 5), ports.subList(5, size));
-    } else if (type.equals(Half_Adder)){
-      new HalfAdder(simulationEngine, ports.subList(0,2), ports.subList(2,size));
-    } else if (type.equals(Full_Adder)){
-      new FullAdder(simulationEngine, ports.subList(0,3), ports.subList(3,size));
-    } else if (type.equals(Half_Subtractor)){
-      new HalfSubtractor(simulationEngine, ports.subList(0,2), ports.subList(2,size));
-    } else if (type.equals(Full_Subtractor)){
-      new FullSubtractor(simulationEngine, ports.subList(0,3), ports.subList(3,size));
-    } else if (type.equals(Eight_to_Three_Encoder)){
-      new EighttoThreeEncoder(simulationEngine, ports.subList(0,8), ports.subList(8,size));
-    } else if (type.equals(Three_to_Eight_Decoder)){
-      new ThreetoEightDecoder(simulationEngine, ports.subList(0,3), ports.subList(3,size));
-    } else if (type.equals(Two_to_One_Mux)) {
-    	new TwoToOneMux(simulationEngine, ports.subList(0,3), ports.subList(3,size));
-    } else if (type.equals(Four_to_One_Mux)) {
-    	new FourToOneMux(simulationEngine, ports.subList(0,6), ports.subList(6,size));
-    } else if (type.equals(One_to_Two_Demux)) {
-      new OneToTwoDemux(simulationEngine, ports.subList(0, 2), ports.subList(2,size));
-    } else if (type.equals(One_to_Four_Demux)) {
-      new OneToFourDemux(simulationEngine, ports.subList(0,3), ports.subList(3,size));
-    }else {
-      throw new UnsupportedOperationException(
-          String.format("%s is an unimplemented component type", type));
+
+    switch (type) {
+      case ComponentType.AND_GATE:
+        new AndGate(simulationEngine, inputPorts, outputPorts.get(0));
+        break;
+      case ComponentType.NAND_GATE:
+        new NandGate(simulationEngine, inputPorts, outputPorts.get(0));
+        break;
+      case ComponentType.NOR_GATE:
+        new NorGate(simulationEngine, inputPorts, outputPorts.get(0));
+        break;
+      case ComponentType.NOT_GATE:
+        new NotGate(simulationEngine, inputPorts.get(0), outputPorts.get(0));
+        break;
+      case ComponentType.OR_GATE:
+        new OrGate(simulationEngine, inputPorts, outputPorts.get(0));
+        break;
+      case ComponentType.XNOR_GATE:
+        new XnorGate(simulationEngine, inputPorts, outputPorts.get(0));
+        break;
+      case ComponentType.XOR_GATE:
+        new XorGate(simulationEngine, inputPorts, outputPorts.get(0));
+        break;
+      case ComponentType.D_FLIP_FLOP:
+        new DFlipFlop(simulationEngine, inputPorts, outputPorts);
+        break;
+      case ComponentType.RS_FLIP_FLOP:
+        new RSFlipFlop(simulationEngine, inputPorts, outputPorts);
+        break;
+      case ComponentType.JK_FLIP_FLOP:
+        new JKFlipFlop(simulationEngine, inputPorts, outputPorts);
+        break;
+      case ComponentType.JK_FLIP_FLOP_PRE_CLR:
+        new JKFlipFlopPRECLR(simulationEngine, inputPorts, outputPorts);
+        break;
+      case ComponentType.HALF_ADDER:
+        new HalfAdder(simulationEngine, inputPorts, outputPorts);
+        break;
+      case ComponentType.FULL_ADDER:
+        new FullAdder(simulationEngine, inputPorts, outputPorts);
+        break;
+      case ComponentType.HALF_SUBTRACTOR:
+        new HalfSubtractor(simulationEngine, inputPorts, outputPorts);
+        break;
+      case ComponentType.FULL_SUBTRACTOR:
+        new FullSubtractor(simulationEngine, inputPorts, outputPorts);
+        break;
+      case ComponentType.EIGHT_TO_THREE_ENCODER:
+        new EighttoThreeEncoder(simulationEngine, inputPorts, outputPorts);
+        break;
+      case ComponentType.THREE_TO_EIGHT_DECODER:
+        new ThreetoEightDecoder(simulationEngine, inputPorts, outputPorts);
+        break;
+      case ComponentType.TWO_TO_ONE_MUX:
+        new TwoToOneMux(simulationEngine, inputPorts, outputPorts);
+        break;
+      case ComponentType.FOUR_TO_ONE_MUX:
+        new FourToOneMux(simulationEngine, inputPorts, outputPorts);
+        break;
+      case ComponentType.ONE_TO_TWO_DEMUX:
+        new OneToTwoDemux(simulationEngine, inputPorts, outputPorts);
+        break;
+      case ComponentType.ONE_TO_FOUR_DEMUX:
+        new OneToFourDemux(simulationEngine, inputPorts, outputPorts);
+        break;
+      default:
+        throw new UnsupportedOperationException(
+                String.format("%s is an unimplemented component type", type));
     }
   }
 
@@ -245,5 +258,38 @@ public class SimulationModelBuilder {
             .map(this::portCreationHandler)
             .collect(Collectors.toList()));
     return ports;
+  }
+
+  private List<Port> instantiateInputPorts(CircuitChange change) {
+    // Create a port for every input
+    return change.getProperties().getInputs().stream()
+            .map(this::portCreationHandler).collect(Collectors.toList());
+  }
+
+  private List<Port> instantiateOutputPorts(CircuitChange change) {
+    // Create a port for every input
+    return change.getProperties().getOutputs().stream()
+            .map(this::portCreationHandler).collect(Collectors.toList());
+  }
+
+  private void rebuildModel(CircuitModel loadedModel) {
+    for (CircuitChange change: loadedModel.getChanges()) {
+      this.actionReducer(change);
+    }
+  }
+
+  // Temporary save and load calls
+  // To Do: Allow option for filename input
+
+  public void initiateSave(String fileName) {
+    fileManager.saveToFile(model, fileName);
+  }
+
+  public void loadSave(String fileName) {
+    // Remove everything in the current change list since we are loading a new save
+    this.model.clearChanges();
+
+    rebuildModel(fileManager.loadFromFile(fileName));
+    simulationEngine.loadCircuit(new CircuitModel(model));
   }
 }

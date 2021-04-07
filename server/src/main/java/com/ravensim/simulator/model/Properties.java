@@ -1,9 +1,10 @@
 package com.ravensim.simulator.model;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.List;
 
-public class Properties {
+public class Properties implements Serializable {
 
   private List<Point> inputs;
 

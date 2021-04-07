@@ -7,6 +7,7 @@ import com.ravensim.simulator.io.InvalidNumberOfPortsException;
 import com.ravensim.simulator.port.Port;
 import com.ravensim.simulator.simulation.SimulationEngine;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class AndGate extends VariableInput {

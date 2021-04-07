@@ -4,12 +4,16 @@ import com.ravensim.simulator.broker.MessageBroker;
 import com.ravensim.simulator.event.EventRegistry;
 import com.ravensim.simulator.event.ShutdownEvent;
 import com.ravensim.simulator.event.Shutdownable;
+import com.ravensim.simulator.handler.SessionMap;
+import com.ravensim.simulator.model.CircuitModel;
 import com.ravensim.simulator.signal.TickerGenerator;
 import com.ravensim.simulator.wire.VirtualWireMediator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.web.socket.WebSocketSession;
 
+import javax.websocket.Session;
+import java.io.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -30,12 +34,14 @@ public class SimulationEngine implements Runnable, Shutdownable {
   private final MessageBroker messageBroker;
   private int time;
   private boolean isRunning, hasStarted;
+  private final SimulationModelBuilder modelRef;
 
-  public SimulationEngine() {
-    this(null);
+  public SimulationEngine(SimulationModelBuilder modelRef) {
+    this(null, modelRef);
   }
 
-  public SimulationEngine(WebSocketSession session) {
+  public SimulationEngine(WebSocketSession session, SimulationModelBuilder modelRef) {
+    this.modelRef = modelRef;
     time = INITIAL_SIMULATION_TIME;
     threadPool = Executors.newWorkStealingPool();
     isRunning = false;
@@ -89,6 +95,7 @@ public class SimulationEngine implements Runnable, Shutdownable {
   }
 
   public void shutdown() {
+
     // First modify the shutdown field as we want all other threads executing services provided by
     // this class to halt.
     isRunning = false;
@@ -105,6 +112,7 @@ public class SimulationEngine implements Runnable, Shutdownable {
             threadPool.shutdownNow();
           }
         });
+
     // Shutdown the ticker and message broker.
     tickerGenerator.shutdownNow();
     messageBroker.shutdownNow();
@@ -117,6 +125,11 @@ public class SimulationEngine implements Runnable, Shutdownable {
       hasStarted = true;
       threadPool.submit(tickerGenerator);
     }
+  }
+
+  public void loadCircuit(CircuitModel model) {
+    // Send loaded circuit model to client
+    messageBroker.loadCircuit(model);
   }
 
   public boolean hasStarted() {

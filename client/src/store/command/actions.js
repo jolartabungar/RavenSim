@@ -5,6 +5,8 @@ import {
   COMMAND,
   TOGGLE_POKE,
   BUTTON_PRESS,
+  LOAD_CIRCUIT,
+  SAVE_CIRCUIT
 } from './types';
 
 export const startSimulation = () => ({
@@ -30,4 +32,16 @@ export const buttonPress = () => ({
 export const tick = () => ({
   type: COMMAND,
   message: TICK,
+});
+
+export const loadCircuit = (name) => ({
+  type: COMMAND,
+  message: LOAD_CIRCUIT,
+  fileName: name,
+});
+
+export const saveCircuit = (name) => ({
+  type: COMMAND,
+  message: SAVE_CIRCUIT,
+  fileName: name,
 });

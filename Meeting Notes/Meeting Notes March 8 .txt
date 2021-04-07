@@ -1,0 +1,12 @@
+1 hour presentation, assume next week
+- Proposal says what we want to do so lead off with that
+	- The 2nd reader has not seen anything so we will need to update him on everything.
+- objective is inform the 2nd reader about what this project is about and why it is important
+- We can contact prof franks for a practice presentation (Thursday ideally) 
+- It is a pitch for the project combined with a demo
+	- Pitch to the dragons
+- Someone may need to run the slideshow
+- What issues we have encountered, when serializing (What problems we have encountered)
+	- This can be talked about after the demo
+- What features we have added to the project
+- 

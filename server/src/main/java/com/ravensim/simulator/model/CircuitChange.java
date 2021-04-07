@@ -1,6 +1,8 @@
 package com.ravensim.simulator.model;
 
-public class CircuitChange {
+import java.io.Serializable;
+
+public class CircuitChange implements Serializable {
 
   private String action;
 
