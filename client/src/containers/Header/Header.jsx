@@ -1,10 +1,12 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import Button from '../Button';
-import { startSimulation, togglePoke, loadCircuit, saveCircuit } from '../../store/command/actions';
-import { headerBackgroundColor, headerHeight, textColor } from '../../util/style'
 import { makeStyles, TextField } from '@material-ui/core';
-import { Autocomplete } from '@material-ui/lab'
+import { Autocomplete } from '@material-ui/lab';
+import Button from '../Button';
+import {
+  startSimulation, togglePoke, loadCircuit, saveCircuit,
+} from '../../store/command/actions';
+import { headerBackgroundColor, headerHeight, textColor } from '../../util/style';
 
 /**
  * The header bar in the web app, load this with buttons that the user can use to
@@ -23,40 +25,40 @@ const headerStyle = {
 const groupStyle = {
   display: 'flex',
   alignItems: 'center',
-}
+};
 
 // Styles used for Material UI Autocomplete component
 const useStyles = makeStyles((theme) => ({
   root: {
-    "& .MuiInputLabel-outlined:not(.MuiInputLabel-shrink)": {
-      transform: "translate(10px, 11px) scale(1);"
+    '& .MuiInputLabel-outlined:not(.MuiInputLabel-shrink)': {
+      transform: 'translate(10px, 11px) scale(1);',
     },
     '& .MuiFormLabel-root': {
       color: `${textColor}`,
-    }
+    },
   },
   endAdornment: {
     '& .MuiIconButton-root': {
       color: `${textColor}`,
-    }
+    },
   },
   inputRoot: {
     color: `${textColor}`,
     // This matches the specificity of the default styles at https://github.com/mui-org/material-ui/blob/v4.11.3/packages/material-ui-lab/src/Autocomplete/Autocomplete.js#L90
     '&[class*="MuiOutlinedInput-root"]': {
       // Default left padding is 6px
-      padding: '0px 2px'
+      padding: '0px 2px',
     },
-    "& .MuiOutlinedInput-notchedOutline": {
-      borderColor: `${textColor}`
+    '& .MuiOutlinedInput-notchedOutline': {
+      borderColor: `${textColor}`,
     },
-    "&:hover .MuiOutlinedInput-notchedOutline": {
-      borderColor: `${textColor}`
+    '&:hover .MuiOutlinedInput-notchedOutline': {
+      borderColor: `${textColor}`,
     },
-    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-      borderColor: `${textColor}`
-    }
-  }
+    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+      borderColor: `${textColor}`,
+    },
+  },
 }));
 
 
@@ -65,46 +67,48 @@ const Header = (props) => {
   const circuitNamesKey = 'circuitNames';
 
   const [fileName, setFileName] = useState(
-    localStorage.getItem(localStorageKey) || ''
+    localStorage.getItem(localStorageKey) || '',
   );
-  
+
   const [isSaveClicked, setIsSaveClicked] = useState(false);
 
   const [state, setState] = useState(
-    localStorage.getItem(localStorageKey) || ''
+    localStorage.getItem(localStorageKey) || '',
   );
 
   const [isLoadClicked, setIsLoadClicked] = useState(false);
 
   const onChangeCircuit = (event, value, reason) => {
-    if (reason !== "clear" || reason !== "reset") {
+    if (reason !== 'clear' || reason !== 'reset') {
       isLoadClicked && setIsLoadClicked(false);
       isSaveClicked && setIsSaveClicked(false);
-      setFileName(value)
-      setState(value)
+      setFileName(value);
+      setState(value);
     }
-  }
+  };
 
   const onSaveClicked = () => {
     setIsSaveClicked(true);
-    return props.saveCircuit(fileName)
+    return props.saveCircuit(fileName);
   };
-  
+
   const onLoadClicked = () => {
     setIsLoadClicked(true);
-    return props.loadCircuit(state)
+    return props.loadCircuit(state);
   };
 
   const createOptionsList = () => {
-    const circuitNamesList = JSON.parse(localStorage.getItem(circuitNamesKey));
-    if (circuitNamesList == null){
-      return;
+    let circuitNamesList;
+    if (localStorage.getItem(circuitNamesKey)) {
+      circuitNamesList = JSON.parse(localStorage.getItem(circuitNamesKey));
+    } else {
+      return ['No circuits found'];
     }
-    return circuitNamesList
-  }
+    return circuitNamesList;
+  };
 
   useEffect(() => {
-    if (!fileName || !fileName.trim() || !isSaveClicked){
+    if (!fileName || !fileName.trim() || !isSaveClicked) {
       return;
     }
 
@@ -112,7 +116,7 @@ const Header = (props) => {
     const updatedCircuitNames = circuitNames
       .filter((currFileName) => currFileName !== fileName);
     updatedCircuitNames.push(fileName);
-    
+
     localStorage.setItem(circuitNamesKey, JSON.stringify(updatedCircuitNames));
     localStorage.setItem(localStorageKey, fileName);
   }, [isSaveClicked]);
@@ -125,16 +129,17 @@ const Header = (props) => {
           classes={useStyles()}
           options={createOptionsList()}
           getOptionLabel={(option) => option}
+          getOptionDisabled={(option) => option === 'No circuits found'}
           style={{ width: 200 }}
           onInputChange={onChangeCircuit}
           clearOnBlur={false}
-          noOptionsText={'No circuits found'}
+          noOptionsText="No circuits found"
           renderInput={
-            (params) => <TextField {...params} label="Circuit File" variant="outlined"/>
+            (params) => <TextField {...params} label="Circuit File" variant="outlined" />
           }
         />
-        <Button text="SAVE CIRCUIT" onClick={onSaveClicked}/>
-        <Button text="LOAD CIRCUIT" onClick={onLoadClicked}/>
+        <Button text="SAVE CIRCUIT" onClick={onSaveClicked} />
+        <Button text="LOAD CIRCUIT" onClick={onLoadClicked} />
       </div>
       <div style={{ ...groupStyle }}>
         <Button text="TOGGLE POKE" onClick={() => props.togglePoke()} />
@@ -148,7 +153,7 @@ const mapDispatchToProps = {
   startSimulation,
   togglePoke,
   loadCircuit,
-  saveCircuit
+  saveCircuit,
 };
 
 export default connect(null, mapDispatchToProps)(Header);
